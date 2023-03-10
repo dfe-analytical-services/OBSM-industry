@@ -95,6 +95,8 @@ ui <- function(input, output, session) {
       well = FALSE,
       homepage_panel(),
       dashboard_panel(),
+      tabPanel("Subject by Industry"),
+      tabPanel("Industry by Subject"),
       a11y_panel(),
       support_links()
     ),
