@@ -1,6 +1,6 @@
 # 
-# SubByIndPanel <- function() {
-#   tabPanel(value = "subject by industry", "Subject by industry")
+SubByIndPanel <- function() {
+  tabPanel(value = "subject by industry", "Subject by industry")}
 #   gov_main_layout(
 #     gov_row(
 #       column(
