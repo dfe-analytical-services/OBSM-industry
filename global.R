@@ -80,6 +80,7 @@ site_overflow <- "https://department-for-education.shinyapps.io/dfe-shiny-templa
 source("R/support_links.R")
 source("R/read_data.R")
 
+# Example code ----
 # Read in the data
 dfRevBal <- read_revenue_data()
 # Get geographical levels from data
@@ -105,3 +106,12 @@ choicesAreas <- dfAreas %>%
 choicesYears <- unique(dfRevBal$time_period)
 
 choicesPhase <- unique(dfRevBal$school_phase)
+
+## Actual code ----
+
+# Read in industry data
+dfInd <- read_ind_data()
+
+# # Get list of Tier 1 Sector Subject Areas
+# choicesSSATier1 <- dfInd %>%
+#   unique(SSATier1)

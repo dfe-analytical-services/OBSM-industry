@@ -26,5 +26,5 @@ read_revenue_data <- function(file='data/la_maintained_schools_revenue_reserve_f
 
 read_ind_data <- function(file = 'data/OBSM_industry.csv'){
   dfInd <-read.csv(file)
-  return(dfind)
+  return(dfInd)
 }

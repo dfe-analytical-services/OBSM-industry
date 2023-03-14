@@ -27,6 +27,7 @@ server <- function(input, output, session) {
   hide(id = "loading-content", anim = TRUE, animType = "fade")
   show("app-content")
 
+## Test code ----
   # Simple server stuff goes here ------------------------------------------------------------
   reactiveRevBal <- reactive({
     dfRevBal %>% filter(
@@ -127,6 +128,11 @@ server <- function(input, output, session) {
     }
   )
 
+# # Actual code ----
+#   
+#   output$test <- renderText({
+#     paste("Test text")
+#   })
 
   # Stop app ---------------------------------------------------------------------------------
 
