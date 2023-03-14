@@ -37,17 +37,17 @@ cs_num <- function(value) {
 # tidy_code_function -------------------------------------------------------------------------------
 # Code to tidy up the scripts.
 
-tidy_code_function <- function() {
-  message("----------------------------------------")
-  message("App scripts")
-  message("----------------------------------------")
-  app_scripts <- eval(styler::style_dir(recursive = FALSE)$changed)
-  message("Test scripts")
-  message("----------------------------------------")
-  test_scripts <- eval(styler::style_dir("tests/", filetype = "r")$changed)
-  script_changes <- c(app_scripts, test_scripts)
-  return(script_changes)
-}
+# tidy_code_function <- function() {
+#   message("----------------------------------------")
+#   message("App scripts")
+#   message("----------------------------------------")
+#   app_scripts <- eval(styler::style_dir(recursive = FALSE)$changed)
+#   message("Test scripts")
+#   message("----------------------------------------")
+#   test_scripts <- eval(styler::style_dir("tests/", filetype = "r")$changed)
+#   script_changes <- c(app_scripts, test_scripts)
+#   return(script_changes)
+# }
 
 # Source scripts ---------------------------------------------------------------------------------
 
