@@ -95,7 +95,7 @@ ui <- function(input, output, session) {
       well = FALSE,
       homepage_panel(),
       dashboard_panel(),
-     # SubByIndPanel(),
+      SubByIndPanel(),
       a11y_panel(),
       support_links()
     ),
