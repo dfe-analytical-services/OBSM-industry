@@ -129,9 +129,9 @@ server <- function(input, output, session) {
   )
 
 # # Actual code ----
-#   
-#   output$test <- renderText({
-#     paste("Test text")
+# #   
+#   output$greeting <- renderText({
+#     paste("Hello, " ,input$name)
 #   })
 
   # Stop app ---------------------------------------------------------------------------------

@@ -112,6 +112,12 @@ choicesPhase <- unique(dfRevBal$school_phase)
 # Read in industry data
 dfInd <- read_ind_data()
 
+# Get list of all options for SSA Tier 1
+choicesSSATier1 <- dfInd %>%
+  select(SSATier1) %>%
+  distinct %>%
+  arrange(SSATier1 != 'All', SSATier1)
+
 # # Get list of Tier 1 Sector Subject Areas
 # choicesSSATier1 <- dfInd %>%
 #   unique(SSATier1)
