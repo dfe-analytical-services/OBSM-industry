@@ -12,7 +12,7 @@ subject_by_industry_panel <- function() {
         column(
           width=12,
           h1("Subject by industry"),
-        ),
+             ),
         column(
           width=12,
           div(
@@ -22,8 +22,8 @@ subject_by_industry_panel <- function() {
               column(
                 width = 6,
                 selectizeInput("selectPhase",
-                               "Select a school phase",
-                               choices = choicesPhase
+                               "Select Sector Subject Area",
+                               choices = choicesSSATier1
                 )),
               column(
                 width = 6,
