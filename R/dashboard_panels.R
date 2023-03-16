@@ -5,7 +5,7 @@ homepage_panel <- function() {
       gov_row(
         column(
           12,
-          h1("DfE Analytical Services R-Shiny data dashboard template (h1)"),
+          h1("OBSM industry dashboard"),
           br(),
           br()
         ),

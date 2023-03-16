@@ -118,6 +118,3 @@ choicesSSATier1 <- dfInd %>%
   distinct %>%
   arrange(SSATier1 != 'All', SSATier1)
 
-# # Get list of Tier 1 Sector Subject Areas
-# choicesSSATier1 <- dfInd %>%
-#   unique(SSATier1)

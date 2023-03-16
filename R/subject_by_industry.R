@@ -21,7 +21,7 @@ subject_by_industry_panel <- function() {
             gov_row(
               column(
                 width = 6,
-                selectizeInput("selectPhase",
+                selectizeInput("selectSSA",
                                "Select Sector Subject Area",
                                choices = choicesSSATier1
                 )),
