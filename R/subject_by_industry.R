@@ -1,12 +1,12 @@
 
-#########################  PAGE LAYOUT ---- ########################
+###########  PAGE LAYOUT --------------
 
 
 subject_by_industry_panel <- function(){tabPanel(
   tags$div(title = "This section is useful if you want to understand which industries your subject of study can lead to.", "Subject by industry"),
   value = "subjectByIndustry",
   
-# Add sidebar panel
+## Add sidebar panel ----
 
  # sidebarLayout(
     sidebarPanel(
@@ -15,7 +15,7 @@ subject_by_industry_panel <- function(){tabPanel(
   # Instructions for users to appear at top of sidebar
       helpText("Create your own table by selecting from the drop down boxes below."),
   
-  # SSA Tier 1 input ----
+  ### SSA Tier 1 input ----
   selectizeInput(
     inputId = "selectSSA",
     label = "Select Sector Subject Area",
@@ -62,12 +62,24 @@ subject_by_industry_panel <- function(){tabPanel(
  )
  
  
-),
+),  #End of side panel
+
+## Add main panel ----
+
 mainPanel(
   width = 10,
   style = "height: 90vh; overflow-y: auto; overflow-x: auto;",
   
-paste("1. Outcome percentages are rounded to the nearest 0.1%.")
+paste("Add outputs here"),
+textOutput("q"),
+tableOutput("subject_by_industry_crosstab")
+
+# dfInd %>% 
+#   filter(SSATier1 == "Business, Administration and Law", SSATier2 == 'All', Provision == 'All',
+#          LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All', Ethnicity == 'All') %>%
+#   select(SSATier1, IndustrySection, NumberSustainedEmployment )
+
+
 ))}
   
 
