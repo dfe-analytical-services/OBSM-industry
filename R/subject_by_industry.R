@@ -104,18 +104,37 @@
 #   )
 # }
 
+
+# Set page layout ----
+
 subject_by_industry_panel <- function(){tabPanel(
   tags$div(title = "This section is useful if you want to understand which industries your subject of study can lead to.", "Subject by industry"),
   value = "subjectByIndustry",
   
+# Add sidebar panel
 
  # sidebarLayout(
     sidebarPanel(
       width = 2,
     
+  # Instructions for users to appear at top of sidebar
       helpText("Create your own table by selecting from the drop down boxes below."),
-    ))
-      
   
+  # SSA Tier 1 input ----
+  selectizeInput(
+    inputId = "selectSSA",
+    label = "Select Sector Subject Area",
+    choices = choicesSSATier1$SSATier1,
+    options = list(placeholder = "Select subject area")),
   
-  }
+ # Gender input
+
+  selectizeInput(
+    inputId = "selectGender",
+    label = "Select gender",
+    choices = choicesGender$Gender,
+    options = list(placeholder = "Select gender"))
+
+))
+  
+    }
