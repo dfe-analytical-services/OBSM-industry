@@ -116,5 +116,13 @@ dfInd <- read_ind_data()
 choicesSSATier1 <- dfInd %>%
   select(SSATier1) %>%
   distinct %>%
-  arrange(SSATier1 != 'All', SSATier1)
+  arrange(SSATier1 != 'All', SSATier1) #Ensure 'All' appears at top of list
+
+#Get list of options for provision type
+
+choicesProvision <- dfInd %>%
+  select(Provision) %>%
+  distinct %>%
+  arrange(Provision != 'All', Provision) #Ensure 'All' appears at top of list
+
 

@@ -124,16 +124,49 @@ subject_by_industry_panel <- function(){tabPanel(
   selectizeInput(
     inputId = "selectSSA",
     label = "Select Sector Subject Area",
-    choices = choicesSSATier1$SSATier1,
-    options = list(placeholder = "Select subject area")),
+    choices = choicesSSATier1$SSATier1
+   # options = list(placeholder = "Select subject area")
+    ),
   
- # Gender input
+ # Provision input
 
   selectizeInput(
-    inputId = "selectGender",
-    label = "Select gender",
-    choices = choicesGender$Gender,
-    options = list(placeholder = "Select gender"))
+    inputId = "selectProvision",
+    label = "Select provision type",
+    choices = choicesProvision$Provision
+   # options = list(placeholder = "Select provision")
+    ),
+ 
+ 
+ # Data breakdown input
+ 
+ 
+ selectizeInput(
+   inputId = "selectBreakdown",
+   label = "Select breakdown",
+   choices = list("Sex" = "Sex",
+                  "Ethnicity" = "Ethnicity",
+                  "Level of Learning" = "LevelofLearning")
+ ),
+ 
+ 
+ # Code to prevent text wrapping when selecting input from dropdowns
+ tags$head(
+   tags$style(HTML('
+                              
+                                .selectize-dropdown {
+                                    width: 500px !important;
+                                }'
+   )
+   )
+ )
+ 
+ 
+
+ 
+ 
+
+ 
 
 ))
   
