@@ -24,7 +24,6 @@ subject_by_industry_panel <- function(){tabPanel(
     ),
   
  # Provision input
-
   selectizeInput(
     inputId = "selectProvision",
     label = "Select provision type",
@@ -32,15 +31,8 @@ subject_by_industry_panel <- function(){tabPanel(
    # options = list(placeholder = "Select provision")
     ),
  
- #test
- 
- textInput("Name", "Enter a name:"),
 
- 
- 
  # Data breakdown input
- 
- 
  selectizeInput(
    inputId = "selectBreakdown",
    label = "Select breakdown",
@@ -70,8 +62,7 @@ mainPanel(
   width = 10,
   style = "height: 90vh; overflow-y: auto; overflow-x: auto;",
   
-paste("Add outputs here"),
-textOutput("q"),
+paste("Add text here"),
 tableOutput("subject_by_industry_crosstab")
 
 # dfInd %>% 

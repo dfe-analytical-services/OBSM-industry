@@ -130,13 +130,12 @@ server <- function(input, output, session) {
 
 # # Actual code ----
 #
-  output$q<- renderText({
-    paste("Hello, " ,input$Name)
-  })
+
+  
   
   output$subject_by_industry_crosstab <- renderTable({
     dfInd %>% 
-      filter(SSATier1 == "Business, Administration and Law", SSATier2 == 'All', Provision == 'All',
+      filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == 'All',
              LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All', Ethnicity == 'All') %>%
       select(IndustrySection, NumberSustainedEmployment)     %>%  
   arrange(desc(NumberSustainedEmployment))
