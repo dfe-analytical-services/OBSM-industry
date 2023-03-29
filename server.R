@@ -138,7 +138,8 @@ server <- function(input, output, session) {
     dfInd %>% 
       filter(SSATier1 == "Business, Administration and Law", SSATier2 == 'All', Provision == 'All',
              LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All', Ethnicity == 'All') %>%
-      select(IndustrySection, NumberSustainedEmployment )
+      select(IndustrySection, NumberSustainedEmployment)     %>%  
+  arrange(desc(NumberSustainedEmployment))
   })
 
   # Stop app ---------------------------------------------------------------------------------

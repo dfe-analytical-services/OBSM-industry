@@ -110,7 +110,10 @@ choicesPhase <- unique(dfRevBal$school_phase)
 ## Actual code ----
 
 # Read in industry data
-dfInd <- read_ind_data()
+dfInd <- read_ind_data() %>%
+# Convert columns into numeric values
+  mutate(NumberSustainedEmployment = suppressWarnings(as.numeric(NumberSustainedEmployment)))
+
 
 # Get list of all options for SSA Tier 1
 choicesSSATier1 <- dfInd %>%
@@ -119,7 +122,6 @@ choicesSSATier1 <- dfInd %>%
   arrange(SSATier1 != 'All', SSATier1) #Ensure 'All' appears at top of list
 
 #Get list of options for provision type
-
 choicesProvision <- dfInd %>%
   select(Provision) %>%
   distinct %>%
