@@ -136,7 +136,7 @@ server <- function(input, output, session) {
   output$subject_by_industry_crosstab <- renderTable({
     dfInd %>% 
       filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
-             LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All', Ethnicity == 'All') %>%
+             LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All', Ethnicity == 'All', IndustrySection != 'All') %>%
       select(IndustrySection, NumberSustainedEmployment, SustainedEmploymentPercent)     %>%  
   arrange(desc(NumberSustainedEmployment))
   })
