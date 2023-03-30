@@ -10,6 +10,7 @@
 
 # Library calls ---------------------------------------------------------------------------------
 shhh <- suppressPackageStartupMessages # It's a library, so shhh!
+shhh(library(tidyverse))
 shhh(library(shiny))
 shhh(library(shinyjs))
 shhh(library(tools))
@@ -111,8 +112,8 @@ choicesPhase <- unique(dfRevBal$school_phase)
 
 # Read in industry data
 dfInd <- read_ind_data() %>%
-# Convert columns into numeric values
-  mutate(NumberSustainedEmployment = suppressWarnings(as.numeric(NumberSustainedEmployment)))
+  mutate(NumberSustainedEmployment = suppressWarnings(as.numeric(NumberSustainedEmployment))) %>% # Convert columns into numeric values
+  mutate(IndustrySection = str_to_sentence(IndustrySection)) #Improve formatting for industry variable
 
 
 # Get list of all options for SSA Tier 1
