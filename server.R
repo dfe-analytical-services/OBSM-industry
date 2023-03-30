@@ -129,9 +129,7 @@ server <- function(input, output, session) {
   )
 
 # # Actual code ----
-#
 
-  
 #Subject by industry crosstab
   output$subject_by_industry_crosstab <- renderTable({
     dfInd %>% 

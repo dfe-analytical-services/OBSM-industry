@@ -112,7 +112,7 @@ choicesPhase <- unique(dfRevBal$school_phase)
 
 # Read in industry data
 dfInd <- read_ind_data() %>%
-  mutate(NumberSustainedEmployment = suppressWarnings(as.numeric(NumberSustainedEmployment))) %>% # Convert columns into numeric values
+  mutate(NumberSustainedEmployment = suppressWarnings(as.integer(NumberSustainedEmployment))) %>% # Convert columns into numeric values
   mutate(IndustrySection = str_to_sentence(IndustrySection)) #Improve formatting for industry variable
 
 
