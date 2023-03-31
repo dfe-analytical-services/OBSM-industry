@@ -65,7 +65,7 @@ mainPanel(
 paste("Add text here"),
 tableOutput("subject_by_industry_crosstab")
 
-# dfInd %>% 
+# dfInd %>%
 #   filter(SSATier1 == "Business, Administration and Law", SSATier2 == 'All', Provision == 'All',
 #          LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All', Ethnicity == 'All') %>%
 #   select(SSATier1, IndustrySection, NumberSustainedEmployment )
@@ -79,4 +79,9 @@ tableOutput("subject_by_industry_crosstab")
 ## Main panel =========================================================
 
 
-#textOutput("q")
+# subj_ind_crosstab <-     dfInd %>% 
+#   filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
+#          LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All', Ethnicity == 'All', IndustrySection != 'All') %>%
+#   select(IndustrySection, NumberSustainedEmployment, SustainedEmploymentPercent)     %>%  
+#   arrange(desc(NumberSustainedEmployment))
+
