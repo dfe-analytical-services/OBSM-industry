@@ -137,9 +137,8 @@ server <- function(input, output, session) {
              LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All', 
                IndustrySection != 'All') %>%
       select(IndustrySection, Ethnicity, NumberSustainedEmployment)     %>%  
-  arrange(desc(NumberSustainedEmployment)) %>%
-      spread(Ethnicity, NumberSustainedEmployment)
-      
+      spread(Ethnicity, NumberSustainedEmployment) %>%
+    arrange(desc(All)) 
    
   })
 
