@@ -1,4 +1,10 @@
 
+
+
+
+
+
+
 ###########  PAGE LAYOUT --------------
 
 
@@ -36,7 +42,7 @@ subject_by_industry_panel <- function(){tabPanel(
  selectizeInput(
    inputId = "selectBreakdown",
    label = "Select breakdown",
-   choices = list("Sex" = "Sex",
+   choices = list("Gender" = "Gender",
                   "Ethnicity" = "Ethnicity",
                   "Level of Learning" = "LevelofLearning")
  ),
@@ -72,7 +78,7 @@ tableOutput("subject_by_industry_crosstab")
 
 
 ))}
-  
+
 
 
 #################### CROSS-TABS ---- #######################################
@@ -84,4 +90,5 @@ tableOutput("subject_by_industry_crosstab")
 #          LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All', Ethnicity == 'All', IndustrySection != 'All') %>%
 #   select(IndustrySection, NumberSustainedEmployment, SustainedEmploymentPercent)     %>%  
 #   arrange(desc(NumberSustainedEmployment))
+
 
