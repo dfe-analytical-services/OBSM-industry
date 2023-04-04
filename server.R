@@ -132,7 +132,7 @@ server <- function(input, output, session) {
 
 #Subject by industry crosstab
   output$subject_by_industry_crosstab <- renderTable({
-    
+
   if(input$selectBreakdown == 'Ethnicity'){
     dfInd %>% 
       filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
@@ -151,8 +151,15 @@ server <- function(input, output, session) {
       spread(Gender, NumberSustainedEmployment) %>%
       arrange(desc(All)) 
   }
-  
-    
+    else if(input$selectBreakdown == 'Level of Learning') {
+      dfInd %>% 
+        filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
+               Gender == 'All', AppType == 'All', Ethnicity == 'All', AgeGroup == 'All', 
+               IndustrySection != 'All') %>%
+        select(IndustrySection, LevelOfLearning, NumberSustainedEmployment)     %>%  
+        spread(LevelOfLearning, NumberSustainedEmployment) %>%
+        arrange(desc(All)) 
+    }
     #If no breakdowns are selected show summary data for all
     else {dfInd %>% 
         filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
