@@ -151,7 +151,7 @@ server <- function(input, output, session) {
       spread(Gender, NumberSustainedEmployment) %>%
       arrange(desc(All)) 
   }
-    else if(input$selectBreakdown == 'Level of Learning') {
+    else if(input$selectBreakdown == 'LevelOfLearning') {
       dfInd %>% 
         filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
                Gender == 'All', AppType == 'All', Ethnicity == 'All', AgeGroup == 'All', 
