@@ -19,7 +19,7 @@ subject_by_industry_panel <- function(){tabPanel(
       width = 2,
     
   # Instructions for users to appear at top of sidebar
-      helpText("Create your own table by selecting from the drop down boxes below."),
+      #helpText("Create your own table by selecting from the drop down boxes below."),
   
   ### SSA Tier 1 input ----
   selectizeInput(
@@ -42,9 +42,11 @@ subject_by_industry_panel <- function(){tabPanel(
  selectizeInput(
    inputId = "selectBreakdown",
    label = "Select breakdown",
-   choices = list("Gender" = "Gender",
-                  "Ethnicity" = "Ethnicity",
-                  "Level of Learning" = "LevelOfLearning")
+   choices = list( "Age Group" = "AgeGroup",
+                   "Ethnicity" = "Ethnicity",
+                   "Gender" = "Gender",
+                  "Level of Learning" = "LevelOfLearning"
+                  )
  ),
  
  
@@ -68,7 +70,7 @@ mainPanel(
   width = 10,
   style = "height: 90vh; overflow-y: auto; overflow-x: auto;",
   
-paste("Add text here"),
+#paste("Add text here"),
 tableOutput("subject_by_industry_crosstab")
 
 # dfInd %>%

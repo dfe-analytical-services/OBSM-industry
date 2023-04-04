@@ -160,6 +160,15 @@ server <- function(input, output, session) {
         spread(LevelOfLearning, NumberSustainedEmployment) %>%
         arrange(desc(All)) 
     }
+    else if(input$selectBreakdown == 'AgeGroup') {
+      dfInd %>% 
+        filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
+               Gender == 'All', AppType == 'All', Ethnicity == 'All', LevelOfLearning == 'All', 
+               IndustrySection != 'All') %>%
+        select(IndustrySection, AgeGroup, NumberSustainedEmployment)     %>%  
+        spread(AgeGroup, NumberSustainedEmployment) %>%
+        arrange(desc(All)) 
+    }
     #If no breakdowns are selected show summary data for all
     else {dfInd %>% 
         filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
