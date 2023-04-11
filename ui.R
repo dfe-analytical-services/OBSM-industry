@@ -74,7 +74,7 @@ ui <- function(input, output, session) {
     shinyGovstyle::header(
       main_text = "DfE",
       main_link = "https://www.gov.uk/government/organisations/department-for-education",
-      secondary_text = "OBSM Industry Dashboard",
+      secondary_text = "Further Education Outcomes Industry Dashboard",
       logo = "images/DfE_logo.png"
     ),
     shinyGovstyle::banner(

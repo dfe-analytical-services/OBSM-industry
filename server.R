@@ -178,6 +178,22 @@ server <- function(input, output, session) {
         spread(Ethnicity, NumberSustainedEmployment) %>%
         arrange(desc(All)) }
   })
+  
+  # Title
+  
+   
+
+    output$subject_by_industry_title <- renderText({paste0(
+    "Industry of employment for learners achieving in " , "", input$selectSSA, " in 2019/20 academic year")
+    })
+
+    #subjecttext <- input$selectSSA
+    # 
+    #   output$crosstab_title <- paste("<h4>Industry of graduate employment for graduates of ", subjecttext, " by after
+    #                       graduation, young (under 21 at start of course) male and female first degree
+    #                       graduates from English HEIs, APs and FECs, 2019/20 tax year.</h4>",  sep = ""
+    #   )
+  
 
   # Stop app ---------------------------------------------------------------------------------
 
