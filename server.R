@@ -181,10 +181,11 @@ server <- function(input, output, session) {
   
   # Title
   
+
    
 
     output$subject_by_industry_title <- renderText({paste0(
-    "Industry of employment for learners achieving in " , "", input$selectSSA, " in 2019/20 academic year")
+    "Industry of employment for ", tolower(input$selectProvision), " learners achieving in " ,  tolower(input$selectSSA),  " in 2019/20 academic year")
     })
 
     #subjecttext <- input$selectSSA

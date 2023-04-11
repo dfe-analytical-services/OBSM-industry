@@ -1,4 +1,6 @@
 
+
+
 col_formats <- function(data, footer_data, cellfunc, minWidth = NULL) {
   max <- data %>%
     ungroup() %>%
