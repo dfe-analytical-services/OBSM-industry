@@ -182,19 +182,39 @@ server <- function(input, output, session) {
   # Title
   
 
-   
-
-    output$subject_by_industry_title <- renderText({paste0(
-    "Industry of employment for ", tolower(input$selectProvision), " learners achieving in " ,  tolower(input$selectSSA),  " in 2019/20 academic year")
-    })
-
-    #subjecttext <- input$selectSSA
-    # 
-    #   output$crosstab_title <- paste("<h4>Industry of graduate employment for graduates of ", subjecttext, " by after
-    #                       graduation, young (under 21 at start of course) male and female first degree
-    #                       graduates from English HEIs, APs and FECs, 2019/20 tax year.</h4>",  sep = ""
-    #   )
+  # output$subject_by_industry_title <- renderText({
+  #   paste0(
+  #     "Industry of employment for ", tolower(input$selectProvision), " learners achieving in " ,  tolower(input$selectSSA),  " in 2019/20 academic year, by ", tolower(input$selectBreakdown))
+  # 
+  # })
   
+ 
+##-- Create a dynamic title for page
+  
+## If provision type is all, do not add any further info on provision to title
+ provisioninput <- reactive({
+   if(input$selectProvision == 'All'){
+     ""
+   }
+   else{
+      (tolower(input$selectProvision))}
+   })
+
+ ## If subject  is all, add 'all subjects' to title
+ subjectinput <- reactive({
+   if(input$selectSSA== 'All'){
+     "all subjects"
+   }
+   else{
+     (tolower(input$selectSSA))}
+ })
+
+ ## Bring together variables as specified above to produce final dynamic title
+  output$subject_by_industry_title <- renderText({
+    paste("Industry of employment for ", provisioninput(), " learners achieving in " ,  subjectinput(),  " in 2019/20 academic year, by ", tolower(input$selectBreakdown))})
+
+ 
+
 
   # Stop app ---------------------------------------------------------------------------------
 
