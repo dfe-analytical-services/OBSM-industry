@@ -141,7 +141,8 @@ server <- function(input, output, session) {
       filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
              LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All', 
                IndustrySection != 'All') %>%
-      select(IndustrySection, Ethnicity, NumberSustainedEmployment)     %>%  
+      select(IndustrySection, Ethnicity, NumberSustainedEmployment)     %>% 
+      rename(Industry = IndustrySection) %>%
       spread(Ethnicity, NumberSustainedEmployment) %>%
     arrange(desc(All)) 
   }
@@ -152,6 +153,7 @@ server <- function(input, output, session) {
              LevelOfLearning == 'All', AppType == 'All', Ethnicity == 'All', AgeGroup == 'All', 
              IndustrySection != 'All') %>%
       select(IndustrySection, Gender, NumberSustainedEmployment)     %>%  
+       rename(Industry = IndustrySection) %>%
       spread(Gender, NumberSustainedEmployment) %>%
       arrange(desc(All)) 
     }
@@ -162,6 +164,7 @@ server <- function(input, output, session) {
                Gender == 'All', AppType == 'All', Ethnicity == 'All', AgeGroup == 'All', 
                IndustrySection != 'All') %>%
         select(IndustrySection, LevelOfLearning, NumberSustainedEmployment)     %>%  
+        rename(Industry = IndustrySection) %>%
         spread(LevelOfLearning, NumberSustainedEmployment) %>%
         arrange(desc(All)) 
       }
@@ -171,7 +174,8 @@ server <- function(input, output, session) {
         filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
                Gender == 'All', AppType == 'All', Ethnicity == 'All', LevelOfLearning == 'All', 
                IndustrySection != 'All') %>%
-        select(IndustrySection, AgeGroup, NumberSustainedEmployment)     %>%  
+        select(IndustrySection, AgeGroup, NumberSustainedEmployment)     %>% 
+        rename(Industry = IndustrySection) %>%
         spread(AgeGroup, NumberSustainedEmployment) %>%
         arrange(desc(All)) 
     }
@@ -181,6 +185,7 @@ server <- function(input, output, session) {
                LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All', Ethnicity == 'All',
                IndustrySection != 'All') %>%
         select(IndustrySection, Ethnicity, NumberSustainedEmployment)     %>%  
+        rename(Industry = IndustrySection) %>%
         spread(Ethnicity, NumberSustainedEmployment) %>%
         arrange(desc(All)) }
   })

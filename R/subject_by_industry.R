@@ -67,7 +67,7 @@ mainPanel(
   
 #paste("Add text here"),
 #h2("Subject by industry"),
-textOutput("subject_by_industry_title"),
+h4(textOutput("subject_by_industry_title")),
 #textOutput("crosstab_title"),
 tableOutput("subject_by_industry_crosstab")
 
