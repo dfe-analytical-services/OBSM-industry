@@ -43,7 +43,18 @@ subject_by_industry_panel <- function(){tabPanel(
                   )
  ),
  
- 
+ # 
+ # column(
+ #   width = 12,
+ #   paste("Download the underlying data for this dashboard:"), br(),
+ #   downloadButton(
+ #     outputId = "download_data",
+ #     label= "Download data",
+ #     icon = shiny::icon("download"),
+ #     class = "downloadButton",
+ #     style="display:inline-block; float:center"
+ #   )),
+   
  # Code to prevent text wrapping when selecting input from dropdowns
  tags$head(
    tags$style(HTML('
@@ -54,8 +65,7 @@ subject_by_industry_panel <- function(){tabPanel(
    )
    )
  )
- 
- 
+
 ),  #End of side panel
 
 
