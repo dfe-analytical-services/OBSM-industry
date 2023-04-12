@@ -130,9 +130,12 @@ server <- function(input, output, session) {
 
 # # Actual code ----
 
-#Subject by industry crosstab
+## Subject by industry crosstab ---
+  
+  
   output$subject_by_industry_crosstab <- renderTable({
 
+# If selected breakdown is ethnicity, select totals for all other options and output columns of interest
   if(input$selectBreakdown == 'Ethnicity'){
     dfInd %>% 
       filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
@@ -142,7 +145,8 @@ server <- function(input, output, session) {
       spread(Ethnicity, NumberSustainedEmployment) %>%
     arrange(desc(All)) 
   }
-  else if(input$selectBreakdown == 'Gender') {
+# If selected breakdown is gender, select totals for all other options and output columns of interest
+    else if(input$selectBreakdown == 'Gender') {
     dfInd %>% 
       filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
              LevelOfLearning == 'All', AppType == 'All', Ethnicity == 'All', AgeGroup == 'All', 
@@ -150,8 +154,9 @@ server <- function(input, output, session) {
       select(IndustrySection, Gender, NumberSustainedEmployment)     %>%  
       spread(Gender, NumberSustainedEmployment) %>%
       arrange(desc(All)) 
-  }
-    else if(input$selectBreakdown == 'LevelOfLearning') {
+    }
+  # If selected breakdown is level of learning, select totals for all other options and output columns of interest
+      else if(input$selectBreakdown == 'LevelOfLearning') {
       dfInd %>% 
         filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
                Gender == 'All', AppType == 'All', Ethnicity == 'All', AgeGroup == 'All', 
@@ -159,8 +164,9 @@ server <- function(input, output, session) {
         select(IndustrySection, LevelOfLearning, NumberSustainedEmployment)     %>%  
         spread(LevelOfLearning, NumberSustainedEmployment) %>%
         arrange(desc(All)) 
-    }
-    else if(input$selectBreakdown == 'AgeGroup') {
+      }
+  # If selected breakdown is age group, select totals for all other options and output columns of interest
+        else if(input$selectBreakdown == 'AgeGroup') {
       dfInd %>% 
         filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
                Gender == 'All', AppType == 'All', Ethnicity == 'All', LevelOfLearning == 'All', 
@@ -179,17 +185,8 @@ server <- function(input, output, session) {
         arrange(desc(All)) }
   })
   
-  # Title
-  
 
-  # output$subject_by_industry_title <- renderText({
-  #   paste0(
-  #     "Industry of employment for ", tolower(input$selectProvision), " learners achieving in " ,  tolower(input$selectSSA),  " in 2019/20 academic year, by ", tolower(input$selectBreakdown))
-  # 
-  # })
-  
- 
-##-- Create a dynamic title for subject by industry page
+## Create a dynamic title for subject by industry page ----
   
 ## Reformat provision input - leave blank unless specifying type of provision
  provisioninput <- reactive({
