@@ -189,9 +189,9 @@ server <- function(input, output, session) {
   # })
   
  
-##-- Create a dynamic title for page
+##-- Create a dynamic title for subject by industry page
   
-## If provision type is all, do not add any further info on provision to title
+## Reformat provision input - leave blank unless specifying type of provision
  provisioninput <- reactive({
    if(input$selectProvision == 'All'){
      ""
@@ -200,7 +200,7 @@ server <- function(input, output, session) {
       (tolower(input$selectProvision))}
    })
 
- ## If subject  is all, add 'all subjects' to title
+ ## Reformat subject input
  subjectinput <- reactive({
    if(input$selectSSA== 'All'){
      "all subjects"
@@ -208,10 +208,25 @@ server <- function(input, output, session) {
    else{
      (tolower(input$selectSSA))}
  })
-
+ 
+ ## Reformat breakdown input
+ breakdowninput <- reactive({
+   if(input$selectBreakdown == 'AgeGroup'){
+     "age group"
+   }
+   else if(input$selectBreakdown == 'LevelOfLearning'){
+     "level of learning"
+   }
+      else{
+     (tolower(input$selectSSA))}
+ })
+ 
  ## Bring together variables as specified above to produce final dynamic title
   output$subject_by_industry_title <- renderText({
-    paste("Industry of employment for ", provisioninput(), " learners achieving in " ,  subjectinput(),  " in 2019/20 academic year, by ", tolower(input$selectBreakdown))})
+    paste(
+      "Industry of employment for ", provisioninput(), " learners achieving in " ,  subjectinput(),  " in 2019/20 academic year, by ", breakdowninput()
+      )
+    })
 
  
 
