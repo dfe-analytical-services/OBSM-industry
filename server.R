@@ -135,50 +135,51 @@ server <- function(input, output, session) {
   
   output$subject_by_industry_crosstab <- renderTable({
 
-# If selected breakdown is ethnicity, select totals for all other options and output columns of interest
+#If selected breakdown is ethnicity, select totals for all other options and output columns of interest
   if(input$selectBreakdown == 'Ethnicity'){
-    dfInd %>% 
+    dfInd %>%
       filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
-             LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All', 
+             LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All',
                IndustrySection != 'All') %>%
-      select(IndustrySection, Ethnicity, NumberSustainedEmployment)     %>% 
+      select(IndustrySection, Ethnicity, input$selectType)     %>%
       rename(Industry = IndustrySection) %>%
-      spread(Ethnicity, NumberSustainedEmployment) %>%
-    arrange(desc(All)) 
+      spread(Ethnicity, input$selectType) %>%
+    arrange(desc(All))
   }
 # If selected breakdown is gender, select totals for all other options and output columns of interest
     else if(input$selectBreakdown == 'Gender') {
-    dfInd %>% 
+    dfInd %>%
       filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
-             LevelOfLearning == 'All', AppType == 'All', Ethnicity == 'All', AgeGroup == 'All', 
+             LevelOfLearning == 'All', AppType == 'All', Ethnicity == 'All', AgeGroup == 'All',
              IndustrySection != 'All') %>%
-      select(IndustrySection, Gender, NumberSustainedEmployment)     %>%  
+      select(IndustrySection, Gender, input$selectType)     %>%
        rename(Industry = IndustrySection) %>%
-      spread(Gender, NumberSustainedEmployment) %>%
-      arrange(desc(All)) 
+      spread(Gender, input$selectType) %>%
+      arrange(desc(All))
     }
   # If selected breakdown is level of learning, select totals for all other options and output columns of interest
       else if(input$selectBreakdown == 'LevelOfLearning') {
-      dfInd %>% 
+      dfInd %>%
         filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
-               Gender == 'All', AppType == 'All', Ethnicity == 'All', AgeGroup == 'All', 
+               Gender == 'All', AppType == 'All', Ethnicity == 'All', AgeGroup == 'All',
                IndustrySection != 'All') %>%
-        select(IndustrySection, LevelOfLearning, NumberSustainedEmployment)     %>%  
+        select(IndustrySection, LevelOfLearning, input$selectType)     %>%
         rename(Industry = IndustrySection) %>%
-        spread(LevelOfLearning, NumberSustainedEmployment) %>%
-        arrange(desc(All)) 
+        spread(LevelOfLearning, input$selectType) %>%
+        arrange(desc(All))
       }
   # If selected breakdown is age group, select totals for all other options and output columns of interest
         else if(input$selectBreakdown == 'AgeGroup') {
-      dfInd %>% 
+      dfInd %>%
         filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
-               Gender == 'All', AppType == 'All', Ethnicity == 'All', LevelOfLearning == 'All', 
+               Gender == 'All', AppType == 'All', Ethnicity == 'All', LevelOfLearning == 'All',
                IndustrySection != 'All') %>%
-        select(IndustrySection, AgeGroup, NumberSustainedEmployment)     %>% 
+        select(IndustrySection, AgeGroup, input$selectType)     %>%
         rename(Industry = IndustrySection) %>%
-        spread(AgeGroup, NumberSustainedEmployment) %>%
-        arrange(desc(All)) 
-    }
+        spread(AgeGroup, input$selectType) %>%
+        arrange(desc(All))
+        }
+
     #If no breakdowns are selected show summary data for all
     else {dfInd %>% 
         filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
@@ -225,7 +226,7 @@ server <- function(input, output, session) {
  ## Bring together variables as specified above to produce final dynamic title
   output$subject_by_industry_title <- renderText({
     paste(
-      "Industry of employment for ", provisioninput(), " learners achieving in " ,  subjectinput(),  " in 2019/20 academic year, by ", breakdowninput()
+      "Industry of employment for ", provisioninput(), " learners achieving in " ,  subjectinput(),  " in 2019/20, by ", breakdowninput()
       )
     })
 
