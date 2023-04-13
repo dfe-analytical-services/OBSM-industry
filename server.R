@@ -190,7 +190,6 @@ server <- function(input, output, session) {
         arrange(desc(All)) }
   })
   
-
 ## Create a dynamic title for subject by industry page ----
   
 ## Reformat provision input - leave blank unless specifying type of provision
@@ -231,7 +230,22 @@ server <- function(input, output, session) {
     })
 
  
-
+  
+  ##---- TEST CODE
+  
+ #  SSAinput <- reactive({input$selectSSA})
+ #  
+ # crosstab_test <- observe({     # If selected breakdown is ethnicity, select totals for all other options and output columns of interest
+ #        dfInd %>% 
+ #        filter(SSATier1 == 'All', SSATier2 == 'All', Provision == 'All',
+ #               LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All', 
+ #               IndustrySection != 'All')})
+ #   
+ # 
+ #   
+ #   output$crosstab_test <-  renderReactable({reactable(crosstab_test)})
+  
+  
 
   # Stop app ---------------------------------------------------------------------------------
 
