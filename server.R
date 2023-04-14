@@ -128,11 +128,116 @@ server <- function(input, output, session) {
     }
   )
 
-# # Actual code ----
+## Actual code -----------------------
 
-## Subject by industry crosstab ---
+
+## TEST CODE FOR CALCULATING PROPORTIONS
+
+# data_for_total <-  reactive({  if(input$selectType == 'SustainedEmploymentPercent' & input$selectBreakdown == 'Gender'){
+#   dfInd %>% 
+#     filter(SSATier1 == 'All', SSATier2 == 'All', Provision == 'All',
+#            LevelOfLearning == 'All', AppType == 'All', AgeGroup == 'All', Ethnicity == 'All',
+#            IndustrySection != 'All') %>%
+#     select(IndustrySection, Gender,  NumberSustainedEmployment)
+# }
+# })
+#   
+#   grand_total <- data_for_total() %>%
+#     sum(NumberSustainedEmployment)
+#     
+    
   
-  
+  # subj_by_industry_data <- reactive({
+  #   # For proportions
+  #   if(input$selectType == 'SustainedEmploymentPercent' & input$selectBreakdown == 'Gender'){
+  #     dfInd %>% 
+  #           filter(SSATier1 == 'All', SSATier2 == 'All', Provision == 'All',
+  #                  LevelOfLearning == 'All', AppType == 'All', AgeGroup == 'All', Ethnicity == 'All',
+  #                  IndustrySection != 'All') %>%
+  #           select(IndustrySection, Gender,  NumberSustainedEmployment) %>%
+  #     mutate(PercentEmployed = NumberSustainedEmployment/10, na.rm = TRUE) %>%
+  #       select(IndustrySection, Gender, PercentEmployed)
+  #   }
+  #   else{
+  #     dfInd %>%
+  #       select(NumberSustainedEmployment)
+  #   }
+  # 
+  #   
+  # })
+  # 
+  # 
+  # 
+  # output$subject_by_industry_crosstab <- renderTable({
+  #   subj_by_industry_data() %>%
+  #     mutate(PercentEmployed = NumberSustainedEmployment/10) %>%
+  #     select(PercentEmployed)
+  # })
+  # 
+
+  ## Subject by industry crosstab ---
+  # output$subject_by_industry_crosstab <- renderTable({subj_by_industry_data <-
+  #   # For proportions
+  #   if(input$selectType == 'PercentSustainedEmployment'){
+  #   # Proportions and Gender selected
+  #     if(input$selectBreakdown == 'Gender'){
+  #   dfInd %>%
+  #     filter(SSATier1 == 'All', SSATier2 == 'All', Provision == 'All',
+  #            LevelOfLearning == 'All', AppType == 'All', AgeGroup == 'All', Ethnicity == 'All',
+  #            IndustrySection != 'All') %>%
+  #     select(IndustrySection,  NumberSustainedEmployment)
+  #     }
+  #   # Proportions but other breakdown selected
+  #     else {
+  #       dfInd %>%
+  #         filter(SSATier1 == 'All', SSATier2 == 'All', Provision == 'All',
+  #                LevelOfLearning == 'All', AppType == 'All', AgeGroup == 'All', Ethnicity == 'All',
+  #                IndustrySection != 'All') %>%
+  #         select(IndustrySection,  NumberSustainedEmployment)
+  #     }
+  #   }
+  #   else {
+  #     dfInd %>%
+  #       filter(SSATier1 == 'All', SSATier2 == 'All', Provision == 'All',
+  #              LevelOfLearning == 'All', AppType == 'All', AgeGroup == 'All', Ethnicity == 'All',
+  #              IndustrySection != 'All') %>%
+  #       select(IndustrySection, NumberSustainedEmployment)
+  #   }
+  # })
+  #
+
+
+
+
+#Calculate a grand total for the filters chosen
+#  grand_total <- 10
+#
+#
+# #sum(subj_by_industry_data$NumberSustainedEmployment, na.rm = TRUE)
+#
+#  #Calculate percentages where necessary for proportion table output
+#  output$subject_by_industry_crosstab <- renderTable({
+#    if(input$selectType == 'PercentSustainedEmployment' & input$selectBreakdown == 'Gender'){
+#      subj_by_industry_data %>%
+#        mutate(PercentSustainedEmployment = NumberSustainedEmployment/10) %>%
+#                 #grand_total, na.rm = TRUE) %>%
+#        mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) #%>%
+#       # select(IndustrySection, Gender, PercentSustainedEmployment)     %>%
+#       # spread(Gender, PercentSustainedEmployment) %>%
+#       # arrange(desc(All))
+#    }
+#    else{
+#      subj_by_industry_data %>%
+#      select(IndustrySection, Gender, PercentSustainedEmployment)     %>%
+#        spread(Gender, PercentSustainedEmployment) %>%
+#        arrange(desc(All))
+#    }
+#
+#  })
+
+
+## Subject by industry crosstab --
+
   output$subject_by_industry_crosstab <- renderTable({
 
 #If selected breakdown is ethnicity, select totals for all other options and output columns of interest
@@ -146,7 +251,7 @@ server <- function(input, output, session) {
       spread(Ethnicity, input$selectType) %>%
     arrange(desc(All))
   }
-# If selected breakdown is gender, select totals for all other options and output columns of interest
+#If selected breakdown is gender, select totals for all other options and output columns of interest
     else if(input$selectBreakdown == 'Gender') {
     dfInd %>%
       filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
@@ -181,16 +286,16 @@ server <- function(input, output, session) {
         }
 
     #If no breakdowns are selected show summary data for all
-    else {dfInd %>% 
+    else {dfInd %>%
         filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
                LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All', Ethnicity == 'All',
                IndustrySection != 'All') %>%
-        select(IndustrySection, Ethnicity, NumberSustainedEmployment)     %>%  
+        select(IndustrySection, Ethnicity, NumberSustainedEmployment)     %>%
         rename(Industry = IndustrySection) %>%
         spread(Ethnicity, NumberSustainedEmployment) %>%
         arrange(desc(All)) }
   })
-  
+
 ## Create a dynamic title for subject by industry page ----
   
 ## Reformat provision input - leave blank unless specifying type of provision
