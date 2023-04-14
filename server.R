@@ -135,37 +135,107 @@ server <- function(input, output, session) {
 
 # Filter volumes  
 vols_data_filtered <-  reactive({  
- # if(input$selectBreakdown == 'Gender'){
+  if(input$selectBreakdown == 'Gender'){
   dfInd %>%
     filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision ==  input$selectProvision,
            LevelOfLearning == 'All', AppType == 'All', AgeGroup == 'All', Ethnicity == 'All',
            IndustrySection != 'All') %>%
     select(IndustrySection, Gender,  NumberSustainedEmployment)
-#  }
-  # else if(input$selectBreakdown == 'AgeGroup')  {
-  #   dfInd %>%
-  #     filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision ==  input$selectProvision,
-  #            LevelOfLearning == 'All', AppType == 'All', Gender == 'All', Ethnicity == 'All',
-  #            IndustrySection != 'All') %>%
-  #     select(IndustrySection, AgeGroup,  NumberSustainedEmployment)
-  # }
+  }
+  else if(input$selectBreakdown == 'AgeGroup')  {
+    dfInd %>%
+      filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision ==  input$selectProvision,
+             LevelOfLearning == 'All', AppType == 'All', Gender == 'All', Ethnicity == 'All',
+             IndustrySection != 'All') %>%
+      select(IndustrySection, AgeGroup,  NumberSustainedEmployment)
+  }
+ else if(input$selectBreakdown == 'Ethnicity')  {
+    dfInd %>%
+      filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision ==  input$selectProvision,
+             LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All',
+             IndustrySection != 'All') %>%
+      select(IndustrySection, Ethnicity,  NumberSustainedEmployment)
+ }
+ else if(input$selectBreakdown == 'LevelOfLearning')  {
+    dfInd %>%
+      filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision ==  input$selectProvision,
+             Ethnicity == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All',
+             IndustrySection != 'All') %>%
+      select(IndustrySection, LevelOfLearning,  NumberSustainedEmployment)
+  }
+  else{
+    dfInd %>%
+      filter(SSATier1 == 'All', SSATier2 == 'All', Provision ==  'All',
+             Ethnicity == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All',
+             IndustrySection != 'All') %>%
+      select(IndustrySection, NumberSustainedEmployment)
+  }
+  
 })
   
 
 # Assign a grand total to use in calculating percentages  
+  
+  
+  
 total_val <- reactive({
-    subset(vols_data_filtered(), Gender == "All") %>%
-             {sum(.$NumberSustainedEmployment)}
+  if(input$selectBreakdown == "Gender") {
+      subset(vols_data_filtered(), Gender == "All") %>%
+             {sum(.$NumberSustainedEmployment, na.rm = TRUE)}
+  }
+ else if(input$selectBreakdown == "AgeGroup") {
+    subset(vols_data_filtered(), AgeGroup == "All") %>%
+      {sum(.$NumberSustainedEmployment, na.rm = TRUE)}
+  }
+  else if(input$selectBreakdown == "Ethnicity") {
+    subset(vols_data_filtered(), Ethnicity == "All") %>%
+      {sum(.$NumberSustainedEmployment, na.rm = TRUE)}
+  }
+  else if(input$selectBreakdown == "LevelOfLearning") {
+    subset(vols_data_filtered(), LevelOfLearning == "All") %>%
+      {sum(.$NumberSustainedEmployment, na.rm = TRUE)}
+  }
+  
+  
 })
          
 # Divide initial volumes by grand total to create percentage, then format
   output$subject_by_industry_crosstab <- renderTable({
+    if(input$selectBreakdown == "Gender") {
     vols_data_filtered() %>%
     mutate(PercentSustainedEmployment = NumberSustainedEmployment/total_val()) %>%
-   # mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
+    mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
     select(-NumberSustainedEmployment) %>%
     spread(Gender, PercentSustainedEmployment) %>%
     arrange(desc(All))
+    }
+  else if(input$selectBreakdown == "AgeGroup") {
+    vols_data_filtered() %>%
+      mutate(PercentSustainedEmployment = NumberSustainedEmployment/total_val()) %>%
+      mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
+      select(-NumberSustainedEmployment) %>%
+    spread(AgeGroup, PercentSustainedEmployment) %>%
+      arrange(desc(All))
+  }
+  else if(input$selectBreakdown == "Ethnicity") {
+      vols_data_filtered() %>%
+        mutate(PercentSustainedEmployment = NumberSustainedEmployment/total_val()) %>%
+        mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
+        select(-NumberSustainedEmployment) %>%
+      spread(Ethnicity, PercentSustainedEmployment) %>%
+        arrange(desc(All))
+      }
+  else if(input$selectBreakdown == "LevelOfLearning") {
+      vols_data_filtered() %>%
+        mutate(PercentSustainedEmployment = NumberSustainedEmployment/total_val()) %>%
+        mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
+        select(-NumberSustainedEmployment) %>%
+      spread(LevelOfLearning, PercentSustainedEmployment) %>%
+        arrange(desc(All))
+      }
+  else {
+    dfInd
+  }
   })
 
   
