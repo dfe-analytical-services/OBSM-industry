@@ -312,7 +312,7 @@ total_val <- reactive({
      "level of learning"
    }
       else{
-     (tolower(input$selectSSA))}
+     (tolower(input$selectBreakdown))}
  })
  
  ## Bring together variables as specified above to produce final dynamic title
