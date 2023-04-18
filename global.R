@@ -118,8 +118,9 @@ dfInd <- read_ind_data() %>%
   mutate(NumberSustainedEmployment = suppressWarnings(as.integer(NumberSustainedEmployment))) %>% # Convert columns into numeric values
   #mutate(NumberSustainedEmployment = comma(NumberSustainedEmployment)) %>% #Format numbers with comma
 #mutate(SustainedEmploymentPercent = percent(SustainedEmploymentPercent/100, accuracy = 1)) %>%
-  mutate(IndustrySection = str_to_sentence(IndustrySection)) #Improve formatting for industry variable 
-
+  mutate(IndustrySection = str_to_sentence(IndustrySection)) %>% 
+  #Improve formatting for industry variable  
+  rename(Industry = IndustrySection)
 #dfInd$SustainedEmploymentPercent <- formattable::percent((dfInd$SustainedEmploymentPercent/100), 0 ) #Format as percentage
 
 

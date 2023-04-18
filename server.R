@@ -140,36 +140,36 @@ server <- function(input, output, session) {
   dfInd %>%
     filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision ==  input$selectProvision,
            LevelOfLearning == 'All', AppType == 'All', AgeGroup == 'All', Ethnicity == 'All',
-           IndustrySection != 'All') %>%
-    select(IndustrySection, Gender,  NumberSustainedEmployment)
+           Industry != 'All') %>%
+    select(Industry, Gender,  NumberSustainedEmployment)
   }
   else if(input$selectBreakdown == 'AgeGroup' & input$selectType == 'SustainedEmploymentPercent')  {
     dfInd %>%
       filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision ==  input$selectProvision,
              LevelOfLearning == 'All', AppType == 'All', Gender == 'All', Ethnicity == 'All',
-             IndustrySection != 'All') %>%
-      select(IndustrySection, AgeGroup,  NumberSustainedEmployment)
+             Industry != 'All') %>%
+      select(Industry, AgeGroup,  NumberSustainedEmployment)
   }
  else if(input$selectBreakdown == 'Ethnicity' & input$selectType == 'SustainedEmploymentPercent')  {
     dfInd %>%
       filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision ==  input$selectProvision,
              LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All',
-             IndustrySection != 'All') %>%
-      select(IndustrySection, Ethnicity,  NumberSustainedEmployment)
+             Industry != 'All') %>%
+      select(Industry, Ethnicity,  NumberSustainedEmployment)
  }
  else if(input$selectBreakdown == 'LevelOfLearning')  {
     dfInd %>%
       filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision ==  input$selectProvision,
              Ethnicity == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All',
-             IndustrySection != 'All') %>%
-      select(IndustrySection, LevelOfLearning,  NumberSustainedEmployment)
+             Industry != 'All') %>%
+      select(Industry, LevelOfLearning,  NumberSustainedEmployment)
   }
   else{
     dfInd %>%
       filter(SSATier1 == 'All', SSATier2 == 'All', Provision ==  'All',
              Ethnicity == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All',
-             IndustrySection != 'All') %>%
-      select(IndustrySection, NumberSustainedEmployment)
+             Industry != 'All') %>%
+      select(Industry, NumberSustainedEmployment)
   }
 })
   
@@ -235,9 +235,8 @@ total_val <- reactive({
         dfInd %>%
           filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
                  LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All',
-                   IndustrySection != 'All') %>%
-          select(IndustrySection, Ethnicity, NumberSustainedEmployment)     %>%
-          rename(Industry = IndustrySection) %>%
+                   Industry != 'All') %>%
+          select(Industry, Ethnicity, NumberSustainedEmployment)     %>%
           spread(Ethnicity, NumberSustainedEmployment) %>%
         arrange(desc(All))
       }
@@ -245,9 +244,8 @@ total_val <- reactive({
         dfInd %>%
           filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
                  LevelOfLearning == 'All', AppType == 'All', Ethnicity == 'All', AgeGroup == 'All',
-                 IndustrySection != 'All') %>%
-          select(IndustrySection, Gender, NumberSustainedEmployment)     %>%
-           rename(Industry = IndustrySection) %>%
+                 Industry != 'All') %>%
+          select(Industry, Gender, NumberSustainedEmployment)     %>%
           spread(Gender, NumberSustainedEmployment) %>%
           arrange(desc(All))
         }
@@ -255,9 +253,8 @@ total_val <- reactive({
           dfInd %>%
             filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
                    Gender == 'All', AppType == 'All', Ethnicity == 'All', AgeGroup == 'All',
-                   IndustrySection != 'All') %>%
-            select(IndustrySection, LevelOfLearning, input$selectType)     %>%
-            rename(Industry = IndustrySection) %>%
+                   Industry != 'All') %>%
+            select(Industry, LevelOfLearning, input$selectType)     %>%
             spread(LevelOfLearning, NumberSustainedEmployment) %>%
             arrange(desc(All))
           }
@@ -265,9 +262,8 @@ total_val <- reactive({
           dfInd %>%
             filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
                    Gender == 'All', AppType == 'All', Ethnicity == 'All', LevelOfLearning == 'All',
-                   IndustrySection != 'All') %>%
-            select(IndustrySection, AgeGroup, NumberSustainedEmployment)     %>%
-            rename(Industry = IndustrySection) %>%
+                   Industry != 'All') %>%
+            select(Industry, AgeGroup, NumberSustainedEmployment)     %>%
             spread(AgeGroup, NumberSustainedEmployment) %>%
             arrange(desc(All))
             }
@@ -275,9 +271,8 @@ total_val <- reactive({
         else {dfInd %>%
             filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
                    LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All', Ethnicity == 'All',
-                   IndustrySection != 'All') %>%
-            select(IndustrySection, Ethnicity, NumberSustainedEmployment)     %>%
-            rename(Industry = IndustrySection) %>%
+                   Industry != 'All') %>%
+            select(Industry, Ethnicity, NumberSustainedEmployment)     %>%
             spread(Ethnicity, NumberSustainedEmployment) %>%
             arrange(desc(All)) }
       })
@@ -332,7 +327,7 @@ total_val <- reactive({
  #        dfInd %>% 
  #        filter(SSATier1 == 'All', SSATier2 == 'All', Provision == 'All',
  #               LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All', 
- #               IndustrySection != 'All')})
+ #               Industry != 'All')})
  #   
  # 
  #   
