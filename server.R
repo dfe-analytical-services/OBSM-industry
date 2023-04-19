@@ -317,6 +317,29 @@ total_val <- reactive({
       )
     })
 
+  
+  
+  
+  
+  stylefunc <- function(value, index, name) {
+    if (value >= 0 && !is.na(value)) {
+      data <- crosstabs_data %>%
+        mutate_if(
+          is.numeric,
+          funs(ifelse(. < 0, NA, .))
+        )
+      
+      normalized <- (value - min(data %>%
+                                   select(-Industry), na.rm = T)) /
+        (max(data %>%
+               select(-Industry), na.rm = T) - min(data %>%
+                                                     select(-Industry), na.rm = T))
+      color <- orange_pal(normalized)
+      list(background = color)
+    }
+  }
+  
+  
  
   
   ##---- TEST CODE
