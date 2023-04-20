@@ -87,23 +87,9 @@ mainPanel(
 #paste("Add text here"),
 h4(textOutput("subject_by_industry_title")),
 tableOutput("subject_by_industry_crosstab")
-#reactableOutput("crosstab_test")
 
 
 
 
 ))}
-
-
-
-#################### CROSS-TABS ---- #######################################
-## Main panel =========================================================
-
-
-# subj_ind_crosstab <-     dfInd %>% 
-#   filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
-#          LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All', Ethnicity == 'All', IndustrySection != 'All') %>%
-#   select(IndustrySection, NumberSustainedEmployment, SustainedEmploymentPercent)     %>%  
-#   arrange(desc(NumberSustainedEmployment))
-
 

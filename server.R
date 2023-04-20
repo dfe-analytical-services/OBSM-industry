@@ -188,91 +188,10 @@ output$subject_by_industry_crosstab <- renderTable({
   crosstab_data()
   })
          
-# # Where proportions have been selected as data type, divide initial volumes by grand total to create percentage, then format
-#   output$subject_by_industry_crosstab <- renderTable({
-#     if(input$selectBreakdown == "Gender" & input$selectType == 'SustainedEmploymentPercent') {
-#     vols_data_filtered() %>%
-#     mutate(PercentSustainedEmployment = NumberSustainedEmployment/total_val()) %>%
-#     mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
-#     select(-NumberSustainedEmployment) %>%
-#     spread(Gender, PercentSustainedEmployment) %>%
-#     arrange(desc(All))
-#     }
-#   else if(input$selectBreakdown == "AgeGroup" & input$selectType == 'SustainedEmploymentPercent') {
-#     vols_data_filtered() %>%
-#       mutate(PercentSustainedEmployment = NumberSustainedEmployment/total_val()) %>%
-#       mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
-#       select(-NumberSustainedEmployment) %>%
-#     spread(AgeGroup, PercentSustainedEmployment) %>%
-#       arrange(desc(All))
-#   }
-#   else if(input$selectBreakdown == "Ethnicity" & input$selectType == 'SustainedEmploymentPercent') {
-#       vols_data_filtered() %>%
-#         mutate(PercentSustainedEmployment = NumberSustainedEmployment/total_val()) %>%
-#         mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
-#         select(-NumberSustainedEmployment) %>%
-#       spread(Ethnicity, PercentSustainedEmployment) %>%
-#         arrange(desc(All))
-#       }
-#   else if(input$selectBreakdown == "LevelOfLearning" & input$selectType == 'SustainedEmploymentPercent') {
-#       vols_data_filtered() %>%
-#         mutate(PercentSustainedEmployment = NumberSustainedEmployment/total_val()) %>%
-#         mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
-#         select(-NumberSustainedEmployment) %>%
-#       spread(LevelOfLearning, PercentSustainedEmployment) %>%
-#         arrange(desc(All))
-#   }
-#     
-#     
-# # Where volumes have been selected as data type, select totals for all other options and then format
-#     else  if(input$selectBreakdown == 'Ethnicity' & input$selectType == 'NumberSustainedEmployment'){
-#         dfInd %>%
-#           filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
-#                  LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All',
-#                    Industry != 'All') %>%
-#           select(Industry, Ethnicity, NumberSustainedEmployment)     %>%
-#           spread(Ethnicity, NumberSustainedEmployment) %>%
-#         arrange(desc(All))
-#       }
-#      else if(input$selectBreakdown == 'Gender'& input$selectType == 'NumberSustainedEmployment') {
-#         dfInd %>%
-#           filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
-#                  LevelOfLearning == 'All', AppType == 'All', Ethnicity == 'All', AgeGroup == 'All',
-#                  Industry != 'All') %>%
-#           select(Industry, Gender, NumberSustainedEmployment)     %>%
-#           spread(Gender, NumberSustainedEmployment) %>%
-#           arrange(desc(All))
-#         }
-#       else if(input$selectBreakdown == 'LevelOfLearning' & input$selectType == 'NumberSustainedEmployment') {
-#           dfInd %>%
-#             filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
-#                    Gender == 'All', AppType == 'All', Ethnicity == 'All', AgeGroup == 'All',
-#                    Industry != 'All') %>%
-#             select(Industry, LevelOfLearning, input$selectType)     %>%
-#             spread(LevelOfLearning, NumberSustainedEmployment) %>%
-#             arrange(desc(All))
-#           }
-#       else if(input$selectBreakdown == 'AgeGroup' & input$selectType == 'NumberSustainedEmployment') {
-#           dfInd %>%
-#             filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
-#                    Gender == 'All', AppType == 'All', Ethnicity == 'All', LevelOfLearning == 'All',
-#                    Industry != 'All') %>%
-#             select(Industry, AgeGroup, NumberSustainedEmployment)     %>%
-#             spread(AgeGroup, NumberSustainedEmployment) %>%
-#             arrange(desc(All))
-#             }
-#         #If no breakdowns are selected show summary data for all
-#         else {dfInd %>%
-#             filter(SSATier1 == input$selectSSA, SSATier2 == 'All', Provision == input$selectProvision,
-#                    LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All', Ethnicity == 'All',
-#                    Industry != 'All') %>%
-#             select(Industry, Ethnicity, NumberSustainedEmployment)     %>%
-#             spread(Ethnicity, NumberSustainedEmployment) %>%
-#             arrange(desc(All)) }
-#       })
-#   
 
-## Create a dynamic title for subject by industry page ----
+
+# Dynamic title for subject by industry page ------------------------------
+
   
 ## Reformat provision input - leave blank unless specifying type of provision
  provisioninput <- reactive({
