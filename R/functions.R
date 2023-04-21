@@ -109,6 +109,7 @@ collate_crosstab_data <- function(data, totaldata, inputbreakdown, inputtype, in
       mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
       select(-NumberSustainedEmployment) %>%
       spread(Gender, PercentSustainedEmployment) %>%
+      relocate(All, .after = last_col()) %>% 
       arrange(desc(All)) %>%
       as.data.frame()
   }
@@ -118,6 +119,7 @@ collate_crosstab_data <- function(data, totaldata, inputbreakdown, inputtype, in
       mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
       select(-NumberSustainedEmployment) %>%
       spread(AgeGroup, PercentSustainedEmployment) %>%
+      relocate(All, .after = last_col()) %>% 
       arrange(desc(All)) %>%
       as.data.frame()
   }
@@ -127,6 +129,7 @@ collate_crosstab_data <- function(data, totaldata, inputbreakdown, inputtype, in
       mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
       select(-NumberSustainedEmployment) %>%
       spread(Ethnicity, PercentSustainedEmployment) %>%
+      relocate(All, .after = last_col()) %>% 
       arrange(desc(All)) %>%
       as.data.frame()
   }
@@ -136,6 +139,7 @@ collate_crosstab_data <- function(data, totaldata, inputbreakdown, inputtype, in
       mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
       select(-NumberSustainedEmployment) %>%
       spread(LevelOfLearning, PercentSustainedEmployment) %>%
+      relocate(All, .after = last_col()) %>% 
       arrange(desc(All)) %>%
       as.data.frame()
   }
@@ -149,8 +153,9 @@ collate_crosstab_data <- function(data, totaldata, inputbreakdown, inputtype, in
              Industry != 'All') %>%
       select(Industry, Ethnicity, NumberSustainedEmployment)     %>%
       spread(Ethnicity, NumberSustainedEmployment) %>%
+       relocate(All, .after = last_col()) %>%
       arrange(desc(All)) %>%
-      relocate(All, .after = last_col()) %>% 
+      rename(Total = All) %>% 
       as.data.frame()
   }
   else if(inputbreakdown == 'Gender'& inputtype == 'NumberSustainedEmployment') {
@@ -160,7 +165,9 @@ collate_crosstab_data <- function(data, totaldata, inputbreakdown, inputtype, in
              Industry != 'All') %>%
       select(Industry, Gender, NumberSustainedEmployment)     %>%
       spread(Gender, NumberSustainedEmployment) %>%
+      relocate(All, .after = last_col()) %>% 
       arrange(desc(All)) %>%
+      rename(Total = All) %>% 
       as.data.frame()
   }
   else if(inputbreakdown == 'LevelOfLearning' & inputtype == 'NumberSustainedEmployment') {
@@ -172,6 +179,7 @@ collate_crosstab_data <- function(data, totaldata, inputbreakdown, inputtype, in
       spread(LevelOfLearning, NumberSustainedEmployment) %>%
       relocate(All, .after = last_col()) %>% 
       arrange(desc(All)) %>%
+      rename(Total = All) %>% 
       as.data.frame()
   }
   else if(inputbreakdown == 'AgeGroup' & inputtype == 'NumberSustainedEmployment') {
@@ -181,7 +189,9 @@ collate_crosstab_data <- function(data, totaldata, inputbreakdown, inputtype, in
              Industry != 'All') %>%
       select(Industry, AgeGroup, NumberSustainedEmployment)     %>%
       spread(AgeGroup, NumberSustainedEmployment) %>%
+      relocate(All, .after = last_col()) %>% 
       arrange(desc(All)) %>%
+      rename(Total = All) %>% 
       as.data.frame()
   }
   #If no breakdowns are selected show summary data for all
@@ -192,20 +202,21 @@ collate_crosstab_data <- function(data, totaldata, inputbreakdown, inputtype, in
       select(Industry, Ethnicity, NumberSustainedEmployment)     %>%
       spread(Ethnicity, NumberSustainedEmployment) %>%
       arrange(desc(All)) %>%
+      rename(Total = All) %>% 
       as.data.frame() }
 })
 
 
 
-subjind_reactable <- function(data, coldefs) {
-  crosstab <- reactable(data,
-                        defaultPageSize = 37, showSortable = TRUE, columns = coldefs,
-                        defaultColDef = colDef(footerStyle = list(fontWeight = "bold")), height = 800
-  )
-  
-  
-  return(crosstab)
-}
+# subjind_reactable <- function(data, coldefs) {
+#   crosstab <- reactable(data,
+#                         defaultPageSize = 37, showSortable = TRUE, columns = coldefs,
+#                         defaultColDef = colDef(footerStyle = list(fontWeight = "bold")), height = 800
+#   )
+#   
+#   
+#   return(crosstab)
+# }
 
 
 
