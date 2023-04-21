@@ -154,39 +154,44 @@ server <- function(input, output, session) {
   crosstab_data <- reactive({collate_crosstab_data(vols_data_filtered(), total_val(), input$selectBreakdown,input$selectType, 
                                          input$selectSSA, input$selectProvision)})
   
+
 # Output final table  
-output$subject_by_industry_crosstab <- renderTable({
   
+  output$subject_by_industry_crosstab <- renderReactable({crosstab_data()})
+                                                           
   
-  # orange_pal <- function(x) {
-  #   if (!is.na(x)) {
-  #     rgb(colorRamp(c("#F7FBFF", "#317ABF"))(x), maxColorValue = 255)
-  #   } else {
-  #     "#e9e9e9" # grey
-  #   }
-  # }
-  # 
-  # stylefunc <- function(value, index, name) {
-  #   if (value >= 0 && !is.na(value)) {
-  #     data <- crosstab_data %>%
-  #       mutate_if(
-  #         is.numeric,
-  #         funs(ifelse(. < 0, NA, .))
-  #       )
-  #     
-  #     normalized <- (value - min(data %>%
-  #                                  select(-Industry), na.rm = T)) /
-  #       (max(data %>%
-  #              select(-Industry), na.rm = T) - min(data %>%
-  #                                                    select(-Industry), na.rm = T))
-  #     color <- orange_pal(normalized)
-  #     list(background = color)
-  #   }
-  # }
-  # 
-  
-  crosstab_data()
-  })
+# output$subject_by_industry_crosstab <- renderTable({
+# 
+#   
+#   # orange_pal <- function(x) {
+#   #   if (!is.na(x)) {
+#   #     rgb(colorRamp(c("#F7FBFF", "#317ABF"))(x), maxColorValue = 255)
+#   #   } else {
+#   #     "#e9e9e9" # grey
+#   #   }
+#   # }
+#   # 
+#   # stylefunc <- function(value, index, name) {
+#   #   if (value >= 0 && !is.na(value)) {
+#   #     data <- crosstab_data %>%
+#   #       mutate_if(
+#   #         is.numeric,
+#   #         funs(ifelse(. < 0, NA, .))
+#   #       )
+#   #     
+#   #     normalized <- (value - min(data %>%
+#   #                                  select(-Industry), na.rm = T)) /
+#   #       (max(data %>%
+#   #              select(-Industry), na.rm = T) - min(data %>%
+#   #                                                    select(-Industry), na.rm = T))
+#   #     color <- orange_pal(normalized)
+#   #     list(background = color)
+#   #   }
+#   # }
+#   # 
+#   
+#   crosstab_data()
+#   })
          
 
 
