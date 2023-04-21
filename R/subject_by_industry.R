@@ -1,105 +1,95 @@
-# 
-subject_by_industry_panel <- function() {
-  tabPanel(
-    value = "Subject by industry",
-    "Subject by industry",
+
+
+
+###########  PAGE LAYOUT --------------
+
+
+subject_by_industry_panel <- function(){tabPanel(
+  tags$div(title = "This section is useful if you want to understand which industries your subject of study can lead to.", "Subject by industry"),
+  value = "subjectByIndustry",
+  
+## Add sidebar panel ----
+
+ # sidebarLayout(
+    sidebarPanel(
+      width = 2,
     
-    # Define UI for application that draws a histogram
-    
-    # Sidebar with a slider input for number of bins
-    gov_main_layout(
-      gov_row(
-        column(
-          width=12,
-          h1("Subject by industry"),
-             ),
-        column(
-          width=12,
-          div(
-            class = "well",
-            style = "min-height: 100%; height: 100%; overflow-y: visible",
-            gov_row(
-              column(
-                width = 6,
-                selectizeInput("selectSSA",
-                               "Select Sector Subject Area",
-                               choices = choicesSSATier1
-                )),
-              column(
-                width = 6,
-                selectizeInput(
-                  inputId = "selectArea",
-                  label = "Choose an area:",
-                  choices = choicesAreas$area_name
-                )
-              ), 
-              column(
-                width = 12,
-                paste("Download the underlying data for this dashboard:"), br(),
-                downloadButton(
-                  outputId = "download_data",
-                  label= "Download data",
-                  icon = shiny::icon("download"),
-                  class = "downloadButton"
-                )
-              ))
-          )
-        ),
-        
-        column(
-          width=12,
-          tabsetPanel(id = "tabsetpanels",
-                      tabPanel(
-                        "Example panel 1",
-                        fluidRow(
-                          column(
-                            width=12,
-                            h2("Outputs 1 (h2)"),
-                            valueBoxOutput("boxavgRevBal", width = 6),
-                            valueBoxOutput("boxpcRevBal", width = 6),
-                            box(
-                              width=12,
-                              plotlyOutput("lineRevBal")))
-                        )
-                      ),
-                      tabPanel(
-                        "Example panel 2",
-                        fluidRow(
-                          column(
-                            width=12,
-                            h2("Outputs 2 (h2)"),
-                            p("This is the standard paragraph style for adding guiding info around data content."),
-                            column(
-                              width=6,
-                              box(
-                                width=12,
-                                plotlyOutput("colBenchmark")
-                              )
-                            ),
-                            column(
-                              width=6,
-                              div(
-                                class = "well",
-                                style = "min-height: 100%; height: 100%; overflow-y: visible",
-                                fluidRow(
-                                  column(
-                                    width=12,
-                                    selectizeInput("selectBenchLAs",
-                                                   "Select benchamrk LAs",
-                                                   choices = choicesLAs$area_name,
-                                                   multiple=TRUE,
-                                                   options = list(maxItems = 3)
-                                    )
-                                  )
-                                )
-                              ),
-                              dataTableOutput("tabBenchmark")
-                            ))
-                        ))
-          )
-        )
-        # add box to show user input
-      )
-    )
-  )
-}
+  # Instructions for users to appear at top of sidebar
+      #helpText("Create your own table by selecting from the drop down boxes below."),
+  
+  # Volumes or proportions input
+  selectizeInput(
+    inputId = "selectType",
+    label = "View the volumes or proportions of learners in each industry",
+    choices = list( "Volumes" = "NumberSustainedEmployment",
+                    "Proportions" = "SustainedEmploymentPercent"
+                    )
+  ),
+  
+  # SSA Tier 1 input 
+    selectizeInput(
+    inputId = "selectSSA",
+    label = "Select Sector Subject Area",
+    choices = choicesSSATier1$SSATier1
+    ),
+  
+ # Provision input
+  selectizeInput(
+    inputId = "selectProvision",
+    label = "Select provision type",
+    choices = choicesProvision$Provision
+    ),
+ 
+
+ # Data breakdown input
+ selectizeInput(
+   inputId = "selectBreakdown",
+   label = "Select breakdown",
+   choices = list( "Age Group" = "AgeGroup",
+                   "Ethnicity" = "Ethnicity",
+                   "Gender" = "Gender",
+                  "Level of Learning" = "LevelOfLearning"
+                  )
+ ),
+ 
+ # 
+ # column(
+ #   width = 12,
+ #   paste("Download the underlying data for this dashboard:"), br(),
+ #   downloadButton(
+ #     outputId = "download_data",
+ #     label= "Download data",
+ #     icon = shiny::icon("download"),
+ #     class = "downloadButton",
+ #     style="display:inline-block; float:center"
+ #   )),
+   
+ # Code to prevent text wrapping when selecting input from dropdowns
+ tags$head(
+   tags$style(HTML('
+                              
+                                .selectize-dropdown {
+                                    width: 500px !important;
+                                }'
+   )
+   )
+ )
+
+),  #End of side panel
+
+
+## Add main panel ----
+
+mainPanel(
+  width = 10,
+  style = "height: 90vh; overflow-y: auto; overflow-x: auto;",
+  
+#paste("Add text here"),
+h4(textOutput("subject_by_industry_title")),
+reactableOutput("subject_by_industry_crosstab")
+
+
+
+
+))}
+

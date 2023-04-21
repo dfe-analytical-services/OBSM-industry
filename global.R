@@ -10,6 +10,7 @@
 
 # Library calls ---------------------------------------------------------------------------------
 shhh <- suppressPackageStartupMessages # It's a library, so shhh!
+shhh(library(tidyverse))
 shhh(library(shiny))
 shhh(library(shinyjs))
 shhh(library(tools))
@@ -22,7 +23,10 @@ shhh(library(dplyr))
 shhh(library(ggplot2))
 shhh(library(plotly))
 shhh(library(DT))
-
+shhh(library(htmltools))
+shhh(library(reactable))
+shhh(library(scales))
+#shhh(library(formattable))
 # Functions ---------------------------------------------------------------------------------
 
 # Here's an example function for simplifying the code needed to commas separate numbers:
@@ -110,11 +114,27 @@ choicesPhase <- unique(dfRevBal$school_phase)
 ## Actual code ----
 
 # Read in industry data
-dfInd <- read_ind_data()
+dfInd <- read_ind_data() %>%
+  mutate(NumberSustainedEmployment = suppressWarnings(as.integer(NumberSustainedEmployment))) %>% # Convert columns into numeric values
+  #mutate(NumberSustainedEmployment = comma(NumberSustainedEmployment)) %>% #Format numbers with comma
+#mutate(SustainedEmploymentPercent = percent(SustainedEmploymentPercent/100, accuracy = 1)) %>%
+  mutate(IndustrySection = str_to_sentence(IndustrySection)) %>% 
+  #Improve formatting for industry variable  
+  rename(Industry = IndustrySection)
+#dfInd$SustainedEmploymentPercent <- formattable::percent((dfInd$SustainedEmploymentPercent/100), 0 ) #Format as percentage
+
+
 
 # Get list of all options for SSA Tier 1
 choicesSSATier1 <- dfInd %>%
   select(SSATier1) %>%
   distinct %>%
-  arrange(SSATier1 != 'All', SSATier1)
+  arrange(SSATier1 != 'All', SSATier1) #Ensure 'All' appears at top of list
+
+#Get list of options for provision type
+choicesProvision <- dfInd %>%
+  select(Provision) %>%
+  distinct %>%
+  arrange(Provision != 'All', Provision) #Ensure 'All' appears at top of list
+
 

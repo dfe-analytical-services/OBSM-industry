@@ -55,7 +55,6 @@
 #
 
 
-
 ui <- function(input, output, session) {
   fluidPage(
     title = tags$head(tags$link(
@@ -75,17 +74,14 @@ ui <- function(input, output, session) {
     shinyGovstyle::header(
       main_text = "DfE",
       main_link = "https://www.gov.uk/government/organisations/department-for-education",
-      secondary_text = "OBSM Industry Dashboard",
+      secondary_text = "Further Education Outcomes Industry Dashboard",
       logo = "images/DfE_logo.png"
     ),
     shinyGovstyle::banner(
       "beta banner",
       "beta",
       paste0(
-        "This Dashboard is in beta phase and we are still reviewing performance and reliability. ",
-        "In case of slowdown or connection issues due to high demand, we have produced two instances of this site which can be accessed at the following links: ",
-        "<a href=", site_primary, " id='link_site_1'>Site 1</a> and ",
-        "<a href=", site_overflow, " id='link_site_2'>Site 2</a>."
+        "This Dashboard is in beta phase and we are still reviewing performance and reliability. "
       )
     ),
     shiny::navlistPanel(

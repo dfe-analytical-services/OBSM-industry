@@ -128,11 +128,164 @@ server <- function(input, output, session) {
     }
   )
 
-# # Actual code ----
-# #   
-#   output$greeting <- renderText({
-#     paste("Hello, " ,input$name)
+
+
+# Actual code -------------------------------------------------------------
+
+  
+
+# Subject by industry crosstab --------------------------------------------
+
+  
+
+# Call function which when proportions have been selected as data type, first creates a table of volumes with selected filters applied
+# from which percentages will then be calculated. 
+  vols_data_filtered <- reactive({filter_vols_data(input$selectBreakdown, input$selectType, input$selectSSA, input$selectProvision)})
+  
+  
+# Call function which when proportions have been selected as data type, assign a grand total of learners for filtered data to use in 
+#calculating percentages  
+  total_val <- reactive({calc_learner_total(vols_data_filtered(), input$selectBreakdown, input$selectType)})
+
+  
+  
+# Call function which when proportions have been selected as data type, divide initial volumes by grand total to create percentage, then format.
+# If volumes are selected as data type, output filtered volume data.
+  crosstab_data <- reactive({collate_crosstab_data(vols_data_filtered(), total_val(), input$selectBreakdown,input$selectType, 
+                                         input$selectSSA, input$selectProvision)})
+  
+
+# Output final table  
+  
+  output$subject_by_industry_crosstab <- renderReactable({crosstab_data()})
+                                                           
+  
+# output$subject_by_industry_crosstab <- renderTable({
+# 
+#   
+#   # orange_pal <- function(x) {
+#   #   if (!is.na(x)) {
+#   #     rgb(colorRamp(c("#F7FBFF", "#317ABF"))(x), maxColorValue = 255)
+#   #   } else {
+#   #     "#e9e9e9" # grey
+#   #   }
+#   # }
+#   # 
+#   # stylefunc <- function(value, index, name) {
+#   #   if (value >= 0 && !is.na(value)) {
+#   #     data <- crosstab_data %>%
+#   #       mutate_if(
+#   #         is.numeric,
+#   #         funs(ifelse(. < 0, NA, .))
+#   #       )
+#   #     
+#   #     normalized <- (value - min(data %>%
+#   #                                  select(-Industry), na.rm = T)) /
+#   #       (max(data %>%
+#   #              select(-Industry), na.rm = T) - min(data %>%
+#   #                                                    select(-Industry), na.rm = T))
+#   #     color <- orange_pal(normalized)
+#   #     list(background = color)
+#   #   }
+#   # }
+#   # 
+#   
+#   crosstab_data()
 #   })
+         
+
+
+# Dynamic title for subject by industry page ------------------------------
+
+  
+## Reformat provision input - leave blank unless specifying type of provision
+ provisioninput <- reactive({
+   if(input$selectProvision == 'All'){
+     ""
+   }
+   else{
+      (tolower(input$selectProvision))}
+   })
+
+ ## Reformat subject input
+ subjectinput <- reactive({
+   if(input$selectSSA== 'All'){
+     "all subjects"
+   }
+   else{
+     (tolower(input$selectSSA))}
+ })
+ 
+ ## Reformat breakdown input
+ breakdowninput <- reactive({
+   if(input$selectBreakdown == 'AgeGroup'){
+     "age group"
+   }
+   else if(input$selectBreakdown == 'LevelOfLearning'){
+     "level of learning"
+   }
+      else{
+     (tolower(input$selectBreakdown))}
+ })
+ 
+ ## Bring together variables as specified above to produce final dynamic title
+  output$subject_by_industry_title <- renderText({
+    paste(
+      "Industry of employment for ", provisioninput(), " learners achieving in " ,  subjectinput(),  " in 2019/20, by ", breakdowninput()
+      )
+    })
+
+  
+#Colour coding functions  
+  
+  
+  orange_pal <- function(x) {
+    if (!is.na(x)) {
+      rgb(colorRamp(c("#F7FBFF", "#317ABF"))(x), maxColorValue = 255)
+    } else {
+      "#e9e9e9" # grey
+    }
+  }
+  
+  
+  
+  
+  stylefunc <- function(value, index, name) {
+    if (value >= 0 && !is.na(value)) {
+      data <- crosstabs_data %>%
+        mutate_if(
+          is.numeric,
+          funs(ifelse(. < 0, NA, .))
+        )
+      
+      normalized <- (value - min(data %>%
+                                   select(-Industry), na.rm = T)) /
+        (max(data %>%
+               select(-Industry), na.rm = T) - min(data %>%
+                                                     select(-Industry), na.rm = T))
+      color <- orange_pal(normalized)
+      list(background = color)
+    }
+  }
+  
+  
+ 
+  
+  ##---- TEST CODE
+  
+ #  SSAinput <- reactive({input$selectSSA})
+ #  
+ # crosstab_test <- observe({     # If selected breakdown is ethnicity, select totals for all other options and output columns of interest
+ #        dfInd %>% 
+ #        filter(SSATier1 == 'All', SSATier2 == 'All', Provision == 'All',
+ #               LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All', 
+ #               Industry != 'All')})
+ #   
+ # 
+ #   
+ #   output$crosstab_test <-  renderReactable({reactable(crosstab_test)})
+  
+  
 
   # Stop app ---------------------------------------------------------------------------------
 
