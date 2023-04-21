@@ -157,7 +157,7 @@ server <- function(input, output, session) {
 
 # Output final table  
   
-  output$subject_by_industry_crosstab <- renderReactable({crosstab_data()})
+  output$subject_by_industry_crosstab <- renderTable({crosstab_data()})
                                                            
   
 # output$subject_by_industry_crosstab <- renderTable({

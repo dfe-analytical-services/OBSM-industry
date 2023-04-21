@@ -1,44 +1,48 @@
 #### SUBJECT BY INDUSTRY FUNCTIONS ====================================
 
 # Where proportions have been selected as data type, need to first create table of volumes from which perecentages will be calculated
+
+
+
 filter_vols_data <-  function(inputbreakdown, inputtype, inputSSA, inputprovision)({
+
   
-  orange_pal <- function(x) {
-    if (!is.na(x)) {
-      rgb(colorRamp(c("#F7FBFF", "#317ABF"))(x), maxColorValue = 255)
-    } else {
-      "#e9e9e9" # grey
-    }
-  }
-  
-  # function which returns background colour based on cell value (using colour map)
-  # also takes column name as an input, which allows to get max and min
-  stylefunc <- function(value, index, name) {
-    if (value >= 0 && !is.na(value)) {
-      data <- crosstabs_data %>%
-        mutate_if(
-          is.numeric,
-          funs(ifelse(. < 0, NA, .))
-        )
-      
-      normalized <- (value - min(data %>%
-                                   select(-SECTIONNAME), na.rm = T)) /
-        (max(data %>%
-               select(-SECTIONNAME), na.rm = T) - min(data %>%
-                                                        select(-SECTIONNAME), na.rm = T))
-      color <- orange_pal(normalized)
-      list(background = color)
-    }
-  }
-  
-  cellfunc <- function(value) {
-    if (is.na(value)) {
-      "x"
-    } else if (value < 0) "c" else cellformat(value)
-  }
-  
-  
-  
+  # orange_pal <- function(x) {
+  #   if (!is.na(x)) {
+  #     rgb(colorRamp(c("#F7FBFF", "#317ABF"))(x), maxColorValue = 255)
+  #   } else {
+  #     "#e9e9e9" # grey
+  #   }
+  # }
+  # 
+  # # function which returns background colour based on cell value (using colour map)
+  # # also takes column name as an input, which allows to get max and min
+  # stylefunc <- function(value, index, name) {
+  #   if (value >= 0 && !is.na(value)) {
+  #     data <- crosstabs_data %>%
+  #       mutate_if(
+  #         is.numeric,
+  #         funs(ifelse(. < 0, NA, .))
+  #       )
+  #     
+  #     normalized <- (value - min(data %>%
+  #                                  select(-SECTIONNAME), na.rm = T)) /
+  #       (max(data %>%
+  #              select(-SECTIONNAME), na.rm = T) - min(data %>%
+  #                                                       select(-SECTIONNAME), na.rm = T))
+  #     color <- orange_pal(normalized)
+  #     list(background = color)
+  #   }
+  # }
+  # 
+  # cellfunc <- function(value) {
+  #   if (is.na(value)) {
+  #     "x"
+  #   } else if (value < 0) "c" else cellformat(value)
+  # }
+  # 
+  # 
+  # 
   
   if(inputbreakdown == 'Gender' & inputtype == 'SustainedEmploymentPercent'){
     dfInd %>%
@@ -146,6 +150,7 @@ collate_crosstab_data <- function(data, totaldata, inputbreakdown, inputtype, in
       select(Industry, Ethnicity, NumberSustainedEmployment)     %>%
       spread(Ethnicity, NumberSustainedEmployment) %>%
       arrange(desc(All)) %>%
+      relocate(All, .after = last_col()) %>% 
       as.data.frame()
   }
   else if(inputbreakdown == 'Gender'& inputtype == 'NumberSustainedEmployment') {
@@ -163,8 +168,9 @@ collate_crosstab_data <- function(data, totaldata, inputbreakdown, inputtype, in
       filter(SSATier1 == inputSSA, SSATier2 == 'All', Provision == inputprovision,
              Gender == 'All', AppType == 'All', Ethnicity == 'All', AgeGroup == 'All',
              Industry != 'All') %>%
-      select(Industry, LevelOfLearning, input$selectType)     %>%
+      select(Industry, LevelOfLearning, NumberSustainedEmployment)     %>%
       spread(LevelOfLearning, NumberSustainedEmployment) %>%
+      relocate(All, .after = last_col()) %>% 
       arrange(desc(All)) %>%
       as.data.frame()
   }
