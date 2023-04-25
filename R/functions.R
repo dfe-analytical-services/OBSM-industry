@@ -111,6 +111,7 @@ collate_crosstab_data <- function(data, totaldata, inputbreakdown, inputtype, in
       spread(Gender, PercentSustainedEmployment) %>%
       relocate(All, .after = last_col()) %>% 
       arrange(desc(All)) %>%
+      rename(Total = All) %>% 
       as.data.frame()
   }
   else if(inputbreakdown == "AgeGroup" & inputtype == 'SustainedEmploymentPercent') {
@@ -121,6 +122,7 @@ collate_crosstab_data <- function(data, totaldata, inputbreakdown, inputtype, in
       spread(AgeGroup, PercentSustainedEmployment) %>%
       relocate(All, .after = last_col()) %>% 
       arrange(desc(All)) %>%
+      rename(Total = All) %>% 
       as.data.frame()
   }
   else if(inputbreakdown == "Ethnicity" & inputtype == 'SustainedEmploymentPercent') {
@@ -131,6 +133,7 @@ collate_crosstab_data <- function(data, totaldata, inputbreakdown, inputtype, in
       spread(Ethnicity, PercentSustainedEmployment) %>%
       relocate(All, .after = last_col()) %>% 
       arrange(desc(All)) %>%
+      rename(Total = All) %>% 
       as.data.frame()
   }
   else if(inputbreakdown == "LevelOfLearning" & inputtype == 'SustainedEmploymentPercent') {
@@ -141,6 +144,7 @@ collate_crosstab_data <- function(data, totaldata, inputbreakdown, inputtype, in
       spread(LevelOfLearning, PercentSustainedEmployment) %>%
       relocate(All, .after = last_col()) %>% 
       arrange(desc(All)) %>%
+      rename(Total = All) %>% 
       as.data.frame()
   }
 

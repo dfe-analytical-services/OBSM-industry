@@ -26,6 +26,13 @@ subject_by_industry_panel <- function(){tabPanel(
                     )
   ),
   
+  # Provision input
+  selectizeInput(
+    inputId = "selectProvision",
+    label = "Select provision type",
+    choices = choicesProvision$Provision
+  ),
+  
   # SSA Tier 1 input 
     selectizeInput(
     inputId = "selectSSA",
@@ -33,13 +40,6 @@ subject_by_industry_panel <- function(){tabPanel(
     choices = choicesSSATier1$SSATier1
     ),
   
- # Provision input
-  selectizeInput(
-    inputId = "selectProvision",
-    label = "Select provision type",
-    choices = choicesProvision$Provision
-    ),
- 
 
  # Data breakdown input
  selectizeInput(
