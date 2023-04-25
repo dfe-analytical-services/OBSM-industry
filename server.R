@@ -154,11 +154,27 @@ server <- function(input, output, session) {
   crosstab_data <- reactive({collate_crosstab_data(vols_data_filtered(), total_val(), input$selectBreakdown,input$selectType, 
                                          input$selectSSA, input$selectProvision)})
   
+  gt_table <- reactive({gt(crosstab_data())})
+  
+  gt_table_color <- reactive({data_color(gt_table(),columns = -Industry, direction = "column",
+                                          method = "numeric",
+                                          palette = "Blues"
+                                         )
+                                         
+                                         
+                                         
+                                         
+    })
+  
 
 # Output final table  
   
-  output$subject_by_industry_crosstab <- renderTable({crosstab_data()})
-                                                           
+#  output$subject_by_industry_crosstab <- renderTable({crosstab_data()})
+  output$subject_by_industry_crosstab <- render_gt({gt_table_color()})
+  
+  
+  #output$subject_by_industry_crosstab <- render_gt({gt(crosstab_data())})
+  
   
 # output$subject_by_industry_crosstab <- renderTable({
 # 

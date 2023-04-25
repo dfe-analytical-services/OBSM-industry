@@ -23,10 +23,11 @@ shhh(library(dplyr))
 shhh(library(ggplot2))
 shhh(library(plotly))
 shhh(library(DT))
-shhh(library(htmltools))
+#shhh(library(htmltools))
 shhh(library(reactable))
-shhh(library(scales))
+#shhh(library(scales))
 shhh(library(formattable))
+shhh(library(gt))
 # Functions ---------------------------------------------------------------------------------
 
 # Here's an example function for simplifying the code needed to commas separate numbers:

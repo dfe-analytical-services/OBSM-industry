@@ -87,7 +87,7 @@ mainPanel(
 #paste("Add text here"),
 h4(textOutput("subject_by_industry_title")),
 tableOutput("subject_by_industry_crosstab")
-
+#gt_output("subject_by_indsutry_crosstab")
 
 
 
