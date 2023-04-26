@@ -52,18 +52,23 @@ subject_by_industry_panel <- function(){tabPanel(
                   )
  ),
  
- # 
+
  # column(
  #   width = 12,
- #   paste("Download the underlying data for this dashboard:"), br(),
+ #   paste("Download underlying data"), br(),
  #   downloadButton(
  #     outputId = "download_data",
  #     label= "Download data",
  #     icon = shiny::icon("download"),
  #     class = "downloadButton",
- #     style="display:inline-block; float:center"
+ #     style="display:inline-block"
  #   )),
-   
+ 
+ # helpText("Download the current table as a csv"),
+ # downloadButton("downloadData", "Download table"),
+ # #helpText("Note that the downloaded data will not retain the ordering in the displayed table and will instead order the data alphabetically by industry and sub-industry."),
+    
+
  # Code to prevent text wrapping when selecting input from dropdowns
  tags$head(
    tags$style(HTML('
@@ -84,9 +89,14 @@ mainPanel(
   width = 10,
   style = "height: 90vh; overflow-y: auto; overflow-x: auto;",
   
-#paste("Add text here"),
+
 h4(textOutput("subject_by_industry_title")),
-tableOutput("subject_by_industry_crosstab")
+paste("This table shows the industry that learners moved into after achieving their aim in 2019/20"),
+tableOutput("subject_by_industry_crosstab"),
+helpText("Download the table as a csv"),
+downloadButton("downloadSubInd", label = "Download this data table")
+
+
 #gt_output("subject_by_indsutry_crosstab")
 
 

@@ -160,10 +160,7 @@ server <- function(input, output, session) {
     # Remove anly columns which are entirely NAs
     remove_empty(., which = "cols") %>% 
     gt() %>% 
-      # {if(input$selectBreakdown == "Ethnicity")
-      #     cols_label(data =., `Black/African/Caribbean/Black British` =  html("Very long name<br>of a variable")) 
-      # }
-   # Add white borders to all cells
+     # Add white borders to all cells
    tab_style( 
            style = cell_borders( 
              sides = ,
@@ -189,6 +186,7 @@ server <- function(input, output, session) {
         style     = list(
           cell_text(weight = "bold") 
         )) %>% 
+    
     # Fix width of columns
       cols_width(Industry ~ px(275), everything() ~ px(105)) %>%
     # Format as either percentage or number depending on if volumes or proportions are selected  
@@ -197,7 +195,9 @@ server <- function(input, output, session) {
       else fmt_number(., columns = -Industry, decimals = 0)} %>% 
     # Apply colour coding to columns based on cell value
       data_color(., columns = -Industry, direction = "column",
-                                 palette = "Blues")
+                                 palette = "Blues") %>% 
+    # Add footnotes
+      tab_footnote("Volumes have been rounded to the nearest 10")
        })
  
 # Output final table  
