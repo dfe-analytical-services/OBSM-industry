@@ -158,7 +158,8 @@ server <- function(input, output, session) {
   gt_table <- reactive({ 
     crosstab_data() %>% 
     gt() %>% 
-         tab_style( 
+  # Add white borders to all cells
+   tab_style( 
            style = cell_borders( 
              sides = ,
              color = "white",
@@ -169,8 +170,23 @@ server <- function(input, output, session) {
              columns = everything(),
              rows = everything()
            )
-         )
-             })
+         ) %>% 
+  # Change font size
+    tab_options(table.font.size = 14) %>% 
+  # Make Total column bold
+    tab_style(cell_text(weight = "bold"), locations = cells_body(
+        columns = Total,
+        rows = everything()
+      )) %>% 
+    # Make column headings bold
+      tab_style(
+        locations = cells_column_labels(columns = everything()),
+        style     = list(
+          cell_text(weight = "bold") 
+        )) %>% 
+    # Fix width of columns
+      cols_width(Industry ~ px(300), everything() ~ px(105))
+     })
   
   # Apply color coding
   gt_table_color <- reactive({data_color(gt_table(),columns = -Industry, direction = "column",
