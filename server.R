@@ -134,7 +134,7 @@ server <- function(input, output, session) {
 
   
 
-# Subject by industry crosstab --------------------------------------------
+# SUBJECT BY INDUSTRY CROSSTAB --------------------------------------------
 
   
 
@@ -157,6 +157,8 @@ server <- function(input, output, session) {
 # Output crosstab as a gt object and apply formatting
   crosstab_gt <- reactive({ 
     crosstab_data() %>% 
+    # Remove anly columns which are entirely NAs
+    remove_empty(., which = "cols") %>% 
     gt() %>% 
    # Add white borders to all cells
    tab_style( 
@@ -192,16 +194,13 @@ server <- function(input, output, session) {
       else fmt_number(., columns = -Industry, decimals = 0)} %>% 
     # Apply colour coding to columns based on cell value
       data_color(., columns = -Industry, direction = "column",
-                 method = "numeric",
-                 palette = "Blues")
-  
-    
+                                 palette = "Blues")
        })
  
 # Output final table  
-  
-# output$subject_by_industry_crosstab <- renderTable({crosstab_data()})
   output$subject_by_industry_crosstab <- render_gt({crosstab_gt()})
+# output$subject_by_industry_crosstab <- renderTable({crosstab_data()})
+
 
 
 

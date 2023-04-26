@@ -28,6 +28,7 @@ shhh(library(reactable))
 #shhh(library(scales))
 shhh(library(formattable))
 shhh(library(gt))
+shhh(library(janitor))
 # Functions ---------------------------------------------------------------------------------
 
 # Here's an example function for simplifying the code needed to commas separate numbers:
