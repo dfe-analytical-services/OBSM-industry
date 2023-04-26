@@ -154,11 +154,11 @@ server <- function(input, output, session) {
   crosstab_data <- reactive({collate_crosstab_data(vols_data_filtered(), total_val(), input$selectBreakdown,input$selectType, 
                                          input$selectSSA, input$selectProvision)})
   
-# Output as a gt object 
-  gt_table <- reactive({ 
+# Output crosstab as a gt object and apply formatting
+  crosstab_gt <- reactive({ 
     crosstab_data() %>% 
     gt() %>% 
-  # Add white borders to all cells
+   # Add white borders to all cells
    tab_style( 
            style = cell_borders( 
              sides = ,
@@ -171,9 +171,9 @@ server <- function(input, output, session) {
              rows = everything()
            )
          ) %>% 
-  # Change font size
+    # Change font size
     tab_options(table.font.size = 13.5) %>% 
-  # Make Total column bold
+   # Make Total column bold
     tab_style(cell_text(weight = "bold"), locations = cells_body(
         columns = Total,
         rows = everything()
@@ -185,88 +185,24 @@ server <- function(input, output, session) {
           cell_text(weight = "bold") 
         )) %>% 
     # Fix width of columns
-      cols_width(Industry ~ px(275), everything() ~ px(105)) 
+      cols_width(Industry ~ px(275), everything() ~ px(105)) %>%
+    # Format as either percentage or number depending on if volumes or proportions are selected  
+      {if (input$selectType == "SustainedEmploymentPercent") 
+         fmt_percent(., columns = -Industry, decimals = 0) 
+      else fmt_number(., columns = -Industry, decimals = 0)} %>% 
+    # Apply colour coding to columns based on cell value
+      data_color(., columns = -Industry, direction = "column",
+                 method = "numeric",
+                 palette = "Blues")
   
     
        })
-  
-formatted_data <- reactive({if(input$selectType == "SustainedEmploymentPercent"){
-                           gt_table() %>%  fmt_percent(columns = -Industry, decimals = 0)
-}
-else {gt_table() %>%  fmt_number(columns = -Industry, decimals = 0)}
-})
-  
-  #  %>% 
-     # ifelse(input$selectType == "SustainedEmploymentPercent", fmt_number(., columns = -Industry), fmt_percent(., columns = -Industry))
-      
-     # fmt_number(columns = -Industry, decimals = 0)
-  
-  
-  
-  #      fmt_number(columns = -Industry, decimals = 0)
-
-  
-  # Apply color coding
-  gt_table_color <- reactive({data_color(formatted_data(),columns = -Industry, direction = "column",
-                                          method = "numeric",
-                                          palette = "Blues"
-                                         )})
-  
-  
-  
-  # format_data_style <- reactive({
-  #   if(input$selectType == "SustainedEmploymentPercent"){
-  #     gt_table %>% 
-  #       fmt_number(columns = -Industry, decimals = 0)
-  #   }    
-  #   else{
-  #     gt_table %>% 
-  #       fmt_percent(columns = -Industry)
-  #   }
-  # })
-
+ 
 # Output final table  
   
 # output$subject_by_industry_crosstab <- renderTable({crosstab_data()})
-  output$subject_by_industry_crosstab <- render_gt({gt_table_color()})
-  
-  
-  #output$subject_by_industry_crosstab <- render_gt({gt(crosstab_data())})
-  
-  
-# output$subject_by_industry_crosstab <- renderTable({
-# 
-#   
-#   # orange_pal <- function(x) {
-#   #   if (!is.na(x)) {
-#   #     rgb(colorRamp(c("#F7FBFF", "#317ABF"))(x), maxColorValue = 255)
-#   #   } else {
-#   #     "#e9e9e9" # grey
-#   #   }
-#   # }
-#   # 
-#   # stylefunc <- function(value, index, name) {
-#   #   if (value >= 0 && !is.na(value)) {
-#   #     data <- crosstab_data %>%
-#   #       mutate_if(
-#   #         is.numeric,
-#   #         funs(ifelse(. < 0, NA, .))
-#   #       )
-#   #     
-#   #     normalized <- (value - min(data %>%
-#   #                                  select(-Industry), na.rm = T)) /
-#   #       (max(data %>%
-#   #              select(-Industry), na.rm = T) - min(data %>%
-#   #                                                    select(-Industry), na.rm = T))
-#   #     color <- orange_pal(normalized)
-#   #     list(background = color)
-#   #   }
-#   # }
-#   # 
-#   
-#   crosstab_data()
-#   })
-         
+  output$subject_by_industry_crosstab <- render_gt({crosstab_gt()})
+
 
 
 # Dynamic title for subject by industry page ------------------------------
