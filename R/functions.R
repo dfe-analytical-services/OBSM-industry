@@ -24,7 +24,7 @@ filter_vols_data <-  function(inputbreakdown, inputtype, inputSSA, inputprovisio
       filter(SSATier1 == inputSSA, SSATier2 == 'All', Provision ==  inputprovision,
              LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All',
              Industry != 'All') %>%
-      select(Industry, Ethnicity,  NumberSustainedEmployment)
+      select(Industry, Ethnicity,  NumberSustainedEmployment) 
   }
   else if(inputbreakdown == 'LevelOfLearning' & inputtype == 'SustainedEmploymentPercent')  {
     dfInd %>%

@@ -160,6 +160,9 @@ server <- function(input, output, session) {
     # Remove anly columns which are entirely NAs
     remove_empty(., which = "cols") %>% 
     gt() %>% 
+      # {if(input$selectBreakdown == "Ethnicity")
+      #     cols_label(data =., `Black/African/Caribbean/Black British` =  html("Very long name<br>of a variable")) 
+      # }
    # Add white borders to all cells
    tab_style( 
            style = cell_borders( 
