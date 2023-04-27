@@ -91,7 +91,7 @@ mainPanel(
   
 
 h4(textOutput("subject_by_industry_title")),
-paste("This table shows the industry that learners moved into after achieving their aim in 2019/20"),
+paste("This table shows the industry of employment for learners with a sustained employment destination in 2020/21, after completing their aim in 2019/20"),
 tableOutput("subject_by_industry_crosstab"),
 helpText("Download the table as a csv"),
 downloadButton("downloadSubInd", label = "Download this data table")

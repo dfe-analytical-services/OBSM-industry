@@ -1,6 +1,15 @@
 # Subject by industry functions -------------------------------------------
 
 
+
+gt_hyperlink <- function(text, url) {
+  htmltools::a(href = url, text, target = "_blank") %>%
+    as.character() %>%
+    gt::html()
+}
+
+
+
 # Where proportions have been selected as data type, need to first create table of volumes from which perecentages will be calculated
 
 filter_vols_data <-  function(inputbreakdown, inputtype, inputSSA, inputprovision)({

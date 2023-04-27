@@ -192,13 +192,18 @@ server <- function(input, output, session) {
     # Format as either percentage or number depending on if volumes or proportions are selected  
       {if (input$selectType == "SustainedEmploymentPercent") 
          fmt_percent(., columns = -Industry, decimals = 0) 
-      else fmt_number(., columns = -Industry, decimals = 0)} %>% 
+      else fmt_number(., columns = -Industry, decimals = 0)
+        } %>% 
     # Apply colour coding to columns based on cell value
       data_color(., columns = -Industry, direction = "column",
                                  palette = "Blues") %>% 
     # Add footnotes
-      tab_footnote("Volumes have been rounded to the nearest 10")
-       })
+     {if (input$selectType == "SustainedEmploymentPercent")
+         tab_footnote(., "Proportions have been calculated using volume figures which have been rounded to the nearest 10")
+      else tab_footnote(., "Learner volumes have been rounded to the nearest 10")
+      } %>% 
+      tab_footnote(., "Where appropriate, data has been suppressed to protect confidentiality")
+         })
  
 # Output final table  
   output$subject_by_industry_crosstab <- render_gt({crosstab_gt()})
