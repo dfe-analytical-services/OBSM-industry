@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-Shiny template app
+Further Education Outcomes Industry Dashboard
   <br>
 </h1>
 
@@ -54,16 +54,10 @@ You should list out the software and programming skills needed, as well as any a
 
 - Particularly [R Shiny](https://shiny.rstudio.com/)
 
-### iii. Access requirements
-
-- Access to the Stats Development Team SQL modelling area (MA_SDT_NS_DATA) in T1PRANMSQL\SQLPROD,60125. Request access from Cam Race and forward on your request to the PDR mailbox (PupilData.REPOSITORY@education.gov.uk)
   
 ---
 
 ## How to use
-
-You should clearly lay out the steps needed to run your code here - generally, they will be similar to the below for Shiny apps:
-
 
 ### Running the app locally
 
@@ -113,10 +107,10 @@ If you spot any issues with the application, please flag it in the "Issues" tab 
 
 ### Merging pull requests
 
-Only members of the Statistics Development team can merge pull requests. Add lauraselby, cjrace and sarahmwong as requested reviewers, and the team will review before merging.
+Only members of the team can merge pull requests. Add hkeogan as a requested reviewer, and the team will review before merging.
 
 ---
 
 ## Contact
 
-Add contact details of how to get in touch with your team.
+If you have any questions about the dashboard please contact the team on FE.OUTCOMESDATA@education.gov.uk.
