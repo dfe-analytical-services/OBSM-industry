@@ -3,6 +3,14 @@
 Further Education Outcomes Industry Dashboard
   <br>
 </h1>
+The dashboard providers users with the ability to explore industry data for Further Education learners with a sustained employment destination in the 2020/21 academic year.
+
+The dashboard includes two main tabs:
+
+- Subject by industry: Contains data on the industry of employment learners move into after completing their learning aim.
+
+- Industry by subject:
+
 
 This template repository is for making accessible apps for published statistics in DfE. It includes a basic accessible shiny app with DfE styling, as well as templates for additional best practice documents like this README script, pull request templates and codes of conduct for contributing.
 
