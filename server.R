@@ -134,7 +134,7 @@ server <- function(input, output, session) {
 
   
 
-# Subject by industry crosstab --------------------------------------------
+# SUBJECT BY INDUSTRY CROSSTAB --------------------------------------------
 
   
 
@@ -154,45 +154,72 @@ server <- function(input, output, session) {
   crosstab_data <- reactive({collate_crosstab_data(vols_data_filtered(), total_val(), input$selectBreakdown,input$selectType, 
                                          input$selectSSA, input$selectProvision)})
   
-
+# Output crosstab as a gt object and apply formatting
+  crosstab_gt <- reactive({ 
+    crosstab_data() %>% 
+    # Remove anly columns which are entirely NAs
+    remove_empty(., which = "cols") %>% 
+    gt() %>% 
+     # Add white borders to all cells
+   tab_style( 
+           style = cell_borders( 
+             sides = ,
+             color = "white",
+             weight = px(1.5),
+             style = "solid"
+           ),
+           locations = cells_body(
+             columns = everything(),
+             rows = everything()
+           )
+         ) %>% 
+    # Change font size
+    tab_options(table.font.size = 13.5) %>% 
+   # Make Total column bold
+    tab_style(cell_text(weight = "bold"), locations = cells_body(
+        columns = Total,
+        rows = everything()
+      )) %>% 
+    # Make column headings bold
+      tab_style(
+        locations = cells_column_labels(columns = everything()),
+        style     = list(
+          cell_text(weight = "bold") 
+        )) %>% 
+    
+    # Fix width of columns
+      cols_width(Industry ~ px(275), everything() ~ px(105)) %>%
+    # Format as either percentage or number depending on if volumes or proportions are selected  
+      {if (input$selectType == "SustainedEmploymentPercent") 
+         fmt_percent(., columns = -Industry, decimals = 0) 
+      else fmt_number(., columns = -Industry, decimals = 0)
+        } %>% 
+    # Apply colour coding to columns based on cell value
+      data_color(., columns = -Industry, direction = "column",
+                                 palette = "Blues") %>% 
+    # Add footnotes
+     {if (input$selectType == "SustainedEmploymentPercent")
+         tab_footnote(., "1. Proportions have been calculated using volume figures which have been rounded to the nearest 10")
+      else tab_footnote(., "1. Learner volumes have been rounded to the nearest 10")
+      } %>% 
+      tab_footnote(., "2. Where appropriate, data has been suppressed to protect confidentiality") %>% 
+      tab_footnote(., "3. This data provides information about the industry of the company that a learner works for, but does not tell us about their occupation within the company.")
+    
+         })
+ 
 # Output final table  
+  output$subject_by_industry_crosstab <- render_gt({crosstab_gt()})
+# output$subject_by_industry_crosstab <- renderTable({crosstab_data()})
+
+# Download button for subject by industry data
   
-  output$subject_by_industry_crosstab <- renderTable({crosstab_data()})
-                                                           
+  output$downloadSubInd <- downloadHandler(
+    filename = "subject_by_industry.csv",
+    content = function(file) {
+      write.csv(crosstab_gt(), file)
+    }
+  )
   
-# output$subject_by_industry_crosstab <- renderTable({
-# 
-#   
-#   # orange_pal <- function(x) {
-#   #   if (!is.na(x)) {
-#   #     rgb(colorRamp(c("#F7FBFF", "#317ABF"))(x), maxColorValue = 255)
-#   #   } else {
-#   #     "#e9e9e9" # grey
-#   #   }
-#   # }
-#   # 
-#   # stylefunc <- function(value, index, name) {
-#   #   if (value >= 0 && !is.na(value)) {
-#   #     data <- crosstab_data %>%
-#   #       mutate_if(
-#   #         is.numeric,
-#   #         funs(ifelse(. < 0, NA, .))
-#   #       )
-#   #     
-#   #     normalized <- (value - min(data %>%
-#   #                                  select(-Industry), na.rm = T)) /
-#   #       (max(data %>%
-#   #              select(-Industry), na.rm = T) - min(data %>%
-#   #                                                    select(-Industry), na.rm = T))
-#   #     color <- orange_pal(normalized)
-#   #     list(background = color)
-#   #   }
-#   # }
-#   # 
-#   
-#   crosstab_data()
-#   })
-         
 
 
 # Dynamic title for subject by industry page ------------------------------
@@ -234,58 +261,6 @@ server <- function(input, output, session) {
       "Industry of employment for ", provisioninput(), " learners achieving in " ,  subjectinput(),  " in 2019/20, by ", breakdowninput()
       )
     })
-
-  
-#Colour coding functions  
-  
-  
-  orange_pal <- function(x) {
-    if (!is.na(x)) {
-      rgb(colorRamp(c("#F7FBFF", "#317ABF"))(x), maxColorValue = 255)
-    } else {
-      "#e9e9e9" # grey
-    }
-  }
-  
-  
-  
-  
-  stylefunc <- function(value, index, name) {
-    if (value >= 0 && !is.na(value)) {
-      data <- crosstabs_data %>%
-        mutate_if(
-          is.numeric,
-          funs(ifelse(. < 0, NA, .))
-        )
-      
-      normalized <- (value - min(data %>%
-                                   select(-Industry), na.rm = T)) /
-        (max(data %>%
-               select(-Industry), na.rm = T) - min(data %>%
-                                                     select(-Industry), na.rm = T))
-      color <- orange_pal(normalized)
-      list(background = color)
-    }
-  }
-  
-  
- 
-  
-  ##---- TEST CODE
-  
- #  SSAinput <- reactive({input$selectSSA})
- #  
- # crosstab_test <- observe({     # If selected breakdown is ethnicity, select totals for all other options and output columns of interest
- #        dfInd %>% 
- #        filter(SSATier1 == 'All', SSATier2 == 'All', Provision == 'All',
- #               LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All', 
- #               Industry != 'All')})
- #   
- # 
- #   
- #   output$crosstab_test <-  renderReactable({reactable(crosstab_test)})
-  
-  
 
   # Stop app ---------------------------------------------------------------------------------
 

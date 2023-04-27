@@ -25,8 +25,10 @@ shhh(library(plotly))
 shhh(library(DT))
 shhh(library(htmltools))
 shhh(library(reactable))
-shhh(library(scales))
-#shhh(library(formattable))
+#shhh(library(scales))
+shhh(library(formattable))
+shhh(library(gt))
+shhh(library(janitor))
 # Functions ---------------------------------------------------------------------------------
 
 # Here's an example function for simplifying the code needed to commas separate numbers:
@@ -116,12 +118,12 @@ choicesPhase <- unique(dfRevBal$school_phase)
 # Read in industry data
 dfInd <- read_ind_data() %>%
   mutate(NumberSustainedEmployment = suppressWarnings(as.integer(NumberSustainedEmployment))) %>% # Convert columns into numeric values
-  #mutate(NumberSustainedEmployment = comma(NumberSustainedEmployment)) %>% #Format numbers with comma
-#mutate(SustainedEmploymentPercent = percent(SustainedEmploymentPercent/100, accuracy = 1)) %>%
   mutate(IndustrySection = str_to_sentence(IndustrySection)) %>% 
   #Improve formatting for industry variable  
-  rename(Industry = IndustrySection)
-#dfInd$SustainedEmploymentPercent <- formattable::percent((dfInd$SustainedEmploymentPercent/100), 0 ) #Format as percentage
+  rename(Industry = IndustrySection) %>% 
+  # Manual override to improve formatting
+  mutate(Ethnicity = ifelse(Ethnicity == 'Black/African/Caribbean/Black British', 'Black/African/ Caribbean/ Black British', Ethnicity))
+
 
 
 

@@ -26,6 +26,13 @@ subject_by_industry_panel <- function(){tabPanel(
                     )
   ),
   
+  # Provision input
+  selectizeInput(
+    inputId = "selectProvision",
+    label = "Select provision type",
+    choices = choicesProvision$Provision
+  ),
+  
   # SSA Tier 1 input 
     selectizeInput(
     inputId = "selectSSA",
@@ -33,13 +40,6 @@ subject_by_industry_panel <- function(){tabPanel(
     choices = choicesSSATier1$SSATier1
     ),
   
- # Provision input
-  selectizeInput(
-    inputId = "selectProvision",
-    label = "Select provision type",
-    choices = choicesProvision$Provision
-    ),
- 
 
  # Data breakdown input
  selectizeInput(
@@ -52,18 +52,8 @@ subject_by_industry_panel <- function(){tabPanel(
                   )
  ),
  
- # 
- # column(
- #   width = 12,
- #   paste("Download the underlying data for this dashboard:"), br(),
- #   downloadButton(
- #     outputId = "download_data",
- #     label= "Download data",
- #     icon = shiny::icon("download"),
- #     class = "downloadButton",
- #     style="display:inline-block; float:center"
- #   )),
-   
+
+
  # Code to prevent text wrapping when selecting input from dropdowns
  tags$head(
    tags$style(HTML('
@@ -84,10 +74,16 @@ mainPanel(
   width = 10,
   style = "height: 90vh; overflow-y: auto; overflow-x: auto;",
   
-#paste("Add text here"),
-h4(textOutput("subject_by_industry_title")),
-tableOutput("subject_by_industry_crosstab")
 
+h4(textOutput("subject_by_industry_title")),
+paste("This table shows the industry of employment for learners with a sustained employment destination in 2020/21, after completing their aim in 2019/20."),
+br(),
+tableOutput("subject_by_industry_crosstab"),
+helpText("Download the table as a csv"),
+downloadButton("downloadSubInd", label = "Download this data table")
+
+
+#gt_output("subject_by_indsutry_crosstab")
 
 
 
