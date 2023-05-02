@@ -86,34 +86,10 @@ site_overflow <- "https://department-for-education.shinyapps.io/dfe-shiny-templa
 source("R/support_links.R")
 source("R/read_data.R")
 
-# Example code ----
-# Read in the data
-dfRevBal <- read_revenue_data()
-# Get geographical levels from data
-dfAreas <- dfRevBal %>%
-  select(
-    geographic_level, country_name, country_code,
-    region_name, region_code,
-    la_name, old_la_code, new_la_code
-  ) %>%
-  distinct()
 
-choicesLAs <- dfAreas %>%
-  filter(geographic_level == "Local authority") %>%
-  select(geographic_level, area_name = la_name) %>%
-  arrange(area_name)
 
-choicesAreas <- dfAreas %>%
-  filter(geographic_level == "National") %>%
-  select(geographic_level, area_name = country_name) %>%
-  rbind(dfAreas %>% filter(geographic_level == "Regional") %>% select(geographic_level, area_name = region_name)) %>%
-  rbind(choicesLAs)
+# Read in data ------------------------------------------------------------
 
-choicesYears <- unique(dfRevBal$time_period)
-
-choicesPhase <- unique(dfRevBal$school_phase)
-
-## Actual code ----
 
 # Read in industry data
 dfInd <- read_ind_data() %>%
@@ -126,6 +102,7 @@ dfInd <- read_ind_data() %>%
 
 
 
+# Set up list of choices for input selections -----------------------------
 
 # Get list of all options for SSA Tier 1
 choicesSSATier1 <- dfInd %>%
@@ -140,7 +117,6 @@ choicesProvision <- dfInd %>%
   arrange(Provision != 'All', Provision) #Ensure 'All' appears at top of list
 
 # Get list of options for Industry
-
 choicesIndustry <- dfInd %>%
   select(Industry) %>%
   distinct %>%
