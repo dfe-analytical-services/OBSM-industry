@@ -92,6 +92,7 @@ ui <- function(input, output, session) {
       homepage_panel(),
       dashboard_panel(),
       subject_by_industry_panel(),
+      industry_by_subject_panel(),
       a11y_panel(),
       support_links()
     ),

@@ -133,10 +133,15 @@ choicesSSATier1 <- dfInd %>%
   distinct %>%
   arrange(SSATier1 != 'All', SSATier1) #Ensure 'All' appears at top of list
 
-#Get list of options for provision type
+# Get list of options for provision type
 choicesProvision <- dfInd %>%
   select(Provision) %>%
   distinct %>%
   arrange(Provision != 'All', Provision) #Ensure 'All' appears at top of list
 
+# Get list of options for Industry
 
+choicesIndustry <- dfInd %>%
+  select(Industry) %>%
+  distinct %>%
+  arrange(Industry != 'All', Industry) #Ensure 'All' appears at top of list

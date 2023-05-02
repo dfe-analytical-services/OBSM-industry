@@ -82,10 +82,7 @@ tableOutput("subject_by_industry_crosstab"),
 helpText("Download the table as a csv"),
 downloadButton("downloadSubInd", label = "Download this data table")
 
-
-#gt_output("subject_by_indsutry_crosstab")
-
-
+# 
 
 ))}
 
