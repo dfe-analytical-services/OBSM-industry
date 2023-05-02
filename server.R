@@ -262,238 +262,87 @@ server <- function(input, output, session) {
 
 # INDUSTRY BY SUBJECT CROSSTAB --------------------------------------------
 
-  #Through functions ##
+  # Call function which when proportions have been selected as data type, first creates a table of volumes with selected filters applied
+  # from which percentages will then be calculated.
+  vols_data_filtered_subj <- reactive({  filter_vols_data_subj(input$selectBreakdownInd, input$selectTypeInd, input$selectIndustry, input$selectProvisionInd) })
+  
+  # Call function which when proportions have been selected as data type, assign a grand total of learners for filtered data to use in 
+  #calculating percentages  
+  total_val_subj <- reactive({calc_learner_total(vols_data_filtered_subj(), input$selectBreakdownInd, input$selectTypeInd)})
+  
+  
+  # Call function which when proportions have been selected as data type, divide initial volumes by grand total to create percentage, then format.
+  # If volumes are selected as data type, output filtered volume data.
+  # crosstab_data_subj <- reactive({
+  #   collate_crosstab_data_subj(vols_data_filtered_subj(), total_val_subj(), input$selectBreakdownInd, input$selectTypeInd,
+  #                                                  input$selectIndustry, input$selectProvisionInd)
+  #   })
 
-  # # Call function which when proportions have been selected as data type, first creates a table of volumes with selected filters applied
-  # # from which percentages will then be calculated.
-  # vols_data_filtered_ind <- reactive({filter_vols_data_ind(input$selectBreakdownInd, input$selectTypeInd, input$selectInd, input$selectProvisionInd)})
-  # 
-  # # Call function which when proportions have been selected as data type, assign a grand total of learners for filtered data to use in
-  # #calculating percentages
-  # total_val_ind <- reactive({calc_learner_total(vols_data_filtered_ind(), input$selectBreakdownInd, input$selectTypeInd)})
-  # 
-  # 
-  # 
-  # # Call function which when proportions have been selected as data type, divide initial volumes by grand total to create percentage, then format.
-  # # If volumes are selected as data type, output filtered volume data.
-  # crosstab_data_ind <- reactive({collate_crosstab_data_ind(vols_data_filtered_ind(), total_val_ind(), input$selectBreakdownInd,input$selectTypeInd,
-  #                                                  input$selectIndustry, input$selectProvisionInd)})
-  # 
-  # 
-  #  output$industry_by_subject_crosstab  <- renderTable({crosstab_data_ind()})
-  # 
-  
-  vols_data_filtered_ind <- reactive({
-    
-    filter_vols_data_ind(input$selectBreakdownInd, input$selectTypeInd, input$selectIndustry, input$selectProvisionInd)
-    
-    # if(input$selectBreakdownInd == 'Gender' & input$selectTypeInd == 'SustainedEmploymentPercent'){
-    #   dfInd %>%
-    #     filter(Industry == input$selectIndustry, SSATier2 == 'All', Provision ==  input$selectProvisionInd,
-    #            LevelOfLearning == 'All', AppType == 'All', AgeGroup == 'All', Ethnicity == 'All',
-    #            SSATier1 != 'All') %>%
-    #     select(SSATier1, Gender,  NumberSustainedEmployment)
-    # }
-    # else if(input$selectBreakdownInd == 'AgeGroup' & input$selectTypeInd == 'SustainedEmploymentPercent')  {
-    #   dfInd %>%
-    #     filter(Industry == input$selectIndustry, SSATier2 == 'All', Provision ==  input$selectProvisionInd,
-    #            LevelOfLearning == 'All', AppType == 'All', Gender == 'All', Ethnicity == 'All',
-    #            SSATier1 != 'All') %>%
-    #     select(SSATier1, AgeGroup,  NumberSustainedEmployment)
-    # }
-    # else if(input$selectBreakdownInd == 'Ethnicity' & input$selectTypeInd == 'SustainedEmploymentPercent')  {
-    #   dfInd %>%
-    #     filter(Industry == input$selectIndustry, SSATier2 == 'All', Provision ==  input$selectProvisionInd,
-    #            LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All',
-    #            SSATier1 != 'All') %>%
-    #     select(SSATier1, Ethnicity,  NumberSustainedEmployment) 
-    # }
-    # else if(input$selectBreakdownInd == 'LevelOfLearning' & input$selectTypeInd == 'SustainedEmploymentPercent')  {
-    #   dfInd %>%
-    #     filter(Industry == input$selectIndustry, SSATier2 == 'All', Provision ==  input$selectProvisionInd,
-    #            Ethnicity == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All',
-    #            SSATier1 != 'All') %>%
-    #     select(SSATier1, LevelOfLearning,  NumberSustainedEmployment)
-    # }
-    # else{
-    #   dfInd %>%
-    #     filter(Industry == 'All', SSATier2 == 'All', Provision ==  'All',
-    #            Ethnicity == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All',
-    #            SSATier1 != 'All') %>%
-    #     select(SSATier1, NumberSustainedEmployment)
-    # }
-    # 
-    
-  })
-  
-  
-  
-  calc_learner_total_ind <- reactive({
-    if(input$selectBreakdownInd == "Gender" &  input$selectTypeInd  == 'SustainedEmploymentPercent') {
-      subset(vols_data_filtered_ind(), Gender == "All") %>%
-        {sum(.$NumberSustainedEmployment, na.rm = TRUE)}
-    }
-    else if(input$selectBreakdownInd == "AgeGroup" & input$selectTypeInd  == 'SustainedEmploymentPercent') {
-      subset(vols_data_filtered_ind(), AgeGroup == "All") %>%
-        {sum(.$NumberSustainedEmployment, na.rm = TRUE)}
-    }
-    else if(input$selectBreakdownInd == "Ethnicity" & input$selectTypeInd  == 'SustainedEmploymentPercent') {
-      subset(vols_data_filtered_ind(), Ethnicity == "All") %>%
-        {sum(.$NumberSustainedEmployment, na.rm = TRUE)}
-    }
-    else if(input$selectBreakdownInd == "LevelOfLearning" & input$selectTypeInd  == 'SustainedEmploymentPercent') {
-      subset(vols_data_filtered_ind(), LevelOfLearning == "All") %>%
-        {sum(.$NumberSustainedEmployment, na.rm = TRUE)}
-    }
-  })
-  
-  
-  
-  
-  collate_crosstab_data_ind <- reactive({
-    if(input$selectBreakdownInd == "Gender" & input$selectTypeInd == 'SustainedEmploymentPercent') {
-      vols_data_filtered_ind() %>%
-        mutate(PercentSustainedEmployment = NumberSustainedEmployment/calc_learner_total_ind() ) %>%
-        mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
-        select(-NumberSustainedEmployment) %>%
-        spread(Gender, PercentSustainedEmployment) %>%
-        relocate(All, .after = last_col()) %>% 
-        arrange(desc(All)) %>%
-        rename(Total = All) %>% 
-        as.data.frame()
-    }
-    else if(input$selectBreakdownInd == "AgeGroup" & input$selectTypeInd == 'SustainedEmploymentPercent') {
-      vols_data_filtered_ind() %>%
-        mutate(PercentSustainedEmployment = NumberSustainedEmployment/calc_learner_total_ind()) %>%
-        mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
-        select(-NumberSustainedEmployment) %>%
-        spread(AgeGroup, PercentSustainedEmployment) %>%
-        relocate(All, .after = last_col()) %>% 
-        arrange(desc(All)) %>%
-        rename(Total = All) %>% 
-        as.data.frame()
-    }
-    else if(input$selectBreakdownInd == "Ethnicity" & input$selectTypeInd == 'SustainedEmploymentPercent') {
-      vols_data_filtered_ind() %>%
-        mutate(PercentSustainedEmployment = NumberSustainedEmployment/calc_learner_total_ind()) %>%
-        mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
-        select(-NumberSustainedEmployment) %>%
-        spread(Ethnicity, PercentSustainedEmployment) %>%
-        relocate(All, .after = last_col()) %>% 
-        arrange(desc(All)) %>%
-        rename(Total = All) %>% 
-        as.data.frame()
-    }
-    else if (input$selectBreakdownInd == "LevelOfLearning" & input$selectTypeInd == 'SustainedEmploymentPercent')
-    {
-      vols_data_filtered_ind() %>%
-        mutate(PercentSustainedEmployment = NumberSustainedEmployment/calc_learner_total_ind()) %>%
-        mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
-        select(-NumberSustainedEmployment) %>%
-        spread(LevelOfLearning, PercentSustainedEmployment) %>%
-        relocate(All, .after = last_col()) %>% 
-        arrange(desc(All)) %>%
-        rename(Total = All) %>% 
-        as.data.frame()
-    }
-    
-    
-    
-    # Where volumes have been selected as data type, select totals for all other options and then format
-    else  if(input$selectBreakdownInd == 'Ethnicity' & input$selectTypeInd == 'NumberSustainedEmployment'){
-      dfInd %>%
-        filter(Industry == input$selectIndustry, SSATier2 == 'All', Provision == input$selectProvisionInd,
-               LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All',
-               SSATier1 != 'All') %>%
-        select(SSATier1, Ethnicity, NumberSustainedEmployment)     %>%
-        spread(Ethnicity, NumberSustainedEmployment) %>%
-        relocate(All, .after = last_col()) %>%
-        arrange(desc(All)) %>%
-        rename(Total = All) %>% 
-        as.data.frame()
-    }
-    else if(input$selectBreakdownInd == 'Gender'& input$selectTypeInd == 'NumberSustainedEmployment') {
-      dfInd %>%
-        filter(Industry == input$selectIndustry, SSATier2 == 'All', Provision == input$selectProvisionInd,
-               LevelOfLearning == 'All', AppType == 'All', Ethnicity == 'All', AgeGroup == 'All',
-               SSATier1 != 'All') %>%
-        select(SSATier1, Gender, NumberSustainedEmployment)     %>%
-        spread(Gender, NumberSustainedEmployment) %>%
-        relocate(All, .after = last_col()) %>% 
-        arrange(desc(All)) %>%
-        rename(Total = All) %>% 
-        as.data.frame()
-    }
-    else if(input$selectBreakdownInd == 'LevelOfLearning' & input$selectTypeInd == 'NumberSustainedEmployment') {
-      dfInd %>%
-        filter(Industry == input$selectIndustry, SSATier2 == 'All', Provision == input$selectProvisionInd,
-               Gender == 'All', AppType == 'All', Ethnicity == 'All', AgeGroup == 'All',
-               SSATier1 != 'All') %>%
-        select(SSATier1, LevelOfLearning, NumberSustainedEmployment)     %>%
-        spread(LevelOfLearning, NumberSustainedEmployment) %>%
-        relocate(All, .after = last_col()) %>% 
-        arrange(desc(All)) %>%
-        rename(Total = All) %>% 
-        as.data.frame()
-    }
-    else if(input$selectBreakdownInd == 'AgeGroup' & input$selectTypeInd == 'NumberSustainedEmployment') {
-      dfInd %>%
-        filter(Industry == input$selectIndustry, SSATier2 == 'All', Provision == input$selectProvisionInd,
-               Gender == 'All', AppType == 'All', Ethnicity == 'All', LevelOfLearning == 'All',
-               SSATier1 != 'All') %>%
-        select(SSATier1, AgeGroup, NumberSustainedEmployment)     %>%
-        spread(AgeGroup, NumberSustainedEmployment) %>%
-        relocate(All, .after = last_col()) %>% 
-        arrange(desc(All)) %>%
-        rename(Total = All) %>% 
-        as.data.frame()
-    }
-    #If no breakdowns are selected show summary data for all
-    else {dfInd %>%
-        filter(Industry == input$selectIndustry, SSATier2 == 'All', Provision == input$selectProvisionInd,
-               LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All', Ethnicity == 'All',
-               SSATier1 != 'All') %>%
-        select(SSATier1, Ethnicity, NumberSustainedEmployment)     %>%
-        spread(Ethnicity, NumberSustainedEmployment) %>%
-        arrange(desc(All)) %>%
-        rename(Total = All) %>% 
-        as.data.frame() }
+  crosstab_data_subj <- reactive({ collate_crosstab_data_subj(vols_data_filtered_subj(), total_val_subj(), 
+                                    input$selectBreakdownInd, input$selectTypeInd, input$selectIndustry, input$selectProvisionInd)})
+
 
   
-    
-    
-    
-    
-    
-    
-    
-    
-  })
   
+  # output$subject_by_industry_crosstab <- renderTable({
+  #   crosstab_data_subj()
+  # })
   
-  
-  
-  output$subject_by_industry_crosstab <- renderTable({
-    collate_crosstab_data_ind()
-  })
-  
+ # Output crosstab as a gt object and apply formatting
+  crosstab_gt_subj <- reactive({ 
+    crosstab_data_subj() %>% 
+      # Remove anly columns which are entirely NAs
+      remove_empty(., which = "cols") %>%
+      gt() %>%
+      # Add white borders to all cells
+      tab_style(
+        style = cell_borders(
+          sides = ,
+          color = "white",
+          weight = px(1.5),
+          style = "solid"
+        ),
+        locations = cells_body(
+          columns = everything(),
+          rows = everything()
+        )
+      ) %>%
+      # Change font size
+      tab_options(table.font.size = 13.5) %>%
+      # Make Total column bold
+      tab_style(cell_text(weight = "bold"), locations = cells_body(
+        columns = Total,
+        rows = everything()
+      )) %>%
+      # Make column headings bold
+      tab_style(
+        locations = cells_column_labels(columns = everything()),
+        style     = list(
+          cell_text(weight = "bold")
+        )) %>%
 
-   # output$industry_by_subject_crosstab <- renderTable({
-   #   
-   #   dfInd %>%
-   #     filter(Industry %in% input$selectIndustry, SSATier2 == 'All', Provision == input$selectProvisionInd,
-   #            LevelOfLearning == 'All', AppType == 'All', Gender == 'All', AgeGroup == 'All',
-   #            SSATier1 != 'All') %>%
-   #     select(SSATier1, Ethnicity, NumberSustainedEmployment)     %>%
-   #     spread(Ethnicity, NumberSustainedEmployment)# %>%
-   #     # relocate(All, .after = last_col()) %>%
-   #     # arrange(desc(All)) %>%
-   #     # rename(Total = All) %>% 
-   #     # as.data.frame()
-   #     # 
-   # })
-   # 
+      # Fix width of columns
+      cols_width(SSATier1 ~ px(275), everything() ~ px(105)) %>%
+      # Format as either percentage or number depending on if volumes or proportions are selected
+      {if (input$selectTypeInd == "SustainedEmploymentPercent")
+        fmt_percent(., columns = -SSATier1, decimals = 0)
+        else fmt_number(., columns = -SSATier1, decimals = 0)
+      } %>%
+      # Apply colour coding to columns based on cell value
+      data_color(., columns = -SSATier1, direction = "column",
+                 palette = "Blues") %>%
+      # Add footnotes
+      {if (input$selectTypeInd == "SustainedEmploymentPercent")
+        tab_footnote(., "1. Proportions have been calculated using volume figures which have been rounded to the nearest 10")
+        else tab_footnote(., "1. Learner volumes have been rounded to the nearest 10")
+      } %>%
+      tab_footnote(., "2. Where appropriate, data has been suppressed to protect confidentiality") %>%
+      tab_footnote(., "3. This data provides information about the industry of the company that a learner works for, but does not tell us about their occupation within the company.")
+
+  })
   
+  # Output final table  
+  output$subject_by_industry_crosstab <- render_gt({crosstab_gt_subj()})
   
   
   # Stop app --------------------------------------------------------------

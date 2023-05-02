@@ -1,3 +1,87 @@
+
+# General functions -------------------------------------------------------
+
+# Where proportions have been selected as data type, assign a grand total for filtered data to use in calculating percentages
+calc_learner_total <- function(data, inputbreakdown, inputtype )({
+  if(inputbreakdown == "Gender" &  inputtype == 'SustainedEmploymentPercent') {
+    subset(data, Gender == "All") %>%
+      {sum(.$NumberSustainedEmployment, na.rm = TRUE)}
+  }
+  else if(inputbreakdown == "AgeGroup" & inputtype == 'SustainedEmploymentPercent') {
+    subset(data, AgeGroup == "All") %>%
+      {sum(.$NumberSustainedEmployment, na.rm = TRUE)}
+  }
+  else if(inputbreakdown == "Ethnicity" & inputtype == 'SustainedEmploymentPercent') {
+    subset(data, Ethnicity == "All") %>%
+      {sum(.$NumberSustainedEmployment, na.rm = TRUE)}
+  }
+  else if(inputbreakdown == "LevelOfLearning" & inputtype == 'SustainedEmploymentPercent') {
+    subset(data, LevelOfLearning == "All") %>%
+      {sum(.$NumberSustainedEmployment, na.rm = TRUE)}
+  }
+})
+
+
+# Format gt data
+
+# 
+# crosstab_gt_subj <- reactive({ 
+#   crosstab_data_subj() %>% 
+#     # Remove anly columns which are entirely NAs
+#     remove_empty(., which = "cols") %>%
+#     gt() %>%
+#     # Add white borders to all cells
+#     tab_style(
+#       style = cell_borders(
+#         sides = ,
+#         color = "white",
+#         weight = px(1.5),
+#         style = "solid"
+#       ),
+#       locations = cells_body(
+#         columns = everything(),
+#         rows = everything()
+#       )
+#     ) %>%
+#     # Change font size
+#     tab_options(table.font.size = 13.5) %>%
+#     # Make Total column bold
+#     tab_style(cell_text(weight = "bold"), locations = cells_body(
+#       columns = Total,
+#       rows = everything()
+#     )) %>%
+#     # Make column headings bold
+#     tab_style(
+#       locations = cells_column_labels(columns = everything()),
+#       style     = list(
+#         cell_text(weight = "bold")
+#       )) %>%
+#     
+#     # Fix width of columns
+#     cols_width(Industry ~ px(275), everything() ~ px(105)) %>%
+#     # Format as either percentage or number depending on if volumes or proportions are selected
+#     {if (input$selectType == "SustainedEmploymentPercent")
+#       fmt_percent(., columns = -Industry, decimals = 0)
+#       else fmt_number(., columns = -Industry, decimals = 0)
+#     } %>%
+#     # Apply colour coding to columns based on cell value
+#     data_color(., columns = -Industry, direction = "column",
+#                palette = "Blues") %>%
+#     # Add footnotes
+#     {if (input$selectType == "SustainedEmploymentPercent")
+#       tab_footnote(., "1. Proportions have been calculated using volume figures which have been rounded to the nearest 10")
+#       else tab_footnote(., "1. Learner volumes have been rounded to the nearest 10")
+#     } %>%
+#     tab_footnote(., "2. Where appropriate, data has been suppressed to protect confidentiality") %>%
+#     tab_footnote(., "3. This data provides information about the industry of the company that a learner works for, but does not tell us about their occupation within the company.")
+#   
+# 
+
+
+
+
+
+
 # Industry by subject functions -------------------------------------------
 
 # Where proportions have been selected as data type, need to first create table of volumes from which perecentages will be calculated
@@ -41,25 +125,7 @@ filter_vols_data <-  function(inputbreakdown, inputtype, inputSSA, inputprovisio
   }
 })
 
-# Where proportions have been selected as data type, assign a grand total for filtered data to use in calculating percentages
-calc_learner_total <- function(data, inputbreakdown, inputtype )({
-  if(inputbreakdown == "Gender" &  inputtype == 'SustainedEmploymentPercent') {
-    subset(data, Gender == "All") %>%
-      {sum(.$NumberSustainedEmployment, na.rm = TRUE)}
-  }
-  else if(inputbreakdown == "AgeGroup" & inputtype == 'SustainedEmploymentPercent') {
-    subset(data, AgeGroup == "All") %>%
-      {sum(.$NumberSustainedEmployment, na.rm = TRUE)}
-  }
-  else if(inputbreakdown == "Ethnicity" & inputtype == 'SustainedEmploymentPercent') {
-    subset(data, Ethnicity == "All") %>%
-      {sum(.$NumberSustainedEmployment, na.rm = TRUE)}
-  }
-  else if(inputbreakdown == "LevelOfLearning" & inputtype == 'SustainedEmploymentPercent') {
-    subset(data, LevelOfLearning == "All") %>%
-      {sum(.$NumberSustainedEmployment, na.rm = TRUE)}
-  }
-})
+
 
 # # Where proportions have been selected as data type, divide initial volumes by grand total to create percentage, then format
 collate_crosstab_data <- function(data, totaldata, inputbreakdown, inputtype, inputSSA, inputprovision)({
@@ -174,7 +240,7 @@ collate_crosstab_data <- function(data, totaldata, inputbreakdown, inputtype, in
 # Subject by industry -------------------------------------------
 
 # Where proportions have been selected as data type, need to first create table of volumes from which perecentages will be calculated
-filter_vols_data_ind <-  function(inputbreakdown, inputtype, inputindustry, inputprovision)({
+filter_vols_data_subj <-  function(inputbreakdown, inputtype, inputindustry, inputprovision)({
   
   if(inputbreakdown == 'Gender' & inputtype == 'SustainedEmploymentPercent'){
     dfInd %>%
@@ -213,43 +279,21 @@ filter_vols_data_ind <-  function(inputbreakdown, inputtype, inputindustry, inpu
   }
 })
 
-
-
-# Where proportions have been selected as data type, assign a grand total for filtered data to use in calculating percentages
-calc_learner_total_ind <- function(data, inputbreakdown, inputtype )({
-  if(inputbreakdown == "Gender" &  inputtype == 'SustainedEmploymentPercent') {
-    subset(data, Gender == "All") %>%
-      {sum(.$NumberSustainedEmployment, na.rm = TRUE)}
-  }
-  else if(inputbreakdown == "AgeGroup" & inputtype == 'SustainedEmploymentPercent') {
-    subset(data, AgeGroup == "All") %>%
-      {sum(.$NumberSustainedEmployment, na.rm = TRUE)}
-  }
-  else if(inputbreakdown == "Ethnicity" & inputtype == 'SustainedEmploymentPercent') {
-    subset(data, Ethnicity == "All") %>%
-      {sum(.$NumberSustainedEmployment, na.rm = TRUE)}
-  }
-  else if(inputbreakdown == "LevelOfLearning" & inputtype == 'SustainedEmploymentPercent') {
-    subset(data, LevelOfLearning == "All") %>%
-      {sum(.$NumberSustainedEmployment, na.rm = TRUE)}
-  }
-})
-
-
-
-
-
-# # Where proportions have been selected as data type, divide initial volumes by grand total to create percentage, then format
-collate_crosstab_data_ind <- function(data, totaldata, inputbreakdown, inputtype, inputindustry, inputprovision)({
+collate_crosstab_data_subj <- function(data, totaldata, inputbreakdown, inputtype, inputindustry, inputprovision)({
+  
+  
+  
+  
+  
   if(inputbreakdown == "Gender" & inputtype == 'SustainedEmploymentPercent') {
     data %>%
-      mutate(PercentSustainedEmployment = NumberSustainedEmployment/totaldata) %>%
+      mutate(PercentSustainedEmployment = NumberSustainedEmployment/totaldata ) %>%
       mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
       select(-NumberSustainedEmployment) %>%
       spread(Gender, PercentSustainedEmployment) %>%
-      relocate(All, .after = last_col()) %>% 
+      relocate(All, .after = last_col()) %>%
       arrange(desc(All)) %>%
-      rename(Total = All) %>% 
+      rename(Total = All) %>%
       as.data.frame()
   }
   else if(inputbreakdown == "AgeGroup" & inputtype == 'SustainedEmploymentPercent') {
@@ -258,9 +302,9 @@ collate_crosstab_data_ind <- function(data, totaldata, inputbreakdown, inputtype
       mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
       select(-NumberSustainedEmployment) %>%
       spread(AgeGroup, PercentSustainedEmployment) %>%
-      relocate(All, .after = last_col()) %>% 
+      relocate(All, .after = last_col()) %>%
       arrange(desc(All)) %>%
-      rename(Total = All) %>% 
+      rename(Total = All) %>%
       as.data.frame()
   }
   else if(inputbreakdown == "Ethnicity" & inputtype == 'SustainedEmploymentPercent') {
@@ -269,22 +313,24 @@ collate_crosstab_data_ind <- function(data, totaldata, inputbreakdown, inputtype
       mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
       select(-NumberSustainedEmployment) %>%
       spread(Ethnicity, PercentSustainedEmployment) %>%
-      relocate(All, .after = last_col()) %>% 
+      relocate(All, .after = last_col()) %>%
       arrange(desc(All)) %>%
-      rename(Total = All) %>% 
+      rename(Total = All) %>%
       as.data.frame()
   }
-  else if(inputbreakdown == "LevelOfLearning" & inputtype == 'SustainedEmploymentPercent') {
+  else if (inputbreakdown == "LevelOfLearning" & inputtype == 'SustainedEmploymentPercent')
+  {
     data %>%
       mutate(PercentSustainedEmployment = NumberSustainedEmployment/totaldata) %>%
       mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
       select(-NumberSustainedEmployment) %>%
       spread(LevelOfLearning, PercentSustainedEmployment) %>%
-      relocate(All, .after = last_col()) %>% 
+      relocate(All, .after = last_col()) %>%
       arrange(desc(All)) %>%
-      rename(Total = All) %>% 
+      rename(Total = All) %>%
       as.data.frame()
   }
+  
   
   
   # Where volumes have been selected as data type, select totals for all other options and then format
@@ -297,7 +343,7 @@ collate_crosstab_data_ind <- function(data, totaldata, inputbreakdown, inputtype
       spread(Ethnicity, NumberSustainedEmployment) %>%
       relocate(All, .after = last_col()) %>%
       arrange(desc(All)) %>%
-      rename(Total = All) %>% 
+      rename(Total = All) %>%
       as.data.frame()
   }
   else if(inputbreakdown == 'Gender'& inputtype == 'NumberSustainedEmployment') {
@@ -307,9 +353,9 @@ collate_crosstab_data_ind <- function(data, totaldata, inputbreakdown, inputtype
              SSATier1 != 'All') %>%
       select(SSATier1, Gender, NumberSustainedEmployment)     %>%
       spread(Gender, NumberSustainedEmployment) %>%
-      relocate(All, .after = last_col()) %>% 
+      relocate(All, .after = last_col()) %>%
       arrange(desc(All)) %>%
-      rename(Total = All) %>% 
+      rename(Total = All) %>%
       as.data.frame()
   }
   else if(inputbreakdown == 'LevelOfLearning' & inputtype == 'NumberSustainedEmployment') {
@@ -319,9 +365,9 @@ collate_crosstab_data_ind <- function(data, totaldata, inputbreakdown, inputtype
              SSATier1 != 'All') %>%
       select(SSATier1, LevelOfLearning, NumberSustainedEmployment)     %>%
       spread(LevelOfLearning, NumberSustainedEmployment) %>%
-      relocate(All, .after = last_col()) %>% 
+      relocate(All, .after = last_col()) %>%
       arrange(desc(All)) %>%
-      rename(Total = All) %>% 
+      rename(Total = All) %>%
       as.data.frame()
   }
   else if(inputbreakdown == 'AgeGroup' & inputtype == 'NumberSustainedEmployment') {
@@ -331,9 +377,9 @@ collate_crosstab_data_ind <- function(data, totaldata, inputbreakdown, inputtype
              SSATier1 != 'All') %>%
       select(SSATier1, AgeGroup, NumberSustainedEmployment)     %>%
       spread(AgeGroup, NumberSustainedEmployment) %>%
-      relocate(All, .after = last_col()) %>% 
+      relocate(All, .after = last_col()) %>%
       arrange(desc(All)) %>%
-      rename(Total = All) %>% 
+      rename(Total = All) %>%
       as.data.frame()
   }
   #If no breakdowns are selected show summary data for all
@@ -344,8 +390,11 @@ collate_crosstab_data_ind <- function(data, totaldata, inputbreakdown, inputtype
       select(SSATier1, Ethnicity, NumberSustainedEmployment)     %>%
       spread(Ethnicity, NumberSustainedEmployment) %>%
       arrange(desc(All)) %>%
-      rename(Total = All) %>% 
+      rename(Total = All) %>%
       as.data.frame() }
+  
+  
+  
+  
+  
 })
-
-
