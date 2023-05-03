@@ -22,66 +22,6 @@ calc_learner_total <- function(data, inputbreakdown, inputtype )({
 })
 
 
-# Format gt data
-
-# 
-# crosstab_gt_subj <- reactive({ 
-#   crosstab_data_subj() %>% 
-#     # Remove anly columns which are entirely NAs
-#     remove_empty(., which = "cols") %>%
-#     gt() %>%
-#     # Add white borders to all cells
-#     tab_style(
-#       style = cell_borders(
-#         sides = ,
-#         color = "white",
-#         weight = px(1.5),
-#         style = "solid"
-#       ),
-#       locations = cells_body(
-#         columns = everything(),
-#         rows = everything()
-#       )
-#     ) %>%
-#     # Change font size
-#     tab_options(table.font.size = 13.5) %>%
-#     # Make Total column bold
-#     tab_style(cell_text(weight = "bold"), locations = cells_body(
-#       columns = Total,
-#       rows = everything()
-#     )) %>%
-#     # Make column headings bold
-#     tab_style(
-#       locations = cells_column_labels(columns = everything()),
-#       style     = list(
-#         cell_text(weight = "bold")
-#       )) %>%
-#     
-#     # Fix width of columns
-#     cols_width(Industry ~ px(275), everything() ~ px(105)) %>%
-#     # Format as either percentage or number depending on if volumes or proportions are selected
-#     {if (input$selectType == "SustainedEmploymentPercent")
-#       fmt_percent(., columns = -Industry, decimals = 0)
-#       else fmt_number(., columns = -Industry, decimals = 0)
-#     } %>%
-#     # Apply colour coding to columns based on cell value
-#     data_color(., columns = -Industry, direction = "column",
-#                palette = "Blues") %>%
-#     # Add footnotes
-#     {if (input$selectType == "SustainedEmploymentPercent")
-#       tab_footnote(., "1. Proportions have been calculated using volume figures which have been rounded to the nearest 10")
-#       else tab_footnote(., "1. Learner volumes have been rounded to the nearest 10")
-#     } %>%
-#     tab_footnote(., "2. Where appropriate, data has been suppressed to protect confidentiality") %>%
-#     tab_footnote(., "3. This data provides information about the industry of the company that a learner works for, but does not tell us about their occupation within the company.")
-#   
-# 
-
-
-
-
-
-
 # Industry by subject functions -------------------------------------------
 
 # Where proportions have been selected as data type, need to first create table of volumes from which perecentages will be calculated
@@ -235,6 +175,81 @@ collate_crosstab_data <- function(data, totaldata, inputbreakdown, inputtype, in
       rename(Total = All) %>% 
       as.data.frame() }
 })
+
+
+
+
+# TEST FORMAT FUNCTION
+
+format_crosstab_gt <- function(data, inputtype)({
+  data %>% 
+    # Remove anly columns which are entirely NAs
+    remove_empty(., which = "cols") %>% 
+    gt() %>% 
+    # Add white borders to all cells
+    tab_style(
+      style = cell_borders(
+        sides = ,
+        color = "white",
+        weight = px(1.5),
+        style = "solid"
+      ),
+      locations = cells_body(
+        columns = everything(),
+        rows = everything()
+      )
+    ) %>%
+    # Change font size
+    tab_options(table.font.size = 13.5) %>%
+    # Make Total column bold
+    tab_style(cell_text(weight = "bold"), locations = cells_body(
+      columns = Total,
+      rows = everything()
+    )) %>%
+    # Make column headings bold
+    tab_style(
+      locations = cells_column_labels(columns = everything()),
+      style     = list(
+        cell_text(weight = "bold")
+      )) %>%
+    # Fix width of columns
+  cols_width(Industry ~ px(275), everything() ~ px(105))  %>%
+    # Format as either percentage or number depending on if volumes or proportions are selected
+    {if (inputtype == "SustainedEmploymentPercent")
+      fmt_percent(., columns = -Industry, decimals = 0)
+      else fmt_number(., columns = -Industry, decimals = 0)
+    } %>%
+    # Apply colour coding to columns based on cell value
+    data_color(., columns = -Industry, direction = "column",
+               palette = "Blues") %>%
+    # Add footnotes
+    {if (inputtype == "SustainedEmploymentPercent")
+      tab_footnote(., "1. Proportions have been calculated using volume figures which have been rounded to the nearest 10")
+      else tab_footnote(., "1. Learner volumes have been rounded to the nearest 10")
+    } %>%
+    tab_footnote(., "2. Where appropriate, data has been suppressed to protect confidentiality") %>%
+    tab_footnote(., "3. This data provides information about the industry of the company that a learner works for, but does not tell us about their occupation within the company.")
+
+
+  
+  
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Subject by industry -------------------------------------------

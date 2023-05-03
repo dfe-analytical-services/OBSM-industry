@@ -152,60 +152,11 @@ server <- function(input, output, session) {
   crosstab_data <- reactive({collate_crosstab_data(vols_data_filtered(), total_val(), input$selectBreakdown,input$selectType, 
                                          input$selectSSA, input$selectProvision)})
   
-# Output crosstab as a gt object and apply formatting
-  crosstab_gt <- reactive({ 
-    crosstab_data() %>% 
-    # Remove anly columns which are entirely NAs
-    remove_empty(., which = "cols") %>% 
-    gt() %>% 
-     # Add white borders to all cells
-   tab_style( 
-           style = cell_borders( 
-             sides = ,
-             color = "white",
-             weight = px(1.5),
-             style = "solid"
-           ),
-           locations = cells_body(
-             columns = everything(),
-             rows = everything()
-           )
-         ) %>% 
-    # Change font size
-    tab_options(table.font.size = 13.5) %>% 
-   # Make Total column bold
-    tab_style(cell_text(weight = "bold"), locations = cells_body(
-        columns = Total,
-        rows = everything()
-      )) %>% 
-    # Make column headings bold
-      tab_style(
-        locations = cells_column_labels(columns = everything()),
-        style     = list(
-          cell_text(weight = "bold") 
-        )) %>% 
-    
-    # Fix width of columns
-      cols_width(Industry ~ px(275), everything() ~ px(105)) %>%
-    # Format as either percentage or number depending on if volumes or proportions are selected  
-      {if (input$selectType == "SustainedEmploymentPercent") 
-         fmt_percent(., columns = -Industry, decimals = 0) 
-      else fmt_number(., columns = -Industry, decimals = 0)
-        } %>% 
-    # Apply colour coding to columns based on cell value
-      data_color(., columns = -Industry, direction = "column",
-                                 palette = "Blues") %>% 
-    # Add footnotes
-     {if (input$selectType == "SustainedEmploymentPercent")
-         tab_footnote(., "1. Proportions have been calculated using volume figures which have been rounded to the nearest 10")
-      else tab_footnote(., "1. Learner volumes have been rounded to the nearest 10")
-      } %>% 
-      tab_footnote(., "2. Where appropriate, data has been suppressed to protect confidentiality") %>% 
-      tab_footnote(., "3. This data provides information about the industry of the company that a learner works for, but does not tell us about their occupation within the company.")
-    
-         })
- 
-# Output final table  
+  
+# Call function to format data as gt table
+  crosstab_gt <- reactive({format_crosstab_gt(crosstab_data(), input$selectType)})
+  
+  # Output final table  
   output$industry_by_subject_crosstab <- render_gt({crosstab_gt()})
 # output$industry_by_subject_crosstab <- renderTable({crosstab_data()})
 
