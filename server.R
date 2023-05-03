@@ -149,7 +149,7 @@ server <- function(input, output, session) {
   
 # Call function which when proportions have been selected as data type, divide initial volumes by grand total to create percentage, then format.
 # If volumes are selected as data type, output filtered volume data.
-  crosstab_data <- reactive({collate_crosstab_data(vols_data_filtered(), total_val(), input$selectBreakdown,input$selectType, 
+  crosstab_data <- reactive({collate_crosstab_data(vols_data_filtered(), total_val(), input$selectSSAdetail, input$selectBreakdown,input$selectType, 
                                          input$selectSSA, input$selectProvision)})
   
 # Output crosstab as a gt object and apply formatting

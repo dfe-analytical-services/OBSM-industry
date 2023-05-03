@@ -22,6 +22,16 @@ subject_by_industry_panel <- function(){tabPanel(
       )
     ),
     
+    # Level of detail input
+    selectizeInput(
+      inputId = "selectSSADetail",
+      label = "Select level of detail for sector subject area",
+      choices = list( "General (SSA Tier 1)" = "SSATier1",
+                      "Detailed (SSA Tier 2)" = "SustainedEmploymentPercent"
+      )
+    ),
+    
+    
     # Industry input
     selectizeInput(
       inputId = "selectIndustry",
