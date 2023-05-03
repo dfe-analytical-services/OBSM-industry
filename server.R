@@ -277,7 +277,8 @@ server <- function(input, output, session) {
     crosstab_data_subj() %>% 
       # Remove anly columns which are entirely NAs
       remove_empty(., which = "cols") %>%
-      gt() %>%
+    #  gt(groupname_col = "SSATier1") %>% 
+      gt() %>% 
       # Add white borders to all cells
       tab_style(
         style = cell_borders(
@@ -305,14 +306,14 @@ server <- function(input, output, session) {
           cell_text(weight = "bold")
         )) %>%
       # Fix width of columns
-      cols_width(SSATier1 ~ px(275), everything() ~ px(105)) %>%
+      cols_width(SSATier1 ~ px(275), SSATier2 ~ px(275), everything() ~ px(105)) %>%
       # Format as either percentage or number depending on if volumes or proportions are selected
       {if (input$selectTypeSubj == "SustainedEmploymentPercent")
         fmt_percent(., columns = -SSATier1, decimals = 0)
         else fmt_number(., columns = -SSATier1, decimals = 0)
       } %>%
       # Apply colour coding to columns based on cell value
-      data_color(., columns = -SSATier1, direction = "column",
+      data_color(., columns = -c(1:2), direction = "column",
                  palette = "Blues") %>%
       # Add footnotes
       {if (input$selectTypeSubj == "SustainedEmploymentPercent")
@@ -322,7 +323,7 @@ server <- function(input, output, session) {
       tab_footnote(., "2. Where appropriate, data has been suppressed to protect confidentiality") %>%
       tab_footnote(., "3. This data provides is based on the industry in which a learner is employed, but does not tell us about their occupation within the company.") %>% 
       # Rename SSATier1 column
-      cols_label(., SSATier1 = 'Sector Subject Area Tier 1')
+      cols_label(., SSATier1 = 'Sector Subject Area Tier 1', SSATier2 = 'Sector Subject Area Tier 2')
   })
   
   # Output final table  
