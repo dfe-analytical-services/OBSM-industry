@@ -133,10 +133,9 @@ server <- function(input, output, session) {
 
   
 
-# INDUSTRY BY SUBJECT CROSSTAB --------------------------------------------
+# Industry by subject crosstab --------------------------------------------
 
   
-
 # Call function which when proportions have been selected as data type, first creates a table of volumes with selected filters applied
 # from which percentages will then be calculated. 
   vols_data_filtered <- reactive({filter_vols_data(input$selectBreakdown, input$selectType, input$selectSSA, input$selectProvision)})
@@ -219,9 +218,8 @@ server <- function(input, output, session) {
   )
   
 
-# Dynamic title for industry by subject page ------------------------------
+# Industry by subject title -----------------------------------------------
 
-  
 ## Reformat provision input - leave blank unless specifying type of provision
  provisioninput <- reactive({
    if(input$selectProvision == 'All'){
@@ -259,7 +257,7 @@ server <- function(input, output, session) {
       )
     })
 
-# INDUSTRY BY SUBJECT CROSSTAB --------------------------------------------
+# Subject by industry crosstab --------------------------------------------
 
   # Call function which when proportions have been selected as data type, first creates a table of volumes with selected filters applied
   # from which percentages will then be calculated.
@@ -338,6 +336,47 @@ server <- function(input, output, session) {
       write.csv(crosstab_gt_subj(), file)
     }
   )
+  
+
+# Subject by industry title -----------------------------------------------
+
+  
+  ## Reformat provision input - leave blank unless specifying type of provision
+  provisioninput <- reactive({
+    if(input$selectProvisionSubj == 'All'){
+      ""
+    }
+    else{
+      (tolower(input$selectProvisionSubj))}
+  })
+  
+  ## Reformat industry input
+  industryinput <- reactive({
+    if(input$selectIndustry== 'All'){
+      "all industries"
+    }
+    else{
+      (tolower(input$selectIndustry))}
+  })
+  
+  ## Reformat breakdown input
+  breakdowninput <- reactive({
+    if(input$selectBreakdownSubj == 'AgeGroup'){
+      "age group"
+    }
+    else if(input$selectBreakdownSubj == 'LevelOfLearning'){
+      "level of learning"
+    }
+    else{
+      (tolower(input$selectBreakdownSubj))}
+  })
+  
+  ## Bring together variables as specified above to produce final dynamic title
+  output$subject_by_industry_title <- renderText({
+    paste(
+      "Subjects studied by ", provisioninput(), " learners achieving in 19/20 with a sustained employment destination in",industryinput(),  ", by ", breakdowninput()
+    )
+  })
   
   # Stop app --------------------------------------------------------------
 
