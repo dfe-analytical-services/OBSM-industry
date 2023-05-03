@@ -210,8 +210,7 @@ server <- function(input, output, session) {
   output$industry_by_subject_crosstab <- render_gt({crosstab_gt()})
 # output$industry_by_subject_crosstab <- renderTable({crosstab_data()})
 
-# Download button for subject by industry data
-  
+# Download button for industry by subject data
   output$downloadIndSub <- downloadHandler(
     filename = "industry_by_subject.csv",
     content = function(file) {
@@ -273,21 +272,8 @@ server <- function(input, output, session) {
   
   # Call function which when proportions have been selected as data type, divide initial volumes by grand total to create percentage, then format.
   # If volumes are selected as data type, output filtered volume data.
-  # crosstab_data_subj <- reactive({
-  #   collate_crosstab_data_subj(vols_data_filtered_subj(), total_val_subj(), input$selectBreakdownInd, input$selectTypeInd,
-  #                                                  input$selectIndustry, input$selectProvisionInd)
-  #   })
-
   crosstab_data_subj <- reactive({ collate_crosstab_data_subj(vols_data_filtered_subj(), total_val_subj(), 
                                     input$selectBreakdownSubj, input$selectTypeSubj, input$selectIndustry, input$selectProvisionSubj)})
-
-
-  
-  
-  # output$subject_by_industry_crosstab <- renderTable({
-  #   crosstab_data_subj()
-  # })
-  
  # Output crosstab as a gt object and apply formatting
   crosstab_gt_subj <- reactive({ 
     crosstab_data_subj() %>% 
@@ -320,7 +306,6 @@ server <- function(input, output, session) {
         style     = list(
           cell_text(weight = "bold")
         )) %>%
-
       # Fix width of columns
       cols_width(SSATier1 ~ px(275), everything() ~ px(105)) %>%
       # Format as either percentage or number depending on if volumes or proportions are selected
@@ -337,13 +322,22 @@ server <- function(input, output, session) {
         else tab_footnote(., "1. Learner volumes have been rounded to the nearest 10")
       } %>%
       tab_footnote(., "2. Where appropriate, data has been suppressed to protect confidentiality") %>%
-      tab_footnote(., "3. This data provides information about the industry of the company that a learner works for, but does not tell us about their occupation within the company.")
-
+      tab_footnote(., "3. This data provides is based on the industry in which a learner is employed, but does not tell us about their occupation within the company.") %>% 
+      # Rename SSATier1 column
+      cols_label(., SSATier1 = 'Sector Subject Area Tier 1')
   })
   
   # Output final table  
   output$subject_by_industry_crosstab <- render_gt({crosstab_gt_subj()})
   
+  
+  # Download button for subject by industry data
+  output$downloadSubInd <- downloadHandler(
+    filename = "subject_by_industry.csv",
+    content = function(file) {
+      write.csv(crosstab_gt_subj(), file)
+    }
+  )
   
   # Stop app --------------------------------------------------------------
 

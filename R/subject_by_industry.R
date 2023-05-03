@@ -76,10 +76,10 @@ subject_by_industry_panel <- function(){tabPanel(
     # h4(textOutput("subject_by_industry_title")),
      paste("This table shows the subject studied by learners with a sustained employment destination in X industry in 2020/21, after completing their aim in 2019/20."),
     # br(),
-     tableOutput("subject_by_industry_crosstab")#,
-    # helpText("Download the table as a csv"),
-    # downloadButton("downloadSubInd", label = "Download this data table")
-    # 
+     tableOutput("subject_by_industry_crosstab"),
+     helpText("Download the table as a csv"),
+     downloadButton("downloadSubInd", label = "Download this data table")
+    #
 
 
   ))}
