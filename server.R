@@ -223,60 +223,10 @@ server <- function(input, output, session) {
   # If volumes are selected as data type, output filtered volume data.
   crosstab_data_subj <- reactive({ collate_crosstab_data_subj(vols_data_filtered_subj(), total_val_subj(), 
                                     input$selectBreakdownSubj, input$selectTypeSubj, input$selectIndustry, input$selectProvisionSubj)})
- # Output crosstab as a gt object and apply formatting
-  crosstab_gt_subj <- reactive({ 
-    crosstab_data_subj() %>% 
-      # Remove anly columns which are entirely NAs
-      remove_empty(., which = "cols") %>%
-    #  gt(groupname_col = "SSATier1") %>% 
-      gt() %>% 
-      # Add white borders to all cells
-      tab_style(
-        style = cell_borders(
-          sides = ,
-          color = "white",
-          weight = px(1.5),
-          style = "solid"
-        ),
-        locations = cells_body(
-          columns = everything(),
-          rows = everything()
-        )
-      ) %>%
-      # Change font size
-      tab_options(table.font.size = 13.5) %>%
-      # Make Total column bold
-      tab_style(cell_text(weight = "bold"), locations = cells_body(
-        columns = Total,
-        rows = everything()
-      )) %>%
-      # Make column headings bold
-      tab_style(
-        locations = cells_column_labels(columns = everything()),
-        style     = list(
-          cell_text(weight = "bold")
-        )) %>%
-      # Fix width of columns
-      cols_width(SSATier1 ~ px(275), SSATier2 ~ px(275), everything() ~ px(105)) %>%
-      # Format as either percentage or number depending on if volumes or proportions are selected
-      {if (input$selectTypeSubj == "SustainedEmploymentPercent")
-        fmt_percent(., columns = -SSATier1, decimals = 0)
-        else fmt_number(., columns = -SSATier1, decimals = 0)
-      } %>%
-      # Apply colour coding to columns based on cell value
-      data_color(., columns = -c(1:2), direction = "column",
-                 palette = "Blues") %>%
-      # Add footnotes
-      {if (input$selectTypeSubj == "SustainedEmploymentPercent")
-        tab_footnote(., "1. Proportions have been calculated using volume figures which have been rounded to the nearest 10")
-        else tab_footnote(., "1. Learner volumes have been rounded to the nearest 10")
-      } %>%
-      tab_footnote(., "2. Where appropriate, data has been suppressed to protect confidentiality") %>%
-      tab_footnote(., "3. This data provides is based on the industry in which a learner is employed, but does not tell us about their occupation within the company.") %>% 
-      # Rename SSATier1 column
-      cols_label(., SSATier1 = 'Sector Subject Area Tier 1', SSATier2 = 'Sector Subject Area Tier 2')
-  })
-  
+
+  # Call function to format data as gt table
+  crosstab_gt_subj <- reactive({format_gt_SSA2(crosstab_data_subj(), input$selectTypeSubj)})
+
   # Output final table  
   output$subject_by_industry_crosstab <- render_gt({crosstab_gt_subj()})
   

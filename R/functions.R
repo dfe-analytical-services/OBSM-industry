@@ -413,6 +413,66 @@ collate_crosstab_data_subj <- function(data, totaldata, inputbreakdown, inputtyp
   
 })
 
+
+# Function to format data as gt table - for when SSA Tier 2 is selected
+format_gt_SSA2 <- function(data, inputtype)({ 
+  data %>% 
+    # Remove any columns which are entirely NAs
+    remove_empty(., which = "cols") %>%
+   # gt(groupname_col = "SSATier1") %>% 
+    gt() %>% 
+    # Add white borders to all cells
+    tab_style(
+      style = cell_borders(
+        sides = ,
+        color = "white",
+        weight = px(1.5),
+        style = "solid"
+      ),
+      locations = cells_body(
+        columns = everything(),
+        rows = everything()
+      )
+    ) %>%
+    # Change font size
+     tab_options(table.font.size = 13.5) %>%
+    # Make Total column bold
+     tab_style(cell_text(weight = "bold"), locations = cells_body(
+       columns = Total,
+       rows = everything()
+     )) %>%
+    # Make column headings bold
+    tab_style(
+      locations = cells_column_labels(columns = everything()),
+      style     = list(
+        cell_text(weight = "bold")
+      )) %>%
+    # Fix width of columns
+     cols_width(SSATier1 ~ px(275), SSATier2 ~ px(275), everything() ~ px(105)) %>%
+    # Format as either percentage or number depending on if volumes or proportions are selected
+    {if (inputtype == "SustainedEmploymentPercent")
+      fmt_percent(., columns = -SSATier1, decimals = 0)
+      else fmt_number(., columns = -SSATier1, decimals = 0)
+    } %>%
+    # Apply colour coding to columns based on cell value
+    data_color(., columns = -c(1:2), direction = "column",
+               palette = "Blues") %>%
+    # Add footnotes
+    {if (inputtype == "SustainedEmploymentPercent")
+      tab_footnote(., "1. Proportions have been calculated using volume figures which have been rounded to the nearest 10")
+      else tab_footnote(., "1. Learner volumes have been rounded to the nearest 10")
+    } %>%
+    tab_footnote(., "2. Where appropriate, data has been suppressed to protect confidentiality") %>%
+    tab_footnote(., "3. This data provides is based on the industry in which a learner is employed, but does not tell us about their occupation within the company.") %>%
+    # Rename SSATier1 column
+    cols_label(., SSATier1 = 'Sector Subject Area Tier 1', SSATier2 = 'Sector Subject Area Tier 2')
+})
+
+
+
+
+
+
 # 
 # calc_learner_total <- function(data, inputbreakdown, inputtype )({
 #   if(inputbreakdown == "Gender" &  inputtype == 'SustainedEmploymentPercent') {
