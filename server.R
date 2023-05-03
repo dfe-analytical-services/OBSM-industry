@@ -264,11 +264,11 @@ server <- function(input, output, session) {
 
   # Call function which when proportions have been selected as data type, first creates a table of volumes with selected filters applied
   # from which percentages will then be calculated.
-  vols_data_filtered_subj <- reactive({  filter_vols_data_subj(input$selectBreakdownInd, input$selectTypeInd, input$selectIndustry, input$selectProvisionInd) })
+  vols_data_filtered_subj <- reactive({  filter_vols_data_subj(input$selectBreakdownSubj, input$selectTypeSubj, input$selectIndustry, input$selectProvisionSubj) })
   
   # Call function which when proportions have been selected as data type, assign a grand total of learners for filtered data to use in 
   #calculating percentages  
-  total_val_subj <- reactive({calc_learner_total(vols_data_filtered_subj(), input$selectBreakdownInd, input$selectTypeInd)})
+  total_val_subj <- reactive({calc_learner_total(vols_data_filtered_subj(), input$selectBreakdownSubj, input$selectTypeSubj)})
   
   
   # Call function which when proportions have been selected as data type, divide initial volumes by grand total to create percentage, then format.
@@ -279,7 +279,7 @@ server <- function(input, output, session) {
   #   })
 
   crosstab_data_subj <- reactive({ collate_crosstab_data_subj(vols_data_filtered_subj(), total_val_subj(), 
-                                    input$selectBreakdownInd, input$selectTypeInd, input$selectIndustry, input$selectProvisionInd)})
+                                    input$selectBreakdownSubj, input$selectTypeSubj, input$selectIndustry, input$selectProvisionSubj)})
 
 
   
@@ -324,7 +324,7 @@ server <- function(input, output, session) {
       # Fix width of columns
       cols_width(SSATier1 ~ px(275), everything() ~ px(105)) %>%
       # Format as either percentage or number depending on if volumes or proportions are selected
-      {if (input$selectTypeInd == "SustainedEmploymentPercent")
+      {if (input$selectTypeSubj == "SustainedEmploymentPercent")
         fmt_percent(., columns = -SSATier1, decimals = 0)
         else fmt_number(., columns = -SSATier1, decimals = 0)
       } %>%
@@ -332,7 +332,7 @@ server <- function(input, output, session) {
       data_color(., columns = -SSATier1, direction = "column",
                  palette = "Blues") %>%
       # Add footnotes
-      {if (input$selectTypeInd == "SustainedEmploymentPercent")
+      {if (input$selectTypeSubj == "SustainedEmploymentPercent")
         tab_footnote(., "1. Proportions have been calculated using volume figures which have been rounded to the nearest 10")
         else tab_footnote(., "1. Learner volumes have been rounded to the nearest 10")
       } %>%

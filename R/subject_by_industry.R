@@ -15,7 +15,7 @@ subject_by_industry_panel <- function(){tabPanel(
     
     # Volumes or proportions input
     selectizeInput(
-      inputId = "selectTypeInd",
+      inputId = "selectTypeSubj",
       label = "View the volumes or proportions of learners from each subject",
       choices = list( "Volumes" = "NumberSustainedEmployment",
                       "Proportions" = "SustainedEmploymentPercent"
@@ -33,7 +33,7 @@ subject_by_industry_panel <- function(){tabPanel(
     
     # Provision input
     selectizeInput(
-      inputId = "selectProvisionInd",
+      inputId = "selectProvisionSubj",
       label = "Select provision type",
       choices = choicesProvision$Provision
     ),
@@ -41,7 +41,7 @@ subject_by_industry_panel <- function(){tabPanel(
 
     # Data breakdown input
     selectizeInput(
-      inputId = "selectBreakdownInd",
+      inputId = "selectBreakdownSubj",
       label = "Select breakdown",
       choices = list( "Age Group" = "AgeGroup",
                       "Ethnicity" = "Ethnicity",
