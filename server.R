@@ -226,7 +226,7 @@ server <- function(input, output, session) {
                                     input$selectBreakdownSubj, input$selectTypeSubj, input$selectIndustry, input$selectProvisionSubj, input$selectSSADetail)})
 
   # Call function to format data as gt table
-  crosstab_gt_subj <- reactive({format_gt_SSA2(crosstab_data_subj(), input$selectTypeSubj, input$selectSSADetail)})
+  crosstab_gt_subj <- reactive({format_gt_subj(crosstab_data_subj(), input$selectTypeSubj, input$selectSSADetail)})
 
   # Output final table  
   output$subject_by_industry_crosstab <- render_gt({crosstab_gt_subj()})
