@@ -32,16 +32,14 @@ industry_by_subject_panel <- function(){tabPanel(
     label = "Select provision type",
     choices = choicesProvision$Provision
   ),
-  
-  # SSA Tier 1 input 
+
+  # SSA Tier 1 input
     selectizeInput(
     inputId = "selectSSA",
-    label = "Select Sector Subject Area",
-    #choices = choicesSSATier1$SSATier1
-    choices = c('Agriculture, Horticulture and Animal Care', 'Arts, Media and Publishing')
-    
+    label = "Select Sector Subject Area OLD",
+    choices = choicesSSATier1$SSATier1
     ),
-  
+
 
   
   
@@ -65,9 +63,26 @@ industry_by_subject_panel <- function(){tabPanel(
   #   
   # ),
   # 
-  selectInput('type', label = 'Input 1',
-              choices = c('choice1', 'choice2')),
-  uiOutput("mychoices")
+  selectInput('SSATier1', label = 'Select Sector Subject Area Tier 1',
+              choices = c('All',
+                          'Agriculture, Horticulture and Animal Care',
+                          'Arts, Media and Publishing',
+                          'Business, Administration and Law',
+                          'Education and Training',
+                          'Engineering and Manufacturing Technologies',
+                          'Health, Public Services and Care',
+                          'History, Philosophy and Theology',
+                          'Information and Communication Technology',
+                          'Languages, Literature and Culture',
+                          'Leisure, Travel and Tourism',
+                          'Preparation for Life and Work',
+                          'Retail and Commercial Enterprise',
+                          'Science and Mathematics',
+                          'Social Sciences',
+                          'Unknown'
+                          )),
+
+    uiOutput("SSATier2")
     ,
 
   
