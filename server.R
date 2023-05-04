@@ -132,23 +132,8 @@ server <- function(input, output, session) {
 
 # Industry by subject SSA Tier 2 filters ----------------------------------
 
-#SSA2_options <- c('Choice 1', 'Choice 2')
-
-  # output$SSATier2_choices <- renderUI ({
-  #   switch(input$selectSSATier2, 
-  #          'Agriculture, Horticulture and Animal Care' = selectInput('selectAgri'),
-  #           label = "Select SSA Tier 2 - Agri",
-  #           choices = c('Agri 1', 'Agri 2'),
-  #       'Arts, Media and Publishing' = selectInput('selectArts',
-  #                                                  label = "Select SSA Tier 2 - Arts",
-  #                                                  choices = c('Arts 1', 'Arts 2'))
-  # )
-  #     
-      
-    
-    
-    
- # })
+# Set input options for SSA Tier 2 to be dependent on the input selected for SSA Tier 1
+  
  output$SSATier2 <- renderUI({
     switch(input$SSATier1,
            'Agriculture, Horticulture and Animal Care' = selectInput('selectAgri', 

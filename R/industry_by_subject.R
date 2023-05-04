@@ -40,29 +40,6 @@ industry_by_subject_panel <- function(){tabPanel(
     choices = choicesSSATier1$SSATier1
     ),
 
-
-  
-  
-  # #SSA Tier 2 input
-  # 
-  # selectizeInput(
-  #   inputid = "selectSSATier2",
-  #   label = "Select sector subject area tier 2",
-  #   choices = c("choices_agriculture",
-  #               "choices_arts"
-  #               ),
-  # # uiOutput("SSATier2_choices"),
-  #    ),
-  # # 
-  
-  # selectizeInput(
-  #   inputId = "selectSSA2",
-  #   label = "Select Sector Subject Area2",
-  #   #choices = choicesSSATier1$SSATier1
-  #   choices = c('Agriculture, Horticulture and Animal Care2', 'Arts, Media and Publishing2')
-  #   
-  # ),
-  # 
   selectInput('SSATier1', label = 'Select Sector Subject Area Tier 1',
               choices = c('All',
                           'Agriculture, Horticulture and Animal Care',
@@ -86,7 +63,6 @@ industry_by_subject_panel <- function(){tabPanel(
     ,
 
   
-
  # Data breakdown input
  selectizeInput(
    inputId = "selectBreakdown",
