@@ -212,7 +212,8 @@ server <- function(input, output, session) {
 
   # Call function which when proportions have been selected as data type, first creates a table of volumes with selected filters applied
   # from which percentages will then be calculated.
-  vols_data_filtered_subj <- reactive({  filter_vols_data_subj(input$selectBreakdownSubj, input$selectTypeSubj, input$selectIndustry, input$selectProvisionSubj) })
+  vols_data_filtered_subj <- reactive({  filter_vols_data_subj(input$selectBreakdownSubj, input$selectTypeSubj, input$selectIndustry, 
+                                                               input$selectProvisionSubj, input$selectSSADetail) })
   
   # Call function which when proportions have been selected as data type, assign a grand total of learners for filtered data to use in 
   #calculating percentages  
@@ -222,13 +223,14 @@ server <- function(input, output, session) {
   # Call function which when proportions have been selected as data type, divide initial volumes by grand total to create percentage, then format.
   # If volumes are selected as data type, output filtered volume data.
   crosstab_data_subj <- reactive({ collate_crosstab_data_subj(vols_data_filtered_subj(), total_val_subj(), 
-                                    input$selectBreakdownSubj, input$selectTypeSubj, input$selectIndustry, input$selectProvisionSubj)})
+                                    input$selectBreakdownSubj, input$selectTypeSubj, input$selectIndustry, input$selectProvisionSubj, input$selectSSADetail)})
 
   # Call function to format data as gt table
   crosstab_gt_subj <- reactive({format_gt_SSA2(crosstab_data_subj(), input$selectTypeSubj)})
 
   # Output final table  
-  output$subject_by_industry_crosstab <- render_gt({crosstab_gt_subj()})
+  #output$subject_by_industry_crosstab <- render_gt({crosstab_gt_subj()})
+   output$subject_by_industry_crosstab <- renderTable({crosstab_data_subj()})
   
   
   # Download button for subject by industry data
