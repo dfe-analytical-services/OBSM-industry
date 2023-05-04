@@ -335,13 +335,10 @@ filter_vols_data_subj <-  function(inputbreakdown, inputtype, inputindustry, inp
 
 
 
-
 ## Collate crosstab data - subject by industry -----------------------------
 
 # Function to collate data for subject by industry crosstab
 collate_crosstab_data_subj <- function(data, totaldata, inputbreakdown, inputtype, inputindustry, inputprovision, inputdetail)({
-  
-  
   
   if(inputbreakdown == "Gender" & inputtype == 'SustainedEmploymentPercent') {
     data %>%
@@ -512,7 +509,7 @@ collate_crosstab_data_subj <- function(data, totaldata, inputbreakdown, inputtyp
 
 
 # Function to format data as gt table - for when SSA Tier 2 is selected
-format_gt_SSA2 <- function(data, inputtype)({ 
+format_gt_SSA2 <- function(data, inputtype, inputdetail)({ 
   data %>% 
     # Remove any columns which are entirely NAs
     remove_empty(., which = "cols") %>%
@@ -531,6 +528,13 @@ format_gt_SSA2 <- function(data, inputtype)({
         rows = everything()
       )
     ) %>%
+    # Add footnotes
+    {if (inputtype == "SustainedEmploymentPercent")
+      tab_footnote(., "1. Proportions have been calculated using volume figures which have been rounded to the nearest 10")
+      else tab_footnote(., "1. Learner volumes have been rounded to the nearest 10")
+    } %>%
+    tab_footnote(., "2. Where appropriate, data has been suppressed to protect confidentiality") %>%
+    tab_footnote(., "3. This data provides is based on the industry in which a learner is employed, but does not tell us about their occupation within the company.") %>%
     # Change font size
      tab_options(table.font.size = 13.5) %>%
     # Make Total column bold
@@ -545,24 +549,32 @@ format_gt_SSA2 <- function(data, inputtype)({
         cell_text(weight = "bold")
       )) %>%
     # Fix width of columns
-     cols_width(SSATier1 ~ px(275), SSATier2 ~ px(275), everything() ~ px(105)) %>%
+   
+    
+    
+    
+    #  cols_width(SSATier1 ~ px(275), SSATier2 ~ px(275), everything() ~ px(105)) %>%
     # Format as either percentage or number depending on if volumes or proportions are selected
     {if (inputtype == "SustainedEmploymentPercent")
       fmt_percent(., columns = -SSATier1, decimals = 0)
       else fmt_number(., columns = -SSATier1, decimals = 0)
     } %>%
+    
+    
     # Apply colour coding to columns based on cell value
+    
+    {if (inputdetail == 'SSATier2')
     data_color(., columns = -c(1:2), direction = "column",
-               palette = "Blues") %>%
-    # Add footnotes
-    {if (inputtype == "SustainedEmploymentPercent")
-      tab_footnote(., "1. Proportions have been calculated using volume figures which have been rounded to the nearest 10")
-      else tab_footnote(., "1. Learner volumes have been rounded to the nearest 10")
-    } %>%
-    tab_footnote(., "2. Where appropriate, data has been suppressed to protect confidentiality") %>%
-    tab_footnote(., "3. This data provides is based on the industry in which a learner is employed, but does not tell us about their occupation within the company.") %>%
+               palette = "Blues")
+    else  data_color(., columns = -SSATier1, direction = "column",
+                         palette = "Blues")} %>% 
+    
     # Rename SSATier1 column
-    cols_label(., SSATier1 = 'Sector Subject Area Tier 1', SSATier2 = 'Sector Subject Area Tier 2')
+    {if (inputdetail == 'SSATier2')
+      cols_label(., SSATier1 = 'Sector Subject Area Tier 1', SSATier2 = 'Sector Subject Area Tier 2')
+      else cols_label(., SSATier1 = 'Sector Subject Area Tier 1')
+      
+    }
 })
 
 
