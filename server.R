@@ -136,7 +136,7 @@ server <- function(input, output, session) {
   
 # Call function which when proportions have been selected as data type, first creates a table of volumes with selected filters applied
 # from which percentages will then be calculated. 
-  vols_data_filtered <- reactive({filter_vols_data(input$selectBreakdown, input$selectType, input$selectSSA, input$selectProvision)})
+  vols_data_filtered <- reactive({filter_vols_data(input$selectBreakdown, input$selectType, input$selectSSA, input$selectProvision, input$selectSSATier2)})
   
   
 # Call function which when proportions have been selected as data type, assign a grand total of learners for filtered data to use in 
@@ -148,7 +148,7 @@ server <- function(input, output, session) {
 # Call function which when proportions have been selected as data type, divide initial volumes by grand total to create percentage, then format.
 # If volumes are selected as data type, output filtered volume data.
   crosstab_data <- reactive({collate_crosstab_data(vols_data_filtered(), total_val(), input$selectBreakdown,input$selectType, 
-                                         input$selectSSA, input$selectProvision)})
+                                         input$selectSSA, input$selectProvision, input$selectSSATier2)})
   
   
 # Call function to format data as gt table
