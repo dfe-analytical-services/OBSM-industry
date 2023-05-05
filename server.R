@@ -151,6 +151,7 @@ server <- function(input, output, session) {
   })
   
   
+  
 # Industry by subject crosstab --------------------------------------------
 
   
@@ -203,8 +204,13 @@ server <- function(input, output, session) {
    if(input$selectSSA== 'All'){
      "all subjects"
    }
-   else{
-     (tolower(input$selectSSA))}
+## If no SSA Tier 2 filter is selected, use SSA Tier 1 to populate title
+   else if(input$selectSSATier2 == 'All'){
+     tolower(input$selectSSA)
+   }
+## If SSA Tier 2 filter is selected, use SSA Tier 2 in title
+   else {
+     (tolower(input$selectSSATier2))}
  })
  
  ## Reformat breakdown input
