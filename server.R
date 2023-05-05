@@ -130,70 +130,7 @@ server <- function(input, output, session) {
 
 
 
-# Industry by subject SSA Tier 2 filters ----------------------------------
 
-# Set input options for SSA Tier 2 to be dependent on the input selected for SSA Tier 1
-  
- output$SSATier2 <- renderUI({
-    switch(input$SSATier1,
-           'Agriculture, Horticulture and Animal Care' = selectInput('selectAgri', 
-                                   label = 'Select Sector Subject Area Tier 2',
-                                   choices = c('All', 'Agriculture', 'Animal Care and Veterinary Science',
-                                               'Environmental Conservation', 'Horticulture and Forestry')),
-           
-           'Arts, Media and Publishing' = selectInput('selectArts', label = 'Select Sector Subject Area Tier 2',
-                                   choices = c('All', 'Crafts, Creative Arts and Design', 'Media and Communication',
-                                               'Performing Arts', 'Publishing and Information Services')),
-           
-           'Business, Administration and Law' = selectInput('selectBusiness', label = 'Select Sector Subject Area Tier 2',
-                                                      choices = c('All', 'Accounting and Finance', 'Administration', 'Business Management',
-                                                                 'Law and Legal Services', 'Marketing and Sales' )),
-           
-           'Education and Training' = selectInput('selectEdu', label = 'Select Sector Subject Area Tier 2',
-                            choices = c('All', 'Building and Construction')),
-           
-           
-           'Engineering and Manufacturing Technologies' = selectInput('selectEng', label = 'Select Sector Subject Area Tier 2',
-                                                            choices = c('All', 'Engineering', 'Manufacturing Technologies', 'Transportation Operations and Maintenance')),
-           
-           'Health, Public Services and Care' = selectInput('selectHealth', label = 'Select Sector Subject Area Tier 2',
-                            choices = c('All', 'Child Development and Well Being', 'Health and Social Care', 'Medicine and Dentistry',
-                                        'Nursing and Subjects and Vocations Allied to Medicine', 'Public Services' )),
-           
-           'History, Philosophy and Theology' = selectInput('selectHist', label = 'Select Sector Subject Area Tier 2',
-                            choices = c('All', 'Archaeology and Archaeological Sciences', 'History', 'History, Philosophy and Theology',
-                                        'Philosophy', 'Theology and Religious Studies' )),
-           
-           'Information and Communication Technology' = selectInput('selectICT', label = 'Select Sector Subject Area Tier 2',
-                            choices = c('All', 'ICT for Users', 'ICT Practitioners')),
-           
-           'Languages, Literature and Culture' = selectInput('selectLang', label = 'Select Sector Subject Area Tier 2',
-                                                            choices = c('All', 'Languages, Literature and Culture of the British Isles', 'Linguistics', 
-                                                                        'Other Languages, Literature and Culture')),
-           
-           'Leisure, Travel and Tourism' = selectInput('selectLeisure', label = 'Select Sector Subject Area Tier 2',
-                            choices = c('All', 'Sport, Leisure and Recreation', 'Travel and Tourism')),
-
-           'Preparation for Life and Work' = selectInput('selectPrep', label = 'Select Sector Subject Area Tier 2',
-                            choices = c('All', 'Foundations for Learning and Life', 'Preparation for Work')),
-           
-           'Retail and Commercial Enterprise' = selectInput('selectBusiness', label = 'Select Sector Subject Area Tier 2',
-                            choices = c('All', 'Hospitality and Catering', 'Retailing and Wholesaling', 'Service Enterprises',
-                                        'Warehousing and Distribution')),
-           
-           'Science and Mathematics' = selectInput('selectSci', label = 'Select Sector Subject Area Tier 2',
-                            choices = c('All', 'Mathematics and Statistics', 'Science')),
-           
-           
-           'Social Sciences' = selectInput('selectSocialSci', label = 'Select Sector Subject Area Tier 2',
-                            choices = c('All', 'Economics', 'Geography', 'Politics','Social Sciences', 'Sociology and Social Policy' )),
-           
-
-           'Unknown' = selectInput('selectUnknown', label = 'Select Sector Subject Area Tier 2',
-                                                            choices = c('All', 'Missing / Not known'))
-
-           )
-  })
 # Industry by subject crosstab --------------------------------------------
 
   
@@ -301,6 +238,27 @@ server <- function(input, output, session) {
       write.csv(crosstab_gt_subj(), file)
     }
   )
+  
+# Hierarchical filters for subject by industry ----------------------------
+  
+  
+  # This code is used to generate dynamic filters, where the SSA Tier 2 options that appear are dependent
+  # on SSA Tier 1 which has been selected
+  
+  # First create a dataset filtered by the SSATier1 which has been selected
+  SSATier1 <- reactive({
+    filter(dfInd, SSATier1 == input$selectSSA) %>% 
+      arrange(SSATier2 != 'All', SSATier2) # Ensure All always appears at top of options list
+  })
+  
+  # Then use this dataset to generate a list of possible SSA Tier 2 options for the SSA Tier 1 selected,
+  # and use this to update the dynamic SSA Tier 2 input
+  observeEvent(SSATier1(), {
+    choices <- unique(SSATier1()$SSATier2) 
+    updateSelectInput(inputId = "selectSSATier2", choices = choices)
+  })
+  
+  
   
 
 # Subject by industry title -----------------------------------------------
