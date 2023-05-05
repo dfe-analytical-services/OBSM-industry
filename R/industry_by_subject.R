@@ -39,35 +39,14 @@ industry_by_subject_panel <- function(){tabPanel(
     label = "Select Sector Subject Area Tier 1",
     choices = choicesSSATier1$SSATier1
     ),
-# 
-#   selectInput('SSATier1', label = 'Select Sector Subject Area Tier 1',
-#               choices = c('All',
-#                           'Agriculture, Horticulture and Animal Care',
-#                           'Arts, Media and Publishing',
-#                           'Business, Administration and Law',
-#                           'Education and Training',
-#                           'Engineering and Manufacturing Technologies',
-#                           'Health, Public Services and Care',
-#                           'History, Philosophy and Theology',
-#                           'Information and Communication Technology',
-#                           'Languages, Literature and Culture',
-#                           'Leisure, Travel and Tourism',
-#                           'Preparation for Life and Work',
-#                           'Retail and Commercial Enterprise',
-#                           'Science and Mathematics',
-#                           'Social Sciences',
-#                           'Unknown'
-#                           )),
-# 
-
-# SSA Tier 2 input. List of choices will be dependent on SSA Tier 1 selected above, so set to null for now
-# Code in the server script will populate this list of choices dynamically
+ 
+  # SSA Tier 2 input. List of choices will be dependent on SSA Tier 1 selected above, so set to null for now
+  # Code in the server script will populate this list of choices dynamically
   selectInput("selectSSATier2",
               label = "Select Sector Subject Area Tier 2",
               choices = NULL),
-  
 
-  
+
  # Data breakdown input
  selectizeInput(
    inputId = "selectBreakdown",
@@ -109,7 +88,7 @@ tableOutput("industry_by_subject_crosstab"),
 helpText("Download the table as a csv"),
 downloadButton("downloadIndSub", label = "Download this data table")
 
-# 
+#
 
 ))}
 

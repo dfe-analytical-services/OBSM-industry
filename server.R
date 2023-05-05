@@ -129,8 +129,28 @@ server <- function(input, output, session) {
 #   )
 
 
-
-
+  
+  # Dynamic filter options for SSA Tier 2 - Industry by Subject -------------
+  
+  
+  
+  # This code is used to generate dynamic filters, where the SSA Tier 2 options that appear are dependent
+  # on SSA Tier 1 which has been selected
+  
+  # First create a dataset filtered by the SSATier1 which has been selected
+  SSATier1 <- reactive({
+    filter(dfInd, SSATier1 == input$selectSSA) %>% 
+      arrange(SSATier2 != 'All', SSATier2) # Ensure All always appears at top of options list
+  })
+  
+  # Then use this dataset to generate a list of possible SSA Tier 2 options for the SSA Tier 1 selected,
+  # and use this to update the dynamic SSA Tier 2 input
+  observeEvent(SSATier1(), {
+    choices <- unique(SSATier1()$SSATier2) 
+    updateSelectInput(inputId = "selectSSATier2", choices = choices)
+  })
+  
+  
 # Industry by subject crosstab --------------------------------------------
 
   
@@ -238,27 +258,6 @@ server <- function(input, output, session) {
       write.csv(crosstab_gt_subj(), file)
     }
   )
-  
-# Hierarchical filters for subject by industry ----------------------------
-  
-  
-  # This code is used to generate dynamic filters, where the SSA Tier 2 options that appear are dependent
-  # on SSA Tier 1 which has been selected
-  
-  # First create a dataset filtered by the SSATier1 which has been selected
-  SSATier1 <- reactive({
-    filter(dfInd, SSATier1 == input$selectSSA) %>% 
-      arrange(SSATier2 != 'All', SSATier2) # Ensure All always appears at top of options list
-  })
-  
-  # Then use this dataset to generate a list of possible SSA Tier 2 options for the SSA Tier 1 selected,
-  # and use this to update the dynamic SSA Tier 2 input
-  observeEvent(SSATier1(), {
-    choices <- unique(SSATier1()$SSATier2) 
-    updateSelectInput(inputId = "selectSSATier2", choices = choices)
-  })
-  
-  
   
 
 # Subject by industry title -----------------------------------------------
