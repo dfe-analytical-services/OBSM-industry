@@ -589,7 +589,7 @@ intro_text <- function() {
   div(
     h2("Introduction"),
     "For the first time, SIC (UK Standard Industrial Classification of economic activities) codes have been joined to
-             LEO (Long) data using the IDBR (Inter-Departmental Business Register) data. This means we can now see what industry learners were working in. For more detail see our ",
+             LEO (Longitudinal Education Outcomes) data using the IDBR (Inter-Departmental Business Register) data. This means we can now see what industry learners were working in. For more detail see our ",
     a(
       href = "https://explore-education-statistics.service.gov.uk/find-statistics/further-education-outcome-based-success-measures",
       "official statistics publication on Further Education Outcome Based Success Measures",
@@ -609,8 +609,7 @@ intro_text <- function() {
   ind_by_subj_text <- function() {
     
     div(
-      "This table shows which industries learners from the selected subject area go on to work in.
-      Data is available for learners who completed their learning aim in 2019/20 and moved into sustained employment in 2020/21.",
+      "This table shows which industries learners from the selected subject area go on to work in.",
       "The following breakdowns are currently available:",
       br(),
       tags$ul(
@@ -630,26 +629,27 @@ intro_text <- function() {
   subj_by_ind_text <- function() {
     
     div(
-      "These tables look at the one, three, five and ten year after graduation cohorts from the
-    2018/19 tax year. The tables show which subjects graduates working in a selected industry area previously studied.
-    You can view this at the 3 digit SIC group level and may select multiple SIC groups within an industry area at one time.
-    The following breakdowns are currently available:",
+      "This table shows which subjects learners from the selected industry studied.
+      The following breakdowns are currently available:",
       br(),
       tags$ul(
-        tags$li("Sex"),
+        tags$li("Age group"),
         tags$li("Ethnicity"),
-        tags$li("Free School Meal (FSM) status"),
-        tags$li("Current region"),
-        tags$li("Prior attainment"),
-        tags$li("Industry section"),
-        tags$li("Qualification level")
+        tags$li("Level of learning"),
+        tags$li("Sex"),
       )
     )
   }
 
 
+# Text for guidance box ---------------------------------------------------
 
 
+  
+guidance_text <- function() {
+  
+  
+}
 
 
 

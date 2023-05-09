@@ -28,115 +28,17 @@ server <- function(input, output, session) {
   show("app-content")
   
 
-# Front page links --------------------------------------------------------
+# Homepage links to tabs --------------------------------------------------
 
-    observeEvent(input$link_to_ind_by_subj_tab, {
-      updateTabsetPanel(session, "navlistPanel", selected = "IndustryBySUbject")
+  observeEvent(input$link_to_ind_by_subj_tab, {
+      updateTabsetPanel(session, "navlistPanel", selected = "IndustryBySubject")
     })
-
-# ## Test code ----
-#   # Simple server stuff goes here ------------------------------------------------------------
-#   reactiveRevBal <- reactive({
-#     dfRevBal %>% filter(
-#       area_name == input$selectArea | area_name == "England",
-#       school_phase == input$selectPhase
-#     )
-#   })
-# 
-#   # Define server logic required to draw a histogram
-#   output$lineRevBal <- renderPlotly({
-#     ggplotly(createAvgRevTimeSeries(reactiveRevBal(), input$selectArea)) %>%
-#       config(displayModeBar = F) %>%
-#       layout(legend = list(orientation = "h", x = 0, y = -0.2))
-#   })
-# 
-#   reactiveBenchmark <- reactive({
-#     dfRevBal %>%
-#       filter(
-#         area_name %in% c(input$selectArea, input$selectBenchLAs),
-#         school_phase == input$selectPhase,
-#         year == max(year)
-#       )
-#   })
-# 
-#   output$colBenchmark <- renderPlotly({
-#     ggplotly(plotAvgRevBenchmark(reactiveBenchmark()) %>%
-#       config(displayModeBar = F),
-#     height = 420
-#     )
-#   })
-# 
-#   output$tabBenchmark <- renderDataTable({
-#     datatable(reactiveBenchmark() %>%
-#       select(
-#         Area = area_name,
-#         `Average Revenue Balance (£)` = average_revenue_balance,
-#         `Total Revenue Balance (£m)` = total_revenue_balance_million
-#       ),
-#     options = list(
-#       scrollX = TRUE,
-#       paging = FALSE
-#     )
-#     )
-#   })
-# 
-#   # Define server logic to create a box
-# 
-#   output$boxavgRevBal <- renderValueBox({
-# 
-#     # Put value into box to plug into app
-#     valueBox(
-#       # take input number
-#       paste0("£", format((reactiveRevBal() %>% filter(
-#         year == max(year),
-#         area_name == input$selectArea,
-#         school_phase == input$selectPhase
-#       ))$average_revenue_balance,
-#       big.mark = ","
-#       )),
-#       # add subtitle to explain what it's hsowing
-#       paste0("This is the latest value for the selected inputs"),
-#       color = "blue"
-#     )
-#   })
-#   output$boxpcRevBal <- renderValueBox({
-#     latest <- (reactiveRevBal() %>% filter(
-#       year == max(year),
-#       area_name == input$selectArea,
-#       school_phase == input$selectPhase
-#     ))$average_revenue_balance
-#     penult <- (reactiveRevBal() %>% filter(
-#       year == max(year) - 1,
-#       area_name == input$selectArea,
-#       school_phase == input$selectPhase
-#     ))$average_revenue_balance
-# 
-#     # Put value into box to plug into app
-#     valueBox(
-#       # take input number
-#       paste0("£", format(latest - penult,
-#         big.mark = ","
-#       )),
-#       # add subtitle to explain what it's hsowing
-#       paste0("Change on previous year"),
-#       color = "blue"
-#     )
-#   })
-# 
-  observeEvent(input$link_to_app_content_tab, {
-    updateTabsetPanel(session, "navlistPanel", selected = "dashboard")
-  })
-# 
-#   # Download the underlying data button
-#   output$download_data <- downloadHandler(
-#     filename = "shiny_template_underlying_data.csv",
-#     content = function(file) {
-#       write.csv(dfRevBal, file)
-#     }
-#   )
-
-
   
+  observeEvent(input$link_to_subj_by_industry_tab, {
+    updateTabsetPanel(session, "navlistPanel", selected = "SubjectByIndustry")
+  })
+  
+
   # Dynamic filter options for SSA Tier 2 - Industry by Subject -------------
   
   
@@ -184,7 +86,7 @@ server <- function(input, output, session) {
   
   # Output final table  
   output$industry_by_subject_crosstab <- render_gt({crosstab_gt()})
-# output$industry_by_subject_crosstab <- renderTable({crosstab_data()})
+
 
 # Download button for industry by subject data
   output$downloadIndSub <- downloadHandler(
@@ -261,8 +163,7 @@ server <- function(input, output, session) {
 
   # Output final table  
   output$subject_by_industry_crosstab <- render_gt({crosstab_gt_subj()})
-  # output$subject_by_industry_crosstab <- renderTable({crosstab_data_subj()})
-  
+
   
   # Download button for subject by industry data
   output$downloadSubInd <- downloadHandler(

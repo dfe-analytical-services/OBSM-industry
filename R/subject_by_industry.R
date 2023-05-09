@@ -2,7 +2,7 @@
 
 subject_by_industry_panel <- function(){tabPanel(
   tags$div(title = "This section is useful if you want to understand which industries your subject of study can lead to.", "Subject by industry"),
-  value = "subject_by_industry",
+  value = "SubjectByIndustry",
   
   ## Add sidebar panel ----
   
@@ -26,8 +26,8 @@ subject_by_industry_panel <- function(){tabPanel(
     selectizeInput(
       inputId = "selectSSADetail",
       label = "Select level of detail for sector subject area",
-      choices = list( "General (SSA Tier 1)" = "SSATier1",
-                      "Detailed (SSA Tier 2)" = "SSATier2"
+      choices = list( "General (Tier 1)" = "SSATier1",
+                      "Detailed (Tier 2)" = "SSATier2"
       )
     ),
     

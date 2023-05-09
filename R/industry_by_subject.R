@@ -10,7 +10,7 @@ industry_by_subject_panel <- function(){tabPanel(
   
 ## Add sidebar panel ----
 
- # sidebarLayout(
+#  sidebarLayout(
     sidebarPanel(
       width = 2,
     
