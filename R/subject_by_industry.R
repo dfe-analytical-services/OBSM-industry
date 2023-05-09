@@ -82,12 +82,12 @@ subject_by_industry_panel <- function(){tabPanel(
     width = 10,
     style = "height: 90vh; overflow-y: auto; overflow-x: auto;",
     
-     h4(textOutput("subject_by_industry_title")),
-     paste("This table shows the subject studied by learners with a sustained employment destination in X industry in 2020/21, after completing their aim in 2019/20."),
-      br(),
-     tableOutput("subject_by_industry_crosstab"),
-     helpText("Download the table as a csv"),
-     downloadButton("downloadSubInd", label = "Download this data table")
+   
+    h4(textOutput("subject_by_industry_title")),
+    textOutput("subject_by_industry_text"),
+    tableOutput("subject_by_industry_crosstab"),
+    helpText("Download the table as a csv"),
+    downloadButton("downloadSubInd", label = "Download this data table")
     )
 
     )}

@@ -32,14 +32,20 @@ industry_by_subject_panel <- function(){tabPanel(
     label = "Select provision type",
     choices = choicesProvision$Provision
   ),
-  
-  # SSA Tier 1 input 
+
+  # SSA Tier 1 input
     selectizeInput(
     inputId = "selectSSA",
-    label = "Select Sector Subject Area",
+    label = "Select Sector Subject Area Tier 1",
     choices = choicesSSATier1$SSATier1
     ),
-  
+ 
+  # SSA Tier 2 input. List of choices will be dependent on SSA Tier 1 selected above, so set to null for now
+  # Code in the server script will populate this list of choices dynamically
+  selectInput("selectSSATier2",
+              label = "Select Sector Subject Area Tier 2",
+              choices = NULL),
+
 
  # Data breakdown input
  selectizeInput(
@@ -82,7 +88,7 @@ tableOutput("industry_by_subject_crosstab"),
 helpText("Download the table as a csv"),
 downloadButton("downloadIndSub", label = "Download this data table")
 
-# 
+#
 
 ))}
 

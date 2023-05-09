@@ -129,16 +129,35 @@ server <- function(input, output, session) {
 #   )
 
 
-
-
   
-
+  # Dynamic filter options for SSA Tier 2 - Industry by Subject -------------
+  
+  
+  
+  # This code is used to generate dynamic filters, where the SSA Tier 2 options that appear are dependent
+  # on SSA Tier 1 which has been selected
+  
+  # First create a dataset filtered by the SSATier1 which has been selected
+  SSATier1 <- reactive({
+    filter(dfInd, SSATier1 == input$selectSSA) %>% 
+      arrange(SSATier2 != 'All', SSATier2) # Ensure All always appears at top of options list
+  })
+  
+  # Then use this dataset to generate a list of possible SSA Tier 2 options for the SSA Tier 1 selected,
+  # and use this to update the dynamic SSA Tier 2 input
+  observeEvent(SSATier1(), {
+    choices <- unique(SSATier1()$SSATier2) 
+    updateSelectInput(inputId = "selectSSATier2", choices = choices)
+  })
+  
+  
+  
 # Industry by subject crosstab --------------------------------------------
 
   
 # Call function which when proportions have been selected as data type, first creates a table of volumes with selected filters applied
 # from which percentages will then be calculated. 
-  vols_data_filtered <- reactive({filter_vols_data(input$selectBreakdown, input$selectType, input$selectSSA, input$selectProvision)})
+  vols_data_filtered <- reactive({filter_vols_data(input$selectBreakdown, input$selectType, input$selectSSA, input$selectProvision, input$selectSSATier2)})
   
   
 # Call function which when proportions have been selected as data type, assign a grand total of learners for filtered data to use in 
@@ -150,7 +169,7 @@ server <- function(input, output, session) {
 # Call function which when proportions have been selected as data type, divide initial volumes by grand total to create percentage, then format.
 # If volumes are selected as data type, output filtered volume data.
   crosstab_data <- reactive({collate_crosstab_data(vols_data_filtered(), total_val(), input$selectBreakdown,input$selectType, 
-                                         input$selectSSA, input$selectProvision)})
+                                         input$selectSSA, input$selectProvision, input$selectSSATier2)})
   
   
 # Call function to format data as gt table
@@ -185,8 +204,13 @@ server <- function(input, output, session) {
    if(input$selectSSA== 'All'){
      "all subjects"
    }
-   else{
-     (tolower(input$selectSSA))}
+## If no SSA Tier 2 filter is selected, use SSA Tier 1 to populate title
+   else if(input$selectSSATier2 == 'All'){
+     tolower(input$selectSSA)
+   }
+## If SSA Tier 2 filter is selected, use SSA Tier 2 in title
+   else {
+     (tolower(input$selectSSATier2))}
  })
  
  ## Reformat breakdown input
@@ -281,6 +305,14 @@ server <- function(input, output, session) {
       "Subjects studied by ", provisioninput(), " learners achieving in 19/20 with a sustained employment destination in",industryinput(),  ", by ", breakdowninput()
     )
   })
+  
+ 
+# Dynamic text for subject by industry page -------------------------------
+
+# Output text using industry input specified for title
+  output$subject_by_industry_text <- renderText ({
+  paste("This table shows the subject studied by learners with a sustained employment destination in", industryinput(),  "in 2020/21, after completing their aim in 2019/20.")
+})  
   
   # Stop app --------------------------------------------------------------
 
