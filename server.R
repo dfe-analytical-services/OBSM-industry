@@ -269,7 +269,7 @@ server <- function(input, output, session) {
 # Subject by industry title -----------------------------------------------
 
   
-  ## Reformat provision input - leave blank unless specifying type of provision
+  ## Reformat provision input - leave blank unless specifying type of provision 
   provisioninput <- reactive({
     if(input$selectProvisionSubj == 'All'){
       ""
