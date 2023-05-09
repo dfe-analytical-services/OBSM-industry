@@ -306,6 +306,14 @@ server <- function(input, output, session) {
     )
   })
   
+ 
+# Dynamic text for subject by industry page -------------------------------
+
+# Output text using industry input specified for title
+  output$subject_by_industry_text <- renderText ({
+  paste("This table shows the subject studied by learners with a sustained employment destination in", industryinput(),  "in 2020/21, after completing their aim in 2019/20.")
+})  
+  
   # Stop app --------------------------------------------------------------
 
   session$onSessionEnded(function() {

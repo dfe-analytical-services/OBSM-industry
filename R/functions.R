@@ -558,7 +558,7 @@ format_gt_subj <- function(data, inputtype, inputdetail)({
   # Apply next steps only if more detailed SSA Tier 2 info is selected
     {if (inputdetail == "SSATier2")
     # Fix width of columns    
-      cols_width(., SSATier1 ~ px(275), SSATier2 ~ px(275), everything() ~ px(105)) %>%
+      cols_width(., SSATier1 ~ px(225), SSATier2 ~ px(225), everything() ~ px(105)) %>%
     # Apply colour coding based on cell value  
       data_color(., columns = -c(1:2), direction = "column",
                  palette = "Blues") %>% 
