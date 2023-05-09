@@ -6,7 +6,7 @@
 
 industry_by_subject_panel <- function(){tabPanel(
   tags$div(title = "This section is useful if you want to understand which industries your subject of study can lead to.", "Industry by subject"),
-  value = "industryBySubject",
+  value = "IndustryBySubject",
   
 ## Add sidebar panel ----
 

@@ -5,7 +5,23 @@ homepage_panel <- function() {
       gov_row(
         column(
           12,
-          h1("OBSM industry dashboard"),
+          h1("Further Education Outcomes Industry Dashboard"),
+          div(
+            h2("Introduction"),
+            "For the first time, SIC (UK Standard Industrial Classification of economic activities) codes have been joined to
+    LEO data using the IDBR (Inter-Departmental Business Register) data. This means we can now see what industry learners were working in. For more detail see our ",
+            a(
+              href = "https://explore-education-statistics.service.gov.uk/find-statistics/further-education-outcome-based-success-measures",
+              "official statistics publication on Further Education Outcome Based Success Measures",
+              .noWS = c("after")
+            ),
+            ".", br(), br(),
+            "This dashboard has been produced by the Department for Education to support the aims of the",
+            a(
+              href = "https://www.gov.uk/government/groups/unit-for-future-skills",
+              "Unit for Future Skills.", .noWS = c("after")
+            ),
+          ),
           br(),
           br()
         ),
@@ -20,16 +36,17 @@ homepage_panel <- function() {
               div(
                 class = "panel-heading",
                 style = "color: white;font-size: 18px;font-style: bold; background-color: #1d70b8;",
-                h2("Contents (h2)")
+                h2("Contents")
               ),
               div(
                 class = "panel-body",
                 tags$div(
-                  title = "This section is useful if you want to understand how well different industries retain graduates.",
-                  h3("Introduction (h3)"),
-                  p("This app demonstrates the DfE Analytical Services R-Shiny data dashboard template."),
-                  p("You might want to add some brief introductory text here alongside some links to different tabs within your dashboard. Here's an example of a link working:"),
-                  p(actionLink("link_to_app_content_tab", "Dashboard panel")),
+                  title = "List of tabs.",
+                  h3("Industry by subject table"),
+                  p("This table shows which industries learners from the selected subject area go on to work in. Data is available for learners who completed their learning aim in 2019/20 and moved into sustained employment in 2020/21."),
+                  p("The following breakdowns are currently available:"),
+                   p("You might want to add some brief introductory text here alongside some links to different tabs within your dashboard. Here's an example of a link working:"),
+                  p(actionLink("link_to_ind_by_subj_tab", "Industry by subject table")),
                   p("You need to add an observeEvent() function to the server.R script for any link that navigates within your App.")
                 ),
                 br()

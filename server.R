@@ -26,6 +26,13 @@ server <- function(input, output, session) {
 
   hide(id = "loading-content", anim = TRUE, animType = "fade")
   show("app-content")
+  
+
+# Front page links --------------------------------------------------------
+
+    observeEvent(input$link_to_ind_by_subj_tab, {
+      updateTabsetPanel(session, "navlistPanel", selected = "IndustryBySUbject")
+    })
 
 # ## Test code ----
 #   # Simple server stuff goes here ------------------------------------------------------------
@@ -116,9 +123,9 @@ server <- function(input, output, session) {
 #     )
 #   })
 # 
-#   observeEvent(input$link_to_app_content_tab, {
-#     updateTabsetPanel(session, "navlistPanel", selected = "dashboard")
-#   })
+  observeEvent(input$link_to_app_content_tab, {
+    updateTabsetPanel(session, "navlistPanel", selected = "dashboard")
+  })
 # 
 #   # Download the underlying data button
 #   output$download_data <- downloadHandler(
