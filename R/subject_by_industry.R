@@ -55,9 +55,9 @@ subject_by_industry_panel <- function(){tabPanel(
       label = "Select breakdown",
       choices = list( "Age Group" = "AgeGroup",
                       "Ethnicity" = "Ethnicity",
-                      "Gender" = "Gender",
-                      "Level of Learning" = "LevelOfLearning"
-      )
+                      "Level of Learning" = "LevelOfLearning",
+                      "Sex" = "Gender"
+                    )
     ),
     
     
