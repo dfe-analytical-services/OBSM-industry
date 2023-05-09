@@ -85,9 +85,10 @@ subject_by_industry_panel <- function(){tabPanel(
    
     h4(textOutput("subject_by_industry_title")),
     textOutput("subject_by_industry_text"),
-    tableOutput("subject_by_industry_crosstab"),
     helpText("Download the table as a csv"),
-    downloadButton("downloadSubInd", label = "Download this data table")
+    downloadButton("downloadSubInd", label = "Download this data table"),
+    tableOutput("subject_by_industry_crosstab")
+
     )
 
     )}

@@ -34,7 +34,7 @@ server <- function(input, output, session) {
       updateTabsetPanel(session, "navlistPanel", selected = "IndustryBySubject")
     })
   
-  observeEvent(input$link_to_subj_by_industry_tab, {
+  observeEvent(input$link_to_subj_by_ind_tab, {
     updateTabsetPanel(session, "navlistPanel", selected = "SubjectByIndustry")
   })
   
@@ -219,7 +219,8 @@ server <- function(input, output, session) {
 
 # Output text using industry input specified for title
   output$subject_by_industry_text <- renderText ({
-  paste("This table shows the subject studied by learners with a sustained employment destination in", industryinput(),  "in 2020/21, after completing their aim in 2019/20.")
+  paste("This table shows the subject studied by learners with a sustained employment destination in", industryinput(),  "in 2020/21, after completing their aim in 2019/20.
+        Please note, this data is based on the industry in which a learner is employed but does not tell us about their occupation within the company.")
 })  
   
   # Stop app --------------------------------------------------------------

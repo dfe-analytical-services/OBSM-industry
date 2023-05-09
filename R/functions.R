@@ -235,8 +235,7 @@ format_crosstab_gt <- function(data, inputtype)({
       tab_footnote(., "1. Proportions have been calculated using volume figures which have been rounded to the nearest 10")
       else tab_footnote(., "1. Learner volumes have been rounded to the nearest 10")
     } %>%
-    tab_footnote(., "2. Where appropriate, data has been suppressed to protect confidentiality") %>%
-    tab_footnote(., "3. This data provides information about the industry of the company that a learner works for, but does not tell us about their occupation within the company.")
+    tab_footnote(., "2. Where appropriate, data has been suppressed to protect confidentiality")
 
 
   
@@ -534,7 +533,7 @@ format_gt_subj <- function(data, inputtype, inputdetail)({
       else tab_footnote(., "1. Learner volumes have been rounded to the nearest 10")
     } %>%
     tab_footnote(., "2. Where appropriate, data has been suppressed to protect confidentiality") %>%
-    tab_footnote(., "3. This data provides is based on the industry in which a learner is employed, but does not tell us about their occupation within the company.") %>%
+    # tab_footnote(., "3. This data is based on the industry in which a learner is employed, but does not tell us about their occupation within the company.") %>%
     # Change font size
      tab_options(table.font.size = 13.5) %>%
     # Make Total column bold
