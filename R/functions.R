@@ -587,8 +587,8 @@ format_gt_subj <- function(data, inputtype, inputdetail)({
 intro_text <- function() {
   div(
     h2("Introduction"),
-    "For the first time, SIC (UK Standard Industrial Classification of economic activities) codes have been joined to
-             LEO (Longitudinal Education Outcomes) data using the IDBR (Inter-Departmental Business Register) data. This means we can now see what industry learners were working in. For more detail see our ",
+    " SIC (UK Standard Industrial Classification of economic activities) codes have now been joined to
+             LEO (Longitudinal Educational Outcomes) data using the IDBR (Inter-Departmental Business Register) data. This means we can see what industry learners were working in. For more detail see our ",
     a(
       href = "https://explore-education-statistics.service.gov.uk/find-statistics/further-education-outcome-based-success-measures",
       "official statistics publication on Further Education Outcome Based Success Measures",
@@ -647,7 +647,23 @@ intro_text <- function() {
   
 guidance_text <- function() {
   
-  
+  div(
+    class = "panel-body",
+    h3("Data coverage"),
+    p("This publication covers learners who achieved apprenticeships, adult (19+) FE and Skills learners, and
+      learners who completed a traineeship in 2019/20, and moved into sustained employment in the following academic year (2020/21)."),
+    h3("Official Statistics"),
+    p("This publication covers learners who achieved apprenticeships, adult (19+) FE and Skills learners, and
+      learners who completed a traineeship in 2019/20, and moved into sustained employment in the following academic year (2020/21)."),
+    h3("Definitions"),
+    tags$ul(
+      tags$li(h4("Inter-departmental Business Register (IDBR)"), p("IDBR data is a comprehensive list of UK businesses used by government for statistical purposes.")),
+      tags$li(h4("Longitudinal Educational Outcomes (LEO)"), p("IDBR data is a comprehensive list of UK businesses used by government for statistical purposes.")),
+      tags$li(h4("Sector Subject Area (SSA)"), p("IDBR data is a comprehensive list of UK businesses used by government for statistical purposes.")),
+      tags$li(h4("Standard Industrial Classification (SIC)"),
+      p("The UK Standard Industrial Classification (SIC) of economic activities is used to classify businesses by the type of activity they do.")),
+    )
+  )
 }
 
 
