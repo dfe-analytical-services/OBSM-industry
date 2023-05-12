@@ -3,22 +3,8 @@
 Further Education Outcomes Industry Dashboard
   <br>
 </h1>
-The dashboard providers users with the ability to explore industry data for Further Education learners with a sustained employment destination in the 2020/21 academic year.
-
-The dashboard includes two main tabs:
-
-- Subject by industry: Contains data on the industry of employment learners move into after completing their learning aim.
-
-- Industry by subject:
 
 
-This template repository is for making accessible apps for published statistics in DfE. It includes a basic accessible shiny app with DfE styling, as well as templates for additional best practice documents like this README script, pull request templates and codes of conduct for contributing.
-
-To use this template, click the green "use this template" button at the top of the repo. This will create a copy for you to work off of. 
-
-Please delete this header section when you are writing up the README file for your own app.
-
-Please contact statistics.DEVELOPMENT@education.gov.uk if you have any questions, or raise an issue on here if you have spotted something specific that we should change.
 
 <p align="center">
   <a href="#introduction">Introduction</a> |
@@ -32,20 +18,20 @@ Please contact statistics.DEVELOPMENT@education.gov.uk if you have any questions
 
 ## Introduction 
 
-Give a brief overview of what your app is for here. 
+The dashboard provides users with the ability to explore industry data for Further Education learners with a sustained employment destination in the 2020/21 academic year. 
 
-Add links to where each version of your app is deployed - e.g.
+The dashboard includes two main tabs:
 
-- Production - https://rsconnect/rsc/dfe-published-data-qa
-- Pre-production - https://rsconnect-pp/rsc/dfe-published-data-qa
-- Development - https://rsconnect-pp/rsc/dev-dfe-published-data-qa
+- Industry by subject: Shows which industries learners from the selected subject area go on to work in.
+- Subject by industry: Shows which subjects learners from the selected industry studied.
+
+A live version of the dashboard is available here: ADD LINK
 
 
 ---
 
 ## Requirements
 
-You should list out the software and programming skills needed, as well as any access requirements = e.g.
 
 
 ### i. Software requirements (for running locally)
@@ -55,12 +41,6 @@ You should list out the software and programming skills needed, as well as any a
 - Installation of R 3.6.2 or higher
 
 - Installation of RTools40 or higher
-
-### ii. Programming skills required (for editing or troubleshooting)
-
-- R at an intermediate level, [DfE R training guide](https://dfe-analytical-services.github.io/r-training-course/)
-
-- Particularly [R Shiny](https://shiny.rstudio.com/)
 
   
 ---
@@ -106,8 +86,6 @@ The function tidy_code() is created in the Rprofile script and therefore is alwa
 ---
 
 ## How to contribute
-
-Details on how to contribute to the app should go here, e.g.
 
 ### Flagging issues
 
