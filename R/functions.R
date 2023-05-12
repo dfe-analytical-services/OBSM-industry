@@ -587,19 +587,19 @@ format_gt_subj <- function(data, inputtype, inputdetail)({
 intro_text <- function() {
   div(
     h2("Introduction"),
-    " SIC (UK Standard Industrial Classification of economic activities) codes have now been joined to
-             LEO (Longitudinal Educational Outcomes) data using the IDBR (Inter-Departmental Business Register) data. This means we can see what industry learners were working in. For more detail see our ",
-    a(
-      href = "https://explore-education-statistics.service.gov.uk/find-statistics/further-education-outcome-based-success-measures",
-      "official statistics publication on Further Education Outcome Based Success Measures",
-      .noWS = c("after")
-    ),
-    ".", br(), br(),
-    "This dashboard has been produced by the Department for Education to support the aims of the",
-    a(
-      href = "https://www.gov.uk/government/groups/unit-for-future-skills",
-      "Unit for Future Skills.", .noWS = c("after")
-    ),
+    " SIC (UK Standard Industrial Classification of economic activities) codes have now been joined to LEO (Longitudinal Education Outcomes) data using the IDBR (Inter-Departmental Business Register) data. 
+      This dashboard has been designed to allow users to explore this data and the relationship between subject studied and industry of employment after learning.",
+    # a(
+    #   href = "https://explore-education-statistics.service.gov.uk/find-statistics/further-education-outcome-based-success-measures",
+    #   "official statistics publication on Further Education Outcome Based Success Measures",
+    #   .noWS = c("after")
+    # ),
+    # ".", br(), br(),
+    # "This dashboard has been produced by the Department for Education to support the aims of the",
+    # a(
+    #   href = "https://www.gov.uk/government/groups/unit-for-future-skills",
+    #   "Unit for Future Skills.", .noWS = c("after")
+    # ),
   )
 }
 
@@ -649,21 +649,52 @@ guidance_text <- function() {
   
   div(
     class = "panel-body",
-    h3("Data coverage"),
-    p("This publication covers learners who achieved apprenticeships, adult (19+) FE and Skills learners, and
+    h3("Learners in scope"),
+    ("This dashboard covers learners who achieved apprenticeships, adult (19+) FE and Skills learners, and
       learners who completed a traineeship in 2019/20, and moved into sustained employment in the following academic year (2020/21)."),
     h3("Official Statistics"),
-    p("This publication covers learners who achieved apprenticeships, adult (19+) FE and Skills learners, and
-      learners who completed a traineeship in 2019/20, and moved into sustained employment in the following academic year (2020/21)."),
+   
+   "This dashboard uses data from the",
+    a(
+      href = "https://explore-education-statistics.service.gov.uk/find-statistics/further-education-outcome-based-success-measures",
+      "official statistics publication on Further Education Outcome Based Success Measures",
+      .noWS = c("after")
+    ), 
+    ", which present statistics on the employment, earnings and learning outcomes of further education learners.",
     h3("Definitions"),
-    tags$ul(
-      tags$li(h4("Inter-departmental Business Register (IDBR)"), p("IDBR data is a comprehensive list of UK businesses used by government for statistical purposes.")),
-      tags$li(h4("Longitudinal Educational Outcomes (LEO)"), p("IDBR data is a comprehensive list of UK businesses used by government for statistical purposes.")),
-      tags$li(h4("Sector Subject Area (SSA)"), p("IDBR data is a comprehensive list of UK businesses used by government for statistical purposes.")),
-      tags$li(h4("Standard Industrial Classification (SIC)"),
-      p("The UK Standard Industrial Classification (SIC) of economic activities is used to classify businesses by the type of activity they do.")),
-    )
+    h4("Inter-departmental Business Register (IDBR)"),
+    "IDBR data is a comprehensive list of UK businesses used by government for statistical purposes.
+      The two main sources of input are Value Added Tax (VAT) and Pay As You Earn (PAYE) records from HMRC. Additional information comes from Companies House, Dun and Bradstreet and ONS business surveys.",
+    h4("Longitudinal Education Outcomes (LEO)"),
+    "The data uses the Longitudinal Education Outcomes (LEO) dataset, which looks at how learners move through education and into the labour market by bringing together schools,
+    further and higher education information from the Department for Education (DfE), employment information from HM Revenue and Customs (HMRC), and benefit histories from the Department of Work and Pensions (DWP).",
+    h4("Sector Subject Area (SSA)"),
+    "All qualifications are categorised into Sector Subject Areas. This",
+   a(
+     href = "https://www.gov.uk/government/publications/types-of-regulated-qualifications/qualification-descriptions#sector",
+     "qualifications guidance",
+     .noWS = c("after")
+   ), 
+     " outlines these classifications at both Tier 1 (high level) and Tier 2 (low level).",
+    h4("Standard Industrial Classification (SIC)"),
+    "The UK Standard Industrial Classification (SIC) of economic activities is used to classify businesses by the type of activity they do. For 
+      more information see the", 
+   a(
+        href = "https://onsdigital.github.io/dp-classification-tools/standard-industrial-classification/ONS_SIC_hierarchy_view.html",
+        "Office for National Statistics interactive SIC hierarchy",
+        .noWS = c("after")
+      ),
+   h4("Sustained employment"),
+   "To be counted in a sustained employment, learners have to be recorded as being in employment for a 6 month period (October to March) in the year following study, or have submitted a self-assessment record.
+   Further information is available in the",
+   a(
+     href = "https://explore-education-statistics.service.gov.uk/methodology/further-education-outcome-based-success-measures",
+     "FE Outcome Based Success Measures methodology note",
+     .noWS = c("after")
+   ),
+   
   )
+   
 }
 
 
