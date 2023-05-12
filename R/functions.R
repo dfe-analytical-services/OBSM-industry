@@ -649,18 +649,20 @@ guidance_text <- function() {
   
   div(
     class = "panel-body",
-    h3("Learners in scope"),
-    ("This dashboard covers learners who achieved apprenticeships, adult (19+) FE and Skills learners, and
-      learners who completed a traineeship in 2019/20, and moved into sustained employment in the following academic year (2020/21)."),
     h3("Official Statistics"),
-   
-   "This dashboard uses data from the",
+    
+    "This dashboard uses data from the",
     a(
       href = "https://explore-education-statistics.service.gov.uk/find-statistics/further-education-outcome-based-success-measures",
       "official statistics publication on Further Education Outcome Based Success Measures",
       .noWS = c("after")
     ), 
     ", which present statistics on the employment, earnings and learning outcomes of further education learners.",
+    
+    h3("Learners in scope"),
+    ("This dashboard covers learners who achieved apprenticeships, adult (19+) FE and Skills learners, and
+      learners who completed a traineeship in 2019/20, and moved into sustained employment in the following academic year (2020/21)."),
+   
     h3("Definitions"),
     h4("Inter-departmental Business Register (IDBR)"),
     "IDBR data is a comprehensive list of UK businesses used by government for statistical purposes.
