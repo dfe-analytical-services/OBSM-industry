@@ -10,12 +10,8 @@ industry_by_subject_panel <- function(){tabPanel(
   
 ## Add sidebar panel ----
 
-#  sidebarLayout(
     sidebarPanel(
       width = 2,
-    
-  # Instructions for users to appear at top of sidebar
-      #helpText("Create your own table by selecting from the drop down boxes below."),
   
   # Volumes or proportions input
   selectizeInput(

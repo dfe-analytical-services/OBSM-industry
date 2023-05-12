@@ -55,15 +55,7 @@ homepage_panel <- function() {
                 h2("Guidance")
               ),
               guidance_text(),
-              # div(
-              #   class = "panel-body",
-              #   h3("Context and purpose (h3)"),
-              #   p("This app is the DfE Analytical Service's R-Shiny template demonstration app and is being developed to provide a coherent styling for DfE dashboards alongside some useful example componenets that teams can adapt for their own uses."),
-              #   p("DfE teams using this template should avoid changing the styling and layout, keeping the header, footer and side navigation list formats."),
-              #                   p("You might want to add some relevant background information for your users here. For example some useful links to your EES publication, data sources and other relevant resources."),
-              #   h3("Guidance sources (h3)"),
-              #   p("For example, here we'll add some of the key resources we draw on to guide styling and vizualisation...")
-              # )
+             
             )
           )
         )

@@ -90,7 +90,6 @@ ui <- function(input, output, session) {
       widths = c(2, 8),
       well = FALSE,
       homepage_panel(),
-    #  dashboard_panel(),
       industry_by_subject_panel(),
       subject_by_industry_panel(),
       a11y_panel(),
