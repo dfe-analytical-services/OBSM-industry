@@ -235,8 +235,7 @@ format_crosstab_gt <- function(data, inputtype)({
       tab_footnote(., "1. Proportions have been calculated using volume figures which have been rounded to the nearest 10")
       else tab_footnote(., "1. Learner volumes have been rounded to the nearest 10")
     } %>%
-    tab_footnote(., "2. Where appropriate, data has been suppressed to protect confidentiality") %>%
-    tab_footnote(., "3. This data provides information about the industry of the company that a learner works for, but does not tell us about their occupation within the company.")
+    tab_footnote(., "2. Where appropriate, data has been suppressed to protect confidentiality")
 
 
   
@@ -534,7 +533,7 @@ format_gt_subj <- function(data, inputtype, inputdetail)({
       else tab_footnote(., "1. Learner volumes have been rounded to the nearest 10")
     } %>%
     tab_footnote(., "2. Where appropriate, data has been suppressed to protect confidentiality") %>%
-    tab_footnote(., "3. This data provides is based on the industry in which a learner is employed, but does not tell us about their occupation within the company.") %>%
+    # tab_footnote(., "3. This data is based on the industry in which a learner is employed, but does not tell us about their occupation within the company.") %>%
     # Change font size
      tab_options(table.font.size = 13.5) %>%
     # Make Total column bold
@@ -578,12 +577,126 @@ format_gt_subj <- function(data, inputtype, inputdetail)({
       
 })    
     
+
+# DASHBOARD TEXT FUNCTIONS ------------------------------------------------
+
+
+
+# Introduction text -------------------------------------------------------
+
+intro_text <- function() {
+  div(
+    h2("Introduction"),
+    " SIC (UK Standard Industrial Classification of economic activities) codes have now been joined to LEO (Longitudinal Education Outcomes) data using the IDBR (Inter-Departmental Business Register) data. 
+      This dashboard has been designed to allow users to explore this data and the relationship between subject studied and industry of employment after learning.",
+    # a(
+    #   href = "https://explore-education-statistics.service.gov.uk/find-statistics/further-education-outcome-based-success-measures",
+    #   "official statistics publication on Further Education Outcome Based Success Measures",
+    #   .noWS = c("after")
+    # ),
+    # ".", br(), br(),
+    # "This dashboard has been produced by the Department for Education to support the aims of the",
+    # a(
+    #   href = "https://www.gov.uk/government/groups/unit-for-future-skills",
+    #   "Unit for Future Skills.", .noWS = c("after")
+    # ),
+  )
+}
+
+# Text for industry by subject table --------------------------------------
+
+  ind_by_subj_text <- function() {
+    
+    div(
+      "This table shows which industries learners from the selected subject area go on to work in.",
+      "The following breakdowns are currently available:",
+      br(),
+      tags$ul(
+        tags$li("Age group"),
+        tags$li("Ethnicity"),
+        tags$li("Level of learning"),
+        tags$li("Sex"),
+       )
+    )
     
     
+  }  
+    
+
+# Text for subject by industry table --------------------------------------
+ 
+  subj_by_ind_text <- function() {
+    
+    div(
+      "This table shows which subjects learners from the selected industry studied.
+      The following breakdowns are currently available:",
+      br(),
+      tags$ul(
+        tags$li("Age group"),
+        tags$li("Ethnicity"),
+        tags$li("Level of learning"),
+        tags$li("Sex"),
+      )
+    )
+  }
 
 
+# Text for guidance box ---------------------------------------------------
 
 
+  
+guidance_text <- function() {
+  
+  div(
+    class = "panel-body",
+    h3("Official Statistics"),
+    
+    "This dashboard uses data from the",
+    a(
+      href = "https://explore-education-statistics.service.gov.uk/find-statistics/further-education-outcome-based-success-measures",
+      "official statistics publication on Further Education Outcome Based Success Measures",
+      .noWS = c("after")
+    ), 
+    ", which present statistics on the employment, earnings and learning outcomes of further education learners. ",
+    
+    h3("Learners in scope"),
+    ("This dashboard covers learners who achieved apprenticeships, adult (19+) FE and Skills learners, and
+      learners who completed a traineeship in 2019/20, and moved into sustained employment in the following academic year (2020/21)."),
+    h3("Definitions"),
+    h4("Inter-departmental Business Register (IDBR)"),
+    "IDBR data is a comprehensive list of UK businesses used by government for statistical purposes.
+      The two main sources of input are Value Added Tax (VAT) and Pay As You Earn (PAYE) records from HMRC. Additional information comes from Companies House, Dun and Bradstreet and ONS business surveys.",
+    h4("Longitudinal Education Outcomes (LEO)"),
+    "The data uses the Longitudinal Education Outcomes (LEO) dataset, which looks at how learners move through education and into the labour market by bringing together schools,
+    further and higher education information from the Department for Education (DfE), employment information from HM Revenue and Customs (HMRC), and benefit histories from the Department of Work and Pensions (DWP).",
+    h4("Sector Subject Area (SSA)"),
+    "All qualifications are categorised into Sector Subject Areas. This",
+   a(
+     href = "https://www.gov.uk/government/publications/types-of-regulated-qualifications/qualification-descriptions#sector",
+     "qualifications guidance",
+     .noWS = c("after")
+   ), 
+     " outlines these classifications at both Tier 1 (high level) and Tier 2 (low level).",
+    h4("Standard Industrial Classification (SIC)"),
+    "The UK Standard Industrial Classification (SIC) of economic activities is used to classify businesses by the type of activity they do. For 
+      more information see the", 
+   a(
+        href = "https://onsdigital.github.io/dp-classification-tools/standard-industrial-classification/ONS_SIC_hierarchy_view.html",
+        "Office for National Statistics interactive SIC hierarchy",
+        .noWS = c("after")
+      ),
+   h4("Sustained employment"),
+   "To be counted in a sustained employment, learners have to be recorded as being in employment for a 6 month period (October to March) in the year following study, or have submitted a self-assessment record.
+   Further information is available in the",
+   a(
+     href = "https://explore-education-statistics.service.gov.uk/methodology/further-education-outcome-based-success-measures",
+     "FE Outcome Based Success Measures methodology note",
+     .noWS = c("after")
+   ),
+   
+  )
+   
+}
 
 
 

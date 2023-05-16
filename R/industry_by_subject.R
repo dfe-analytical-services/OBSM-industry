@@ -6,16 +6,12 @@
 
 industry_by_subject_panel <- function(){tabPanel(
   tags$div(title = "This section is useful if you want to understand which industries your subject of study can lead to.", "Industry by subject"),
-  value = "industryBySubject",
+  value = "IndustryBySubject",
   
 ## Add sidebar panel ----
 
- # sidebarLayout(
     sidebarPanel(
       width = 2,
-    
-  # Instructions for users to appear at top of sidebar
-      #helpText("Create your own table by selecting from the drop down boxes below."),
   
   # Volumes or proportions input
   selectizeInput(
@@ -53,9 +49,9 @@ industry_by_subject_panel <- function(){tabPanel(
    label = "Select breakdown",
    choices = list( "Age Group" = "AgeGroup",
                    "Ethnicity" = "Ethnicity",
-                   "Gender" = "Gender",
-                  "Level of Learning" = "LevelOfLearning"
-                  )
+                   "Level of Learning" = "LevelOfLearning",
+                   "Sex" = "Gender"
+                   )
  ),
  
 
@@ -82,13 +78,13 @@ mainPanel(
   
 
 h4(textOutput("industry_by_subject_title")),
-paste("This table shows the industry of employment for learners with a sustained employment destination in 2020/21, after completing their aim in 2019/20."),
+paste("This table shows the industry of employment for learners with a sustained employment destination in 2020/21, after completing their aim in 2019/20. Please note, this data provides information about the industry of the company that a learner works for but does not tell us about their occupation within the company"),
 br(),
-tableOutput("industry_by_subject_crosstab"),
 helpText("Download the table as a csv"),
-downloadButton("downloadIndSub", label = "Download this data table")
+downloadButton("downloadIndSub", label = "Download this data table"),
+tableOutput("industry_by_subject_crosstab")
 
-#
+
 
 ))}
 

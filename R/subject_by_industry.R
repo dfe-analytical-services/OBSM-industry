@@ -2,16 +2,13 @@
 
 subject_by_industry_panel <- function(){tabPanel(
   tags$div(title = "This section is useful if you want to understand which industries your subject of study can lead to.", "Subject by industry"),
-  value = "subject_by_industry",
+  value = "SubjectByIndustry",
   
   ## Add sidebar panel ----
   
-  # sidebarLayout(
   sidebarPanel(
     width = 2,
     
-    # Instructions for users to appear at top of sidebar
-    #helpText("Create your own table by selecting from the drop down boxes below."),
     
     # Volumes or proportions input
     selectizeInput(
@@ -26,8 +23,8 @@ subject_by_industry_panel <- function(){tabPanel(
     selectizeInput(
       inputId = "selectSSADetail",
       label = "Select level of detail for sector subject area",
-      choices = list( "General (SSA Tier 1)" = "SSATier1",
-                      "Detailed (SSA Tier 2)" = "SSATier2"
+      choices = list( "General (Tier 1)" = "SSATier1",
+                      "Detailed (Tier 2)" = "SSATier2"
       )
     ),
     
@@ -55,9 +52,9 @@ subject_by_industry_panel <- function(){tabPanel(
       label = "Select breakdown",
       choices = list( "Age Group" = "AgeGroup",
                       "Ethnicity" = "Ethnicity",
-                      "Gender" = "Gender",
-                      "Level of Learning" = "LevelOfLearning"
-      )
+                      "Level of Learning" = "LevelOfLearning",
+                      "Sex" = "Gender"
+                    )
     ),
     
     
@@ -85,9 +82,10 @@ subject_by_industry_panel <- function(){tabPanel(
    
     h4(textOutput("subject_by_industry_title")),
     textOutput("subject_by_industry_text"),
-    tableOutput("subject_by_industry_crosstab"),
     helpText("Download the table as a csv"),
-    downloadButton("downloadSubInd", label = "Download this data table")
+    downloadButton("downloadSubInd", label = "Download this data table"),
+    tableOutput("subject_by_industry_crosstab")
+
     )
 
     )}
