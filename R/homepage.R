@@ -10,9 +10,9 @@ homepage_panel <- function() {
           br(),
           br()
         ),
-        
+
         ## Left panel -------------------------------------------------------
-        
+
         column(
           6,
           div(
@@ -30,20 +30,19 @@ homepage_panel <- function() {
                   h3(actionLink("link_to_ind_by_subj_tab", "Industry by subject table")),
                   ind_by_subj_text(),
                 ),
-               tags$div(
-                 title = "Industry by subject.",
-                 h3(actionLink("link_to_subj_by_ind_tab", "Subject by industry table")),
-                 subj_by_ind_text(),
-                
-               ),
+                tags$div(
+                  title = "Industry by subject.",
+                  h3(actionLink("link_to_subj_by_ind_tab", "Subject by industry table")),
+                  subj_by_ind_text(),
+                ),
                 br()
               )
             )
           ),
         ),
-        
+
         ## Right panel ------------------------------------------------------
-        
+
         column(
           6,
           div(
@@ -55,14 +54,10 @@ homepage_panel <- function() {
                 h2("Guidance")
               ),
               guidance_text(),
-             
             )
           )
         )
       )
     )
   )
-  
 }
-
-  
