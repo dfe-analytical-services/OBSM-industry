@@ -21,6 +21,15 @@ subject_by_industry_panel <- function() {
         )
       ),
 
+      # Industry input
+      selectizeInput(
+        inputId = "selectIndustry",
+        label = "Select industry",
+        choices = choicesIndustry$Industry,
+        selected = "All"
+      ),
+
+
       # Level of detail input
       selectizeInput(
         inputId = "selectSSADetail",
@@ -32,13 +41,6 @@ subject_by_industry_panel <- function() {
       ),
 
 
-      # Industry input
-      selectizeInput(
-        inputId = "selectIndustry",
-        label = "Select industry",
-        choices = choicesIndustry$Industry,
-        selected = "All"
-      ),
 
 
       # Provision input
