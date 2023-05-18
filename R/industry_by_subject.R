@@ -77,8 +77,7 @@ industry_by_subject_panel <- function() {
       width = 10,
       style = "height: 90vh; overflow-y: auto; overflow-x: auto;",
       h4(textOutput("industry_by_subject_title")),
-      paste("This table shows the industry of employment for learners with a sustained employment destination in 2020/21, after completing their aim in 2019/20. Please note, this data provides information about the industry of the company that a learner works for but does not tell us about their occupation within the company"),
-      br(),
+      textOutput("industry_by_subject_text"),
       helpText("Download the table as a csv"),
       downloadButton("downloadIndSub", label = "Download this data table"),
       tableOutput("industry_by_subject_crosstab")
