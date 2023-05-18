@@ -1,7 +1,6 @@
 
 # GENERAL FUNCTIONS -------------------------------------------------------
 
-
 ## Calculate learner total -------------------------------------------------
 # Where proportions have been selected as data type, assign a grand total for filtered data to use in calculating percentages
 calc_learner_total <- function(data, inputbreakdown, inputtype) {
@@ -231,7 +230,7 @@ format_crosstab_gt <- function(data, inputtype) {
         )
       ) %>%
       # Change font size
-      tab_options(table.font.size = 13.5) %>%
+      tab_options(table.font.size = 13) %>%
       # Make Total column bold
       tab_style(cell_text(weight = "bold"), locations = cells_body(
         columns = Total,
@@ -257,7 +256,8 @@ format_crosstab_gt <- function(data, inputtype) {
       # Apply colour coding to columns based on cell value
       data_color(.,
         columns = -Industry, direction = "column",
-        palette = "Blues"
+       palette = "Blues",
+       contrast_algo = 'wcag' #Ensure contrast meets accessibility standards
       ) %>%
       # Add footnotes
       {
@@ -270,22 +270,6 @@ format_crosstab_gt <- function(data, inputtype) {
       tab_footnote(., "2. Where appropriate, data has been suppressed to protect confidentiality")
   })
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # SUBJECT BY INDUSTRY FUNCTIONS --------------------------------------------
@@ -621,7 +605,8 @@ format_gt_subj <- function(data, inputtype, inputdetail) {
             # Apply colour coding based on cell value
             data_color(.,
               columns = -SSATier1, direction = "column",
-              palette = "Blues"
+              palette = "Blues",
+              contrast_algo = 'wcag' #Ensure contrast meets accessibility standards
             ) %>%
             # Relabel SSA column
             cols_label(., SSATier1 = "Sector Subject Area Tier 1")
@@ -700,9 +685,10 @@ guidance_text <- function() {
     h3("Official Statistics"),
     "This dashboard uses data from the",
     a(
+      style = "color:#007fb0",
       href = "https://explore-education-statistics.service.gov.uk/find-statistics/further-education-outcome-based-success-measures",
       "official statistics publication on Further Education Outcome Based Success Measures",
-      .noWS = c("after")
+       .noWS = c("after")
     ),
     ", which present statistics on the employment, earnings and learning outcomes of further education learners. ",
     h3("Learners in scope"),
@@ -718,6 +704,7 @@ guidance_text <- function() {
     h4("Sector Subject Area (SSA)"),
     "All qualifications are categorised into Sector Subject Areas. This",
     a(
+      style = "color:#007fb0",
       href = "https://www.gov.uk/government/publications/types-of-regulated-qualifications/qualification-descriptions#sector",
       "qualifications guidance",
       .noWS = c("after")
@@ -727,6 +714,7 @@ guidance_text <- function() {
     "The UK Standard Industrial Classification (SIC) of economic activities is used to classify businesses by the type of activity they do. For
       more information see the",
     a(
+      style = "color:#007fb0",
       href = "https://onsdigital.github.io/dp-classification-tools/standard-industrial-classification/ONS_SIC_hierarchy_view.html",
       "Office for National Statistics interactive SIC hierarchy",
       .noWS = c("after")
@@ -735,6 +723,7 @@ guidance_text <- function() {
     "To be counted in a sustained employment, learners have to be recorded as being in employment for a 6 month period (October to March) in the year following study, or have submitted a self-assessment record.
    Further information is available in the",
     a(
+      style = "color:#007fb0",
       href = "https://explore-education-statistics.service.gov.uk/methodology/further-education-outcome-based-success-measures",
       "FE Outcome Based Success Measures methodology note",
       .noWS = c("after")
