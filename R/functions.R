@@ -256,8 +256,8 @@ format_crosstab_gt <- function(data, inputtype) {
       # Apply colour coding to columns based on cell value
       data_color(.,
         columns = -Industry, direction = "column",
-       palette = "Blues",
-       contrast_algo = 'wcag' #Ensure contrast meets accessibility standards
+        palette = "Blues",
+        contrast_algo = "wcag" # Ensure contrast meets accessibility standards
       ) %>%
       # Add footnotes
       {
@@ -606,7 +606,7 @@ format_gt_subj <- function(data, inputtype, inputdetail) {
             data_color(.,
               columns = -SSATier1, direction = "column",
               palette = "Blues",
-              contrast_algo = 'wcag' #Ensure contrast meets accessibility standards
+              contrast_algo = "wcag" # Ensure contrast meets accessibility standards
             ) %>%
             # Relabel SSA column
             cols_label(., SSATier1 = "Sector Subject Area Tier 1")
@@ -688,7 +688,7 @@ guidance_text <- function() {
       style = "color:#007fb0",
       href = "https://explore-education-statistics.service.gov.uk/find-statistics/further-education-outcome-based-success-measures",
       "official statistics publication on Further Education Outcome Based Success Measures",
-       .noWS = c("after")
+      .noWS = c("after")
     ),
     ", which present statistics on the employment, earnings and learning outcomes of further education learners. ",
     h3("Learners in scope"),
