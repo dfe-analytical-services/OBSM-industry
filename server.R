@@ -152,6 +152,14 @@ server <- function(input, output, session) {
       "Industry of employment for ", provisioninput(), " learners achieving in ", subjectinput(), " in 2019/20, by ", breakdowninput()
     )
   })
+  
+
+# Text for industry by subject page ---------------------------------------
+
+# Add text as an output otherwise it does not seem to be visible to a screen reader.  
+  output$industry_by_subject_text <- renderText({
+    paste("This table shows the industry of employment for learners with a sustained employment destination in 2020/21, after completing their aim in 2019/20. Please note, this data provides information about the industry of the company that a learner works for but does not tell us about their occupation within the company")
+  })
 
   # Subject by industry crosstab --------------------------------------------
 
