@@ -1,6 +1,7 @@
 app <- ShinyDriver$new("../../")
 app$snapshotInit("UI_tests")
 
+
 app$snapshot()
 app$setInputs(link_to_ind_by_subj_tab = "click")
 app$snapshot()

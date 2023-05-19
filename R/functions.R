@@ -687,7 +687,7 @@ guidance_text <- function() {
     a(
       style = "color:#007fb0",
       href = "https://explore-education-statistics.service.gov.uk/find-statistics/further-education-outcome-based-success-measures",
-      "official statistics publication on Further Education Outcome Based Success Measures",
+      "official statistics publication on Further Education Outcome Based Success Measures (OBSM)",
       .noWS = c("after")
     ),
     ", which present statistics on the employment, earnings and learning outcomes of further education learners. ",
@@ -697,7 +697,8 @@ guidance_text <- function() {
     h3("Definitions"),
     h4("Inter-departmental Business Register (IDBR)"),
     "IDBR data is a comprehensive list of UK businesses used by government for statistical purposes.
-      The two main sources of input are Value Added Tax (VAT) and Pay As You Earn (PAYE) records from HMRC. Additional information comes from Companies House, Dun and Bradstreet and ONS business surveys.",
+      The two main sources of input are Value Added Tax (VAT) and Pay As You Earn (PAYE) records from HMRC. Additional information comes from Companies House, Dun and Bradstreet and ONS business surveys. 
+    90% of learners with a sustained employment destination in OBSM were successfully matched to IDBR data.",
     h4("Longitudinal Education Outcomes (LEO)"),
     "The data uses the Longitudinal Education Outcomes (LEO) dataset, which looks at how learners move through education and into the labour market by bringing together schools,
     further and higher education information from the Department for Education (DfE), employment information from HM Revenue and Customs (HMRC), and benefit histories from the Department of Work and Pensions (DWP).",
