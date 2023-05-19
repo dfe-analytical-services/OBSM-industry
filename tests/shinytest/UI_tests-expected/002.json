@@ -1,0 +1,23 @@
+{
+  "input": {
+    "link_to_ind_by_subj_tab": 1,
+    "link_to_subj_by_ind_tab": 0,
+    "navlistPanel": "Homepage",
+    "selectBreakdown": "AgeGroup",
+    "selectBreakdownSubj": "AgeGroup",
+    "selectIndustry": "All",
+    "selectProvision": "All",
+    "selectProvisionSubj": "All",
+    "selectSSA": "All",
+    "selectSSADetail": "SSATier1",
+    "selectSSATier2": "All",
+    "selectType": "NumberSustainedEmployment",
+    "selectTypeSubj": "NumberSustainedEmployment"
+  },
+  "output": {
+
+  },
+  "export": {
+
+  }
+}
