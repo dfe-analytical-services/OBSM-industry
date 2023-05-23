@@ -28,7 +28,7 @@ shhh(library(formattable))
 shhh(library(gt))
 shhh(library(janitor))
 shhh(library(devtools))
-shhh(library(shinya11y))
+# shhh(library(shinya11y))
 # Functions ---------------------------------------------------------------------------------
 
 # Here's an example function for simplifying the code needed to commas separate numbers:
