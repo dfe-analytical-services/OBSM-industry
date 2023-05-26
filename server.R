@@ -20,7 +20,6 @@
 
 
 server <- function(input, output, session) {
-
   # Loading screen ---------------------------------------------------------------------------
   # Call initial loading screen
 
