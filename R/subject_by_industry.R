@@ -4,7 +4,7 @@ subject_by_industry_panel <- function() {
     value = "SubjectByIndustry",
 
     ## Add sidebar panel ----
-    main_gov_layout(
+    gov_main_layout(
       sidebarPanel(
         width = 2,
 
