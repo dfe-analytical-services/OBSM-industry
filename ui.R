@@ -62,8 +62,32 @@ ui <- function(input, output, session) {
       rel = "shortcut icon",
       href = "dfefavicon.png"
     )),
+    use_shiny_title(),
+    tags$html(lang = "en"),
+    # Add meta description for search engines
+    meta() %>%
+      meta_general(
+        application_name = "Further Education Outcomes Industry Dashboard",
+        description = "Further Education Outcomes Industry Dashboard",
+        robots = "index,follow",
+        generator = "R-Shiny",
+        subject = "education statistics",
+        rating = "General",
+        referrer = "no-referrer"
+      ),
     shinyjs::useShinyjs(),
     useShinydashboard(),
+    # Setting up cookie consent based on a cookie recording the consent:
+    # https://book.javascript-for-r.com/shiny-cookies.html
+    tags$head(
+      tags$script(
+        src = paste0(
+          "https://cdn.jsdelivr.net/npm/js-cookie@rc/",
+          "dist/js.cookie.min.js"
+        )
+      ),
+      tags$script(src = "cookie-consent.js")
+    ),
     tags$head(includeHTML(("google-analytics.html"))),
     tags$head(
       tags$link(
