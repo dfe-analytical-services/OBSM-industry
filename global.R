@@ -27,7 +27,6 @@ shhh(library(DT))
 shhh(library(htmltools))
 shhh(library(formattable))
 shhh(library(gt))
-shhh(library(metathis))
 shhh(library(janitor))
 shhh(library(devtools))
 # shhh(library(shinya11y))
@@ -126,3 +125,18 @@ choicesIndustry <- dfInd %>%
   select(Industry) %>%
   distinct() %>%
   arrange(Industry != "All", Industry) # Ensure 'All' appears at top of list
+
+
+expandable <- function(inputId, label, contents) {
+  govDetails <- shiny::tags$details(
+    class = "govuk-details", id = inputId,
+    shiny::tags$summary(
+      class = "govuk-details__summary",
+      shiny::tags$span(
+        class = "govuk-details__summary-text",
+        label
+      )
+    ),
+    shiny::tags$div(contents)
+  )
+}

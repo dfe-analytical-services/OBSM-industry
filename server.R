@@ -58,7 +58,9 @@ server <- function(input, output, session) {
     updateSelectInput(inputId = "selectSSATier2", choices = choices)
   })
 
-
+  output$dropdown_label <- renderText({
+    paste0("Current selections: ", input$selectProvisionSubj, ", ", input$selectBreakdownSubj)
+  })
 
   # Industry by subject crosstab --------------------------------------------
 
