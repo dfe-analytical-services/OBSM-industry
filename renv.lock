@@ -1448,7 +1448,7 @@
     },
     "pkgbuild": {
       "Package": "pkgbuild",
-      "Version": "1.4.1",
+      "Version": "1.4.2",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1462,7 +1462,7 @@
         "processx",
         "rprojroot"
       ],
-      "Hash": "26505361723f8af3266b3008ed49de47"
+      "Hash": "beb25b32a957a22a5c301a9e441190b3"
     },
     "pkgconfig": {
       "Package": "pkgconfig",
@@ -2064,6 +2064,21 @@
         "shiny"
       ],
       "Hash": "fd889b32caa37b8ed9b1e9e7ef1564bc"
+    },
+    "shinyalert": {
+      "Package": "shinyalert",
+      "Version": "3.0.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "htmltools",
+        "knitr",
+        "shiny",
+        "stats",
+        "uuid"
+      ],
+      "Hash": "2fd42421abd79dcaf0855fa1d21599a3"
     },
     "shinydashboard": {
       "Package": "shinydashboard",

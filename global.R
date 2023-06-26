@@ -20,6 +20,7 @@ shhh(library(shinydashboard))
 shhh(library(shinyWidgets))
 shhh(library(shinyGovstyle))
 shhh(library(shinytitle))
+shhh(library(shinyalert))
 shhh(library(dplyr))
 shhh(library(ggplot2))
 shhh(library(plotly))
@@ -90,6 +91,8 @@ enableBookmarking("url")
 site_title <- "DfE FE Outcomes Industry Dashboard"
 site_primary <- "https://department-for-education.shinyapps.io/dfe-shiny-template/"
 site_overflow <- "https://department-for-education.shinyapps.io/dfe-shiny-template-overflow/"
+google_analytics_key <- 'G-XV00DMHSBX'
+
 
 source("R/support_links.R")
 source("R/read_data.R")
