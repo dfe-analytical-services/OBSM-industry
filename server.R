@@ -33,6 +33,8 @@ server <- function(input, output, session) {
       title_string <- paste(input$navlistPanel, input$selectBreakdown, sep = ", ")
     } else if (input$navlistPanel == "SubjectByIndustry") {
       title_string <- paste(input$navlistPanel, input$selectBreakdownSubj, sep = ", ")
+    } else {
+      title_string <- ''
     }
     title_string <- tolower(gsub("(?<=[a-z])(?=[A-Z])", " ", title_string, perl = TRUE))
     change_window_title(session, paste0(site_title, " - ", title_string))
