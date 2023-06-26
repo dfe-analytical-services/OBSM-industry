@@ -26,6 +26,16 @@ server <- function(input, output, session) {
   hide(id = "loading-content", anim = TRUE, animType = "fade")
   show("app-content")
 
+  
+  observe({
+    if(input$navlistPanel == 'IndustryBySubject'){
+      title_string <- paste(input$navlistPanel,input$selectBreakdown,sep=', ')
+    } else if(input$navlistPanel  == 'SubjectByIndustry'){
+      title_string <- paste(input$navlistPanel,input$selectBreakdownSubj,sep=', ')
+    }
+    title_string <- tolower(gsub('(?<=[a-z])(?=[A-Z])', ' ', title_string, perl = TRUE))
+    change_window_title(session, paste0(site_title, ' - ', title_string))
+  })
 
   # Homepage links to tabs --------------------------------------------------
 
