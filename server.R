@@ -26,7 +26,8 @@ server <- function(input, output, session) {
   hide(id = "loading-content", anim = TRUE, animType = "fade")
   show("app-content")
 
-  
+
+# Dynamic title and bookmarking -------------------------------------------
   observe({
     if(input$navlistPanel == 'IndustryBySubject'){
       title_string <- paste(input$navlistPanel,input$selectBreakdown,sep=', ')
@@ -37,6 +38,16 @@ server <- function(input, output, session) {
     change_window_title(session, paste0(site_title, ' - ', title_string))
   })
 
+  setBookmarkExclude(c("cookies", "link_to_ind_by_subj_tab", "link_to_subj_by_ind_tab"))
+  observe({
+    # Trigger this observer every time an input changes
+    reactiveValuesToList(input)
+    session$doBookmark()
+  })
+  onBookmarked(function(url) {
+    updateQueryString(url)
+  })
+  
   # Homepage links to tabs --------------------------------------------------
 
   observeEvent(input$link_to_ind_by_subj_tab, {
