@@ -3,14 +3,23 @@
 
 industry_by_subject_panel <- function() {
   tabPanel(
-    tags$div(title = "This section is useful if you want to understand which industries your subject of study can lead to.", "Industry by subject"),
+    tags$div(title = "This section is useful if you want to understand which industries your subject of study can lead to.", 
+             "Industry by subject"),
     value = "IndustryBySubject",
 
-    ## Add sidebar panel ----
     gov_main_layout(
-      sidebarPanel(
-        width = 2,
-
+      gov_row(
+        column(
+          width = 12,
+          expandable(
+            inputId = "details",
+            label = textOutput("industry_by_subject_title"),
+            contents = div(
+              id = "div_a",
+              gov_row(
+                column(
+                  width = 6,
+                  
         # Volumes or proportions input
         selectizeInput(
           inputId = "selectType",
@@ -19,13 +28,6 @@ industry_by_subject_panel <- function() {
             "Volumes" = "NumberSustainedEmployment",
             "Proportions" = "SustainedEmploymentPercent"
           )
-        ),
-
-        # Provision input
-        selectizeInput(
-          inputId = "selectProvision",
-          label = "Select provision type",
-          choices = choicesProvision$Provision
         ),
 
         # SSA Tier 1 input
@@ -42,7 +44,23 @@ industry_by_subject_panel <- function() {
           choices = NULL
         ),
 
+        # Code to prevent text wrapping when selecting input from dropdowns
+        tags$head(
+          tags$style(HTML("
 
+                                .selectize-dropdown {
+                                    width: 500px !important;
+                                }"))
+        )
+      ),
+      column(
+        width=6,
+        # Provision input
+        selectizeInput(
+          inputId = "selectProvision",
+          label = "Select provision type",
+          choices = choicesProvision$Provision
+        ),
         # Data breakdown input
         selectizeInput(
           inputId = "selectBreakdown",
@@ -53,27 +71,20 @@ industry_by_subject_panel <- function() {
             "Level of Learning" = "LevelOfLearning",
             "Sex" = "Gender"
           )
-        ),
-
-
-
-        # Code to prevent text wrapping when selecting input from dropdowns
-        tags$head(
-          tags$style(HTML("
-
-                                .selectize-dropdown {
-                                    width: 500px !important;
-                                }"))
         )
-      ), # End of side panel
+        
+      )
+      )
+      )
+      )
+      )
+      ), # End of inputs gov_row
 
 
       ## Add main panel ----
-
-      mainPanel(
-        width = 10,
-        style = "height: 90vh; overflow-y: auto; overflow-x: auto;",
-        h4(textOutput("industry_by_subject_title")),
+      gov_row(
+column(
+        width = 12,
         textOutput("industry_by_subject_text"),
         helpText("Download the table as a csv"),
         downloadButton("downloadIndSub", label = "Download this data table"),
@@ -81,4 +92,5 @@ industry_by_subject_panel <- function() {
       )
     )
   )
+)
 }

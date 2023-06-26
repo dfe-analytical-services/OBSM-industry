@@ -158,7 +158,7 @@ server <- function(input, output, session) {
   })
 
   ## Reformat breakdown input
-  breakdowninput <- reactive({
+  breakdowninput_ind <- reactive({
     if (input$selectBreakdown == "AgeGroup") {
       "age group"
     } else if (input$selectBreakdown == "LevelOfLearning") {
@@ -171,7 +171,7 @@ server <- function(input, output, session) {
   ## Bring together variables as specified above to produce final dynamic title
   output$industry_by_subject_title <- renderText({
     paste(
-      "Industry of employment for ", provisioninput(), " learners achieving in ", subjectinput(), " in 2019/20, by ", breakdowninput()
+      "Industry of employment for ", provisioninput(), " learners achieving in ", subjectinput(), " in 2019/20, by ", breakdowninput_ind()
     )
   })
 
@@ -252,7 +252,7 @@ server <- function(input, output, session) {
   })
 
   ## Reformat breakdown input
-  breakdowninput <- reactive({
+  breakdowninput_subj <- reactive({
     if (input$selectBreakdownSubj == "AgeGroup") {
       "age group"
     } else if (input$selectBreakdownSubj == "LevelOfLearning") {
@@ -267,7 +267,7 @@ server <- function(input, output, session) {
     paste(
       gsub("SustainedEmployment", "", input$selectTypeSubj), "of",
       provisioninput(), "learners with a sustained employment destination in", industryinput(),
-      "split by subject completed in 19/20 and", breakdowninput()
+      "split by subject completed in 19/20 and", breakdowninput_subj()
       #      "Subjects studied by ", provisioninput(), " learners achieving in 19/20 with a sustained employment destination in", industryinput(), ", by ", breakdowninput()
     )
   })
