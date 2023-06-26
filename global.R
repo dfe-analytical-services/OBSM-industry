@@ -32,6 +32,7 @@ shhh(library(janitor))
 shhh(library(devtools))
 shhh(library(metathis))
 shhh(library(checkmate))
+#devtools::install_github("ewenme/shinya11y")
 # shhh(library(shinya11y))
 # Functions ---------------------------------------------------------------------------------
 

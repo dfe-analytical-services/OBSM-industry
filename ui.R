@@ -100,7 +100,7 @@ ui <- function(input, output, session) {
     shinyGovstyle::header(
       main_text = "",
       main_link = "https://www.gov.uk/government/organisations/department-for-education",
-      secondary_text = "DfE Shiny Template",
+      secondary_text = "Further Education Outcomes Industry Dashboard",
       logo = "images/DfE_logo_landscape.png",
       logo_width = 150,
       logo_height = 32
