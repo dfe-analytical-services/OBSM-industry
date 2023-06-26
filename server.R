@@ -34,7 +34,7 @@ server <- function(input, output, session) {
     } else if (input$navlistPanel == "SubjectByIndustry") {
       title_string <- paste(input$navlistPanel, input$selectBreakdownSubj, sep = ", ")
     } else {
-      title_string <- ''
+      title_string <- ""
     }
     title_string <- tolower(gsub("(?<=[a-z])(?=[A-Z])", " ", title_string, perl = TRUE))
     change_window_title(session, paste0(site_title, " - ", title_string))
@@ -51,7 +51,7 @@ server <- function(input, output, session) {
   })
 
 
-# Cookie consent code -----------------------------------------------------
+  # Cookie consent code -----------------------------------------------------
 
   # output if cookie is unspecified
   observeEvent(input$cookies, {
@@ -91,7 +91,7 @@ server <- function(input, output, session) {
       }
     }
   })
-  
+
   observeEvent(input$cookie_consent, {
     msg <- list(
       name = "dfe_analytics",
@@ -108,17 +108,17 @@ server <- function(input, output, session) {
       }
     }
   })
-  
+
   observeEvent(input$remove, {
     msg <- list(name = "dfe_analytics", value = "denied")
     session$sendCustomMessage("cookie-remove", msg)
     session$sendCustomMessage("analytics-consent", msg)
   })
-  
+
   cookies_data <- reactive({
     input$cookies
   })
-  
+
   output$cookie_status <- renderText({
     cookie_text_stem <- "To better understand the reach of our dashboard tools, this site uses cookies to identify numbers of unique users as part of Google Analytics. You have chosen to"
     cookie_text_tail <- "the use of cookies on this website."
@@ -134,9 +134,9 @@ server <- function(input, output, session) {
       "Cookies consent has not been confirmed."
     }
   })
-  
-  
-  
+
+
+
   # Homepage links to tabs --------------------------------------------------
 
   observeEvent(input$link_to_ind_by_subj_tab, {
