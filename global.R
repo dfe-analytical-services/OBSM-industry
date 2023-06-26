@@ -29,6 +29,7 @@ shhh(library(formattable))
 shhh(library(gt))
 shhh(library(janitor))
 shhh(library(devtools))
+shhh(library(metathis))
 # shhh(library(shinya11y))
 # Functions ---------------------------------------------------------------------------------
 
