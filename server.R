@@ -27,15 +27,15 @@ server <- function(input, output, session) {
   show("app-content")
 
 
-# Dynamic title and bookmarking -------------------------------------------
+  # Dynamic title and bookmarking -------------------------------------------
   observe({
-    if(input$navlistPanel == 'IndustryBySubject'){
-      title_string <- paste(input$navlistPanel,input$selectBreakdown,sep=', ')
-    } else if(input$navlistPanel  == 'SubjectByIndustry'){
-      title_string <- paste(input$navlistPanel,input$selectBreakdownSubj,sep=', ')
+    if (input$navlistPanel == "IndustryBySubject") {
+      title_string <- paste(input$navlistPanel, input$selectBreakdown, sep = ", ")
+    } else if (input$navlistPanel == "SubjectByIndustry") {
+      title_string <- paste(input$navlistPanel, input$selectBreakdownSubj, sep = ", ")
     }
-    title_string <- tolower(gsub('(?<=[a-z])(?=[A-Z])', ' ', title_string, perl = TRUE))
-    change_window_title(session, paste0(site_title, ' - ', title_string))
+    title_string <- tolower(gsub("(?<=[a-z])(?=[A-Z])", " ", title_string, perl = TRUE))
+    change_window_title(session, paste0(site_title, " - ", title_string))
   })
 
   setBookmarkExclude(c("cookies", "link_to_ind_by_subj_tab", "link_to_subj_by_ind_tab"))
@@ -47,7 +47,7 @@ server <- function(input, output, session) {
   onBookmarked(function(url) {
     updateQueryString(url)
   })
-  
+
   # Homepage links to tabs --------------------------------------------------
 
   observeEvent(input$link_to_ind_by_subj_tab, {
@@ -265,8 +265,8 @@ server <- function(input, output, session) {
   ## Bring together variables as specified above to produce final dynamic title
   output$subject_by_industry_title <- renderText({
     paste(
-      gsub("SustainedEmployment",'',input$selectTypeSubj),"of", 
-      provisioninput(), "learners with a sustained employment destination in", industryinput(), 
+      gsub("SustainedEmployment", "", input$selectTypeSubj), "of",
+      provisioninput(), "learners with a sustained employment destination in", industryinput(),
       "split by subject completed in 19/20 and", breakdowninput()
       #      "Subjects studied by ", provisioninput(), " learners achieving in 19/20 with a sustained employment destination in", industryinput(), ", by ", breakdowninput()
     )
