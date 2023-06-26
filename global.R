@@ -85,6 +85,9 @@ appLoadingCSS <- "
 }
 "
 
+enableBookmarking("url")
+
+site_title <- "DfE FE Outcomes Industry Dashboard"
 site_primary <- "https://department-for-education.shinyapps.io/dfe-shiny-template/"
 site_overflow <- "https://department-for-education.shinyapps.io/dfe-shiny-template-overflow/"
 
