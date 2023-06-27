@@ -31,6 +31,8 @@ shhh(library(gt))
 shhh(library(janitor))
 shhh(library(devtools))
 shhh(library(metathis))
+shhh(library(checkmate))
+# devtools::install_github("ewenme/shinya11y")
 # shhh(library(shinya11y))
 # Functions ---------------------------------------------------------------------------------
 
@@ -89,18 +91,15 @@ appLoadingCSS <- "
 enableBookmarking("url")
 
 site_title <- "DfE FE Outcomes Industry Dashboard"
-site_primary <- "https://department-for-education.shinyapps.io/dfe-shiny-template/"
-site_overflow <- "https://department-for-education.shinyapps.io/dfe-shiny-template-overflow/"
-google_analytics_key <- 'G-XV00DMHSBX'
+site_primary <- "https://department-for-education.shinyapps.io/obsm-industry"
+sites_list <- c(site_primary) # We can add further mirrors where necessary. Each one can generally handle about 2,500 users simultaneously
+ees_pub_name <- "Further education outcome based success measures" # Update this with your parent publication name (e.g. the EES publication)
+ees_publication <- "https://explore-education-statistics.service.gov.uk/find-statistics/further-education-outcome-based-success-measures" # Update with parent publication link
+google_analytics_key <- "XV00DMHSBX"
 
-
-source("R/support_links.R")
 source("R/read_data.R")
 
-
-
 # Read in data ------------------------------------------------------------
-
 
 # Read in industry data
 dfInd <- read_ind_data() %>%

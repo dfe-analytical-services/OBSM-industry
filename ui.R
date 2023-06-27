@@ -77,6 +77,7 @@ ui <- function(input, output, session) {
       ),
     shinyjs::useShinyjs(),
     useShinydashboard(),
+    customDisconnectMessage(),
     # Setting up cookie consent based on a cookie recording the consent:
     # https://book.javascript-for-r.com/shiny-cookies.html
     tags$head(
@@ -97,10 +98,12 @@ ui <- function(input, output, session) {
       )
     ),
     shinyGovstyle::header(
-      main_text = "DfE",
+      main_text = "",
       main_link = "https://www.gov.uk/government/organisations/department-for-education",
       secondary_text = "Further Education Outcomes Industry Dashboard",
-      logo = "images/DfE_logo.png"
+      logo = "images/DfE_logo_landscape.png",
+      logo_width = 150,
+      logo_height = 32
     ),
     shinyGovstyle::banner(
       "beta banner",

@@ -11,7 +11,12 @@ a11y_panel <- function() {
             and have actively developed this application with accessibilty in mind."),
           h2("WCAG 2.1 compliance"),
           br("We follow the reccomendations of the ", a(style = "color:#007fb0", href = "https://www.w3.org/TR/WCAG21/", "WCAG 2.1 requirements. ", onclick = "ga('send', 'event', 'click', 'link', 'IKnow', 1)"), "This application has been checked using the ", a(style = "color:#007fb0", href = "https://github.com/ewenme/shinya11y", "Shinya11y tool "), ", which did not detect accessibility issues.
-             This application also fully passes the accessibility audits checked by the ", a(style = "color:#007fb0", href = "https://developers.google.com/web/tools/lighthouse", "Google Developer Lighthouse tool"), ". This means that this application:"),
+             Each page in this application has been audited for accessiblity with the page-snapshot functionality in the ", a(style = "color:#007fb0", href = "https://developers.google.com/web/tools/lighthouse", "Google Developer Lighthouse tool"), ". Primarily due to the current limitations of the R packages used to create this application, it does not pass on the following issues:"),
+          tags$div(tags$ul(
+            tags$li("some elements fail to have the appropriate aria tags"),
+            tags$li("some table header ids are not assigned correctly"),
+            tags$li("some image elements do not have an alt attributes (note that where this is the case, those images are primarily for presentation )")
+          )),
           tags$div(tags$ul(
             tags$li("uses colours that have sufficient contrast"),
             tags$li("allows you to zoom in up to 300% without the text spilling off the screen"),
