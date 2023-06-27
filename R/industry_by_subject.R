@@ -88,7 +88,7 @@ industry_by_subject_panel <- function() {
           textOutput("industry_by_subject_text"),
           helpText("Download the table as a csv"),
           downloadButton("downloadIndSub", label = "Download this data table"),
-          tableOutput("industry_by_subject_crosstab")
+          gt_output("industry_by_subject_crosstab")
         )
       )
     )
