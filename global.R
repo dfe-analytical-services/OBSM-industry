@@ -19,6 +19,8 @@ shhh(library(shinytest))
 shhh(library(shinydashboard))
 shhh(library(shinyWidgets))
 shhh(library(shinyGovstyle))
+shhh(library(shinytitle))
+shhh(library(shinyalert))
 shhh(library(dplyr))
 shhh(library(ggplot2))
 shhh(library(plotly))
@@ -28,6 +30,9 @@ shhh(library(formattable))
 shhh(library(gt))
 shhh(library(janitor))
 shhh(library(devtools))
+shhh(library(metathis))
+shhh(library(checkmate))
+# devtools::install_github("ewenme/shinya11y")
 # shhh(library(shinya11y))
 # Functions ---------------------------------------------------------------------------------
 
@@ -83,16 +88,18 @@ appLoadingCSS <- "
 }
 "
 
-site_primary <- "https://department-for-education.shinyapps.io/dfe-shiny-template/"
-site_overflow <- "https://department-for-education.shinyapps.io/dfe-shiny-template-overflow/"
+enableBookmarking("url")
 
-source("R/support_links.R")
+site_title <- "DfE FE Outcomes Industry Dashboard"
+site_primary <- "https://department-for-education.shinyapps.io/obsm-industry"
+sites_list <- c(site_primary) # We can add further mirrors where necessary. Each one can generally handle about 2,500 users simultaneously
+ees_pub_name <- "Further education outcome based success measures" # Update this with your parent publication name (e.g. the EES publication)
+ees_publication <- "https://explore-education-statistics.service.gov.uk/find-statistics/further-education-outcome-based-success-measures" # Update with parent publication link
+google_analytics_key <- "XV00DMHSBX"
+
 source("R/read_data.R")
 
-
-
 # Read in data ------------------------------------------------------------
-
 
 # Read in industry data
 dfInd <- read_ind_data() %>%
@@ -124,3 +131,18 @@ choicesIndustry <- dfInd %>%
   select(Industry) %>%
   distinct() %>%
   arrange(Industry != "All", Industry) # Ensure 'All' appears at top of list
+
+
+expandable <- function(inputId, label, contents) {
+  govDetails <- shiny::tags$details(
+    class = "govuk-details", id = inputId,
+    shiny::tags$summary(
+      class = "govuk-details__summary",
+      shiny::tags$span(
+        class = "govuk-details__summary-text",
+        label
+      )
+    ),
+    shiny::tags$div(contents)
+  )
+}

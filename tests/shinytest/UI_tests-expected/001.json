@@ -1,7 +1,5 @@
 {
   "input": {
-    "link_to_ind_by_subj_tab": 0,
-    "link_to_subj_by_ind_tab": 0,
     "navlistPanel": "Homepage",
     "selectBreakdown": "AgeGroup",
     "selectBreakdownSubj": "AgeGroup",
@@ -15,9 +13,6 @@
     "selectTypeSubj": "NumberSustainedEmployment"
   },
   "output": {
-
-  },
-  "export": {
 
   }
 }

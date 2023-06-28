@@ -27,6 +27,116 @@ server <- function(input, output, session) {
   show("app-content")
 
 
+  # Dynamic title and bookmarking -------------------------------------------
+  observe({
+    if (input$navlistPanel == "IndustryBySubject") {
+      title_string <- paste(input$navlistPanel, input$selectBreakdown, sep = ", ")
+    } else if (input$navlistPanel == "SubjectByIndustry") {
+      title_string <- paste(input$navlistPanel, input$selectBreakdownSubj, sep = ", ")
+    } else {
+      title_string <- ""
+    }
+    title_string <- tolower(gsub("(?<=[a-z])(?=[A-Z])", " ", title_string, perl = TRUE))
+    change_window_title(session, paste0(site_title, " - ", title_string))
+  })
+
+  setBookmarkExclude(c("cookies", "link_to_ind_by_subj_tab", "link_to_subj_by_ind_tab"))
+  observe({
+    # Trigger this observer every time an input changes
+    reactiveValuesToList(input)
+    session$doBookmark()
+  })
+  onBookmarked(function(url) {
+    updateQueryString(url)
+  })
+
+
+  # Cookie consent code -----------------------------------------------------
+
+  # output if cookie is unspecified
+  observeEvent(input$cookies, {
+    if (!is.null(input$cookies)) {
+      if (!("dfe_analytics" %in% names(input$cookies))) {
+        shinyalert(
+          inputId = "cookie_consent",
+          title = "Cookie consent",
+          text = "This site uses cookies to record traffic flow using Google Analytics",
+          size = "s",
+          closeOnEsc = TRUE,
+          closeOnClickOutside = FALSE,
+          html = FALSE,
+          type = "",
+          showConfirmButton = TRUE,
+          showCancelButton = TRUE,
+          confirmButtonText = "Accept",
+          confirmButtonCol = "#AEDEF4",
+          timer = 0,
+          imageUrl = "",
+          animation = TRUE
+        )
+      } else {
+        msg <- list(
+          name = "dfe_analytics",
+          value = input$cookies$dfe_analytics
+        )
+        session$sendCustomMessage("analytics-consent", msg)
+        if ("cookies" %in% names(input)) {
+          if ("dfe_analytics" %in% names(input$cookies)) {
+            if (input$cookies$dfe_analytics == "denied") {
+              ga_msg <- list(name = paste0("_ga_", google_analytics_key))
+              session$sendCustomMessage("cookie-remove", ga_msg)
+            }
+          }
+        }
+      }
+    }
+  })
+
+  observeEvent(input$cookie_consent, {
+    msg <- list(
+      name = "dfe_analytics",
+      value = ifelse(input$cookie_consent, "granted", "denied")
+    )
+    session$sendCustomMessage("cookie-set", msg)
+    session$sendCustomMessage("analytics-consent", msg)
+    if ("cookies" %in% names(input)) {
+      if ("dfe_analytics" %in% names(input$cookies)) {
+        if (input$cookies$dfe_analytics == "denied") {
+          ga_msg <- list(name = paste0("_ga_", google_analytics_key))
+          session$sendCustomMessage("cookie-remove", ga_msg)
+        }
+      }
+    }
+  })
+
+  observeEvent(input$remove, {
+    msg <- list(name = "dfe_analytics", value = "denied")
+    session$sendCustomMessage("cookie-remove", msg)
+    session$sendCustomMessage("analytics-consent", msg)
+  })
+
+  cookies_data <- reactive({
+    input$cookies
+  })
+
+  output$cookie_status <- renderText({
+    cookie_text_stem <- "To better understand the reach of our dashboard tools, this site uses cookies to identify numbers of unique users as part of Google Analytics. You have chosen to"
+    cookie_text_tail <- "the use of cookies on this website."
+    if ("cookies" %in% names(input)) {
+      if ("dfe_analytics" %in% names(input$cookies)) {
+        if (input$cookies$dfe_analytics == "granted") {
+          paste(cookie_text_stem, "accept", cookie_text_tail)
+        } else {
+          paste(cookie_text_stem, "reject", cookie_text_tail)
+        }
+      }
+    } else {
+      "Cookies consent has not been confirmed."
+    }
+  })
+
+
+
   # Homepage links to tabs --------------------------------------------------
 
   observeEvent(input$link_to_ind_by_subj_tab, {
@@ -58,7 +168,9 @@ server <- function(input, output, session) {
     updateSelectInput(inputId = "selectSSATier2", choices = choices)
   })
 
-
+  output$dropdown_label <- renderText({
+    paste0("Current selections: ", input$selectProvisionSubj, ", ", input$selectBreakdownSubj)
+  })
 
   # Industry by subject crosstab --------------------------------------------
 
@@ -135,7 +247,7 @@ server <- function(input, output, session) {
   })
 
   ## Reformat breakdown input
-  breakdowninput <- reactive({
+  breakdowninput_ind <- reactive({
     if (input$selectBreakdown == "AgeGroup") {
       "age group"
     } else if (input$selectBreakdown == "LevelOfLearning") {
@@ -148,7 +260,7 @@ server <- function(input, output, session) {
   ## Bring together variables as specified above to produce final dynamic title
   output$industry_by_subject_title <- renderText({
     paste(
-      "Industry of employment for ", provisioninput(), " learners achieving in ", subjectinput(), " in 2019/20, by ", breakdowninput()
+      "Industry of employment for ", provisioninput(), " learners achieving in ", subjectinput(), " in 2019/20, by ", breakdowninput_ind()
     )
   })
 
@@ -229,7 +341,7 @@ server <- function(input, output, session) {
   })
 
   ## Reformat breakdown input
-  breakdowninput <- reactive({
+  breakdowninput_subj <- reactive({
     if (input$selectBreakdownSubj == "AgeGroup") {
       "age group"
     } else if (input$selectBreakdownSubj == "LevelOfLearning") {
@@ -242,7 +354,10 @@ server <- function(input, output, session) {
   ## Bring together variables as specified above to produce final dynamic title
   output$subject_by_industry_title <- renderText({
     paste(
-      "Subjects studied by ", provisioninput(), " learners achieving in 19/20 with a sustained employment destination in", industryinput(), ", by ", breakdowninput()
+      gsub("SustainedEmployment", "", input$selectTypeSubj), "of",
+      provisioninput(), "learners with a sustained employment destination in", industryinput(),
+      "split by subject completed in 19/20 and", breakdowninput_subj()
+      #      "Subjects studied by ", provisioninput(), " learners achieving in 19/20 with a sustained employment destination in", industryinput(), ", by ", breakdowninput()
     )
   })
 
