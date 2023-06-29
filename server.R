@@ -252,6 +252,8 @@ server <- function(input, output, session) {
       "age group"
     } else if (input$selectBreakdown == "LevelOfLearning") {
       "level of learning"
+    } else if (input$selectBreakdown == "Gender") {
+      "sex"
     } else {
       (tolower(input$selectBreakdown))
     }
@@ -346,6 +348,8 @@ server <- function(input, output, session) {
       "age group"
     } else if (input$selectBreakdownSubj == "LevelOfLearning") {
       "level of learning"
+    } else if (input$selectBreakdownSubj == "Gender") {
+      "sex"
     } else {
       (tolower(input$selectBreakdownSubj))
     }
