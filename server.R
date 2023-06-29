@@ -222,8 +222,16 @@ server <- function(input, output, session) {
 
   # Industry by subject title -----------------------------------------------
 
+  ## Reformat data type input
+  typeinput_ind <- reactive({
+    if(input$selectType == "NumberSustainedEmployment") {
+      "Number"
+    } else {"Percentage"}
+  })
+  
+  
   ## Reformat provision input - leave blank unless specifying type of provision
-  provisioninput <- reactive({
+  provisioninput_ind <- reactive({
     if (input$selectProvision == "All") {
       ""
     } else {
@@ -262,10 +270,14 @@ server <- function(input, output, session) {
   ## Bring together variables as specified above to produce final dynamic title
   output$industry_by_subject_title <- renderText({
     paste(
-      "Industry of employment for ", provisioninput(), " learners achieving in ", subjectinput(), " in 2019/20, by ", breakdowninput_ind()
+      typeinput_ind(), "of", provisioninput_ind(), " learners with a sustained employment destination achieving in ", subjectinput(),
+      " in 2019/20, split by industry of employment and ", breakdowninput_ind()
     )
   })
 
+  
+  
+  
 
   # Text for industry by subject page ---------------------------------------
 
@@ -323,7 +335,14 @@ server <- function(input, output, session) {
 
   # Subject by industry title -----------------------------------------------
 
-
+  ## Reformat data type input
+  
+  typeinput <- reactive({
+    if(input$selectTypeSubj == "NumberSustainedEmployment") {
+      "Number"
+    } else {"Percentage"}
+  })
+  
   ## Reformat provision input - leave blank unless specifying type of provision
   provisioninput <- reactive({
     if (input$selectProvisionSubj == "All") {
@@ -358,9 +377,9 @@ server <- function(input, output, session) {
   ## Bring together variables as specified above to produce final dynamic title
   output$subject_by_industry_title <- renderText({
     paste(
-      gsub("SustainedEmployment", "", input$selectTypeSubj), "of",
-      provisioninput(), "learners with a sustained employment destination in", paste0(industryinput(), ","),
-      "split by subject completed in 19/20 and", breakdowninput_subj()
+   #   gsub("SustainedEmployment", "", input$selectTypeSubj), "of",
+     typeinput(),"of", provisioninput(), "learners with a sustained employment destination in", paste0(industryinput(), ","),
+      "split by subject completed in 2019/20 and", breakdowninput_subj()
       #      "Subjects studied by ", provisioninput(), " learners achieving in 19/20 with a sustained employment destination in", industryinput(), ", by ", breakdowninput()
     )
   })
