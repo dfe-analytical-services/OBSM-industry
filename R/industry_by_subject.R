@@ -72,7 +72,9 @@ industry_by_subject_panel <- function() {
                       "Level of Learning" = "LevelOfLearning",
                       "Sex" = "Gender"
                     )
-                  )
+                  ),
+                  helpText("Download the table as a csv"),
+                  downloadButton("downloadIndSub", label = "Download this data table"),
                 )
               )
             )
@@ -86,8 +88,6 @@ industry_by_subject_panel <- function() {
         column(
           width = 12,
           textOutput("industry_by_subject_text"),
-          helpText("Download the table as a csv"),
-          downloadButton("downloadIndSub", label = "Download this data table"),
           gt_output("industry_by_subject_crosstab")
         )
       )

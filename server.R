@@ -359,7 +359,7 @@ server <- function(input, output, session) {
   output$subject_by_industry_title <- renderText({
     paste(
       gsub("SustainedEmployment", "", input$selectTypeSubj), "of",
-      provisioninput(), "learners with a sustained employment destination in", paste0(industryinput(),","),
+      provisioninput(), "learners with a sustained employment destination in", paste0(industryinput(), ","),
       "split by subject completed in 19/20 and", breakdowninput_subj()
       #      "Subjects studied by ", provisioninput(), " learners achieving in 19/20 with a sustained employment destination in", industryinput(), ", by ", breakdowninput()
     )
