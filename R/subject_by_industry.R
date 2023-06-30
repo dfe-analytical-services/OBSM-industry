@@ -14,6 +14,7 @@ subject_by_industry_panel <- function() {
               gov_row(
                 column(
                   width = 6,
+                # Data type input
                   selectizeInput(
                     inputId = "selectTypeSubj",
                     label = h4("View the volumes or proportions of learners from each subject:"),
@@ -22,21 +23,23 @@ subject_by_industry_panel <- function() {
                       "Proportions" = "SustainedEmploymentPercent"
                     )
                   ),
-                  # # Industry input
-                  # selectizeInput(
-                  #   inputId = "selectIndustry",
-                  #   label = h4("Select industry:"),
-                  #   choices = choicesIndustry$Industry,
-                  #   selected = "All"
-                  # ),
-                  
-                  # SSA Tier 2 input. List of choices will be dependent on SSA Tier 1 selected above, so set to null for now
+                  # Provision input
+                  selectizeInput(
+                    inputId = "selectProvisionSubj",
+                    label = h4("Select provision type:"),
+                    choices = choicesProvision$Provision
+                  ),
+                  # Industry input. List of choices will be dependent on provision type selected, so set to null for now
                   # Code in the server script will populate this list of choices dynamically
                   selectInput("selectIndustry",
                               label = h4("Select Industry:"),
                               choices = NULL
-                  ),
+                  )
 
+      
+                ),
+                column(
+                  width = 6,
                   # Level of detail input
                   selectizeInput(
                     inputId = "selectSSADetail",
@@ -45,18 +48,8 @@ subject_by_industry_panel <- function() {
                       "General (Tier 1)" = "SSATier1",
                       "Detailed (Tier 2)" = "SSATier2"
                     )
-                  )
-                ),
-                column(
-                  width = 6,
-                  # Provision input
-                  selectizeInput(
-                    inputId = "selectProvisionSubj",
-                    label = h4("Select provision type:"),
-                    choices = choicesProvision$Provision
                   ),
-
-
+           
                   # Data breakdown input
                   selectizeInput(
                     inputId = "selectBreakdownSubj",
