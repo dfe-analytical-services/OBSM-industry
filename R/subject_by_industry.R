@@ -22,13 +22,21 @@ subject_by_industry_panel <- function() {
                       "Proportions" = "SustainedEmploymentPercent"
                     )
                   ),
-                  # Industry input
-                  selectizeInput(
-                    inputId = "selectIndustry",
-                    label = h4("Select industry:"),
-                    choices = choicesIndustry$Industry,
-                    selected = "All"
+                  # # Industry input
+                  # selectizeInput(
+                  #   inputId = "selectIndustry",
+                  #   label = h4("Select industry:"),
+                  #   choices = choicesIndustry$Industry,
+                  #   selected = "All"
+                  # ),
+                  
+                  # SSA Tier 2 input. List of choices will be dependent on SSA Tier 1 selected above, so set to null for now
+                  # Code in the server script will populate this list of choices dynamically
+                  selectInput("selectIndustry",
+                              label = h4("Select Industry:"),
+                              choices = NULL
                   ),
+
                   # Level of detail input
                   selectizeInput(
                     inputId = "selectSSADetail",
