@@ -147,18 +147,18 @@ server <- function(input, output, session) {
     updateTabsetPanel(session, "navlistPanel", selected = "SubjectByIndustry")
   })
 
-  
+
 
   # Dynamic filter options for SSA Tier 1 - Industry by Subject -------------
 
-  
-  # 
+
+  #
   # # First create a dataset filtered by the provision which has been selected
 
-    provision <- reactive({
-      filter(dfInd,  Provision == input$selectProvision) %>%
-        arrange(SSATier1 != "All", SSATier1) # Ensure All always appears at top of options list
-    })
+  provision <- reactive({
+    filter(dfInd, Provision == input$selectProvision) %>%
+      arrange(SSATier1 != "All", SSATier1) # Ensure All always appears at top of options list
+  })
 
   # Then use this dataset to generate a list of possible SSA Tier 2 options for the provision type selected,
   # and use this to update the dynamic SSA Tier 1 input
@@ -166,8 +166,8 @@ server <- function(input, output, session) {
     choices <- unique(provision()$SSATier1)
     updateSelectInput(inputId = "selectSSA", choices = choices)
   })
-  
-  
+
+
 
   # Dynamic filter options for SSA Tier 2 - Industry by Subject -------------
 
@@ -192,7 +192,7 @@ server <- function(input, output, session) {
   output$dropdown_label <- renderText({
     paste0("Current selections: ", input$selectProvisionSubj, ", ", input$selectBreakdownSubj)
   })
-  
+
 
 
 
@@ -248,12 +248,14 @@ server <- function(input, output, session) {
 
   ## Reformat data type input
   typeinput_ind <- reactive({
-    if(input$selectType == "NumberSustainedEmployment") {
+    if (input$selectType == "NumberSustainedEmployment") {
       "Number"
-    } else {"Percentage"}
+    } else {
+      "Percentage"
+    }
   })
-  
-  
+
+
   ## Reformat provision input - leave blank unless specifying type of provision
   provisioninput_ind <- reactive({
     if (input$selectProvision == "All") {
@@ -299,9 +301,9 @@ server <- function(input, output, session) {
     )
   })
 
-  
-  
-  
+
+
+
 
   # Text for industry by subject page ---------------------------------------
 
@@ -309,13 +311,13 @@ server <- function(input, output, session) {
   output$industry_by_subject_text <- renderText({
     paste("This table shows the industry of employment for learners with a sustained employment destination in 2020/21, after completing their aim in 2019/20. Please note, this data provides information about the industry of the company that a learner works for but does not tell us about their occupation within the company")
   })
-  
 
-# Dynamic filter options for industry - subject by industry  --------------
+
+  # Dynamic filter options for industry - subject by industry  --------------
 
   # This code is used to generate dynamic filters, where the industry options that appear are dependent
   # on the provision type which has been selected
-  
+
   # First create a dataset filtered by the SSATier1 which has been selected
   provision_subj <- reactive({
     filter(dfInd, Provision == input$selectProvisionSubj) %>%
@@ -330,8 +332,8 @@ server <- function(input, output, session) {
   })
 
 
-  
-  
+
+
 
   # Subject by industry crosstab --------------------------------------------
 
@@ -383,13 +385,15 @@ server <- function(input, output, session) {
   # Subject by industry title -----------------------------------------------
 
   ## Reformat data type input
-  
+
   typeinput <- reactive({
-    if(input$selectTypeSubj == "NumberSustainedEmployment") {
+    if (input$selectTypeSubj == "NumberSustainedEmployment") {
       "Number"
-    } else {"Percentage"}
+    } else {
+      "Percentage"
+    }
   })
-  
+
   ## Reformat provision input - leave blank unless specifying type of provision
   provisioninput <- reactive({
     if (input$selectProvisionSubj == "All") {
@@ -424,7 +428,7 @@ server <- function(input, output, session) {
   ## Bring together variables as specified above to produce final dynamic title
   output$subject_by_industry_title <- renderText({
     paste(
-     typeinput(),"of", provisioninput(), "learners with a sustained employment destination in", paste0(industryinput(), ","),
+      typeinput(), "of", provisioninput(), "learners with a sustained employment destination in", paste0(industryinput(), ","),
       "split by subject completed in 2019/20 and", breakdowninput_subj()
     )
   })

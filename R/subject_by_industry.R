@@ -12,9 +12,10 @@ subject_by_industry_panel <- function() {
             contents = div(
               id = "div_a",
               gov_row(
-                column(
+                column( # Left column of filter options - start
                   width = 6,
-                # Data type input
+
+                  # Data type input
                   selectizeInput(
                     inputId = "selectTypeSubj",
                     label = h4("View the volumes or proportions of learners from each subject:"),
@@ -23,6 +24,7 @@ subject_by_industry_panel <- function() {
                       "Proportions" = "SustainedEmploymentPercent"
                     )
                   ),
+
                   # Provision input
                   selectizeInput(
                     inputId = "selectProvisionSubj",
@@ -32,13 +34,12 @@ subject_by_industry_panel <- function() {
                   # Industry input. List of choices will be dependent on provision type selected, so set to null for now
                   # Code in the server script will populate this list of choices dynamically
                   selectInput("selectIndustry",
-                              label = h4("Select Industry:"),
-                              choices = NULL
+                    label = h4("Select Industry:"),
+                    choices = NULL
                   )
+                ), # Left column of filter options - end
 
-      
-                ),
-                column(
+                column( # Right column of filter options - start
                   width = 6,
                   # Level of detail input
                   selectizeInput(
@@ -49,7 +50,7 @@ subject_by_industry_panel <- function() {
                       "Detailed (Tier 2)" = "SSATier2"
                     )
                   ),
-           
+
                   # Data breakdown input
                   selectizeInput(
                     inputId = "selectBreakdownSubj",
@@ -63,7 +64,7 @@ subject_by_industry_panel <- function() {
                   ),
                   helpText("Download the table as a csv"),
                   downloadButton("downloadSubInd", label = "Download this data table")
-                )
+                ) # Right column of filter options - end
               )
             )
           )

@@ -18,7 +18,7 @@ industry_by_subject_panel <- function() {
             contents = div(
               id = "div_a",
               gov_row(
-                column(
+                column( # Left column of filter options - start
                   width = 6,
 
                   # Volumes or proportions input
@@ -30,7 +30,7 @@ industry_by_subject_panel <- function() {
                       "Proportions" = "SustainedEmploymentPercent"
                     )
                   ),
-                  
+
                   # Provision input
                   selectizeInput(
                     inputId = "selectProvision",
@@ -49,9 +49,6 @@ industry_by_subject_panel <- function() {
                     )
                   ),
 
-              
-                  
-          
                   # Code to prevent text wrapping when selecting input from dropdowns
                   tags$head(
                     tags$style(HTML("
@@ -60,28 +57,26 @@ industry_by_subject_panel <- function() {
                                     width: 500px !important;
                                 }"))
                   )
-                ),
-                column(
+                ), # Left column of filter options - end
+                column( # Right column of filter options - start
                   width = 6,
-        
+
                   # SSA Tier 1 input. List of choices will be dependent on SSA Tier 1 selected above, so set to null for now
                   # Code in the server script will populate this list of choices dynamically
                   selectInput("selectSSA",
-                              label = h4("Select Sector Subject Area Tier 1:"),
-                              choices = NULL
+                    label = h4("Select Sector Subject Area Tier 1:"),
+                    choices = NULL
                   ),
-                  
+
                   # SSA Tier 2 input. List of choices will be dependent on SSA Tier 1 selected above, so set to null for now
                   # Code in the server script will populate this list of choices dynamically
                   selectInput("selectSSATier2",
-                              label = h4("Select Sector Subject Area Tier 2:"),
-                              choices = NULL
+                    label = h4("Select Sector Subject Area Tier 2:"),
+                    choices = NULL
                   ),
-                  
-                  
                   helpText("Download the table as a csv"),
                   downloadButton("downloadIndSub", label = "Download this data table"),
-                )
+                ) # Right column of filter options - end
               )
             )
           )
