@@ -12,63 +12,65 @@ subject_by_industry_panel <- function() {
             contents = div(
               id = "div_a",
               gov_row(
-                column(
+                column( # Left column of filter options - start
                   width = 6,
+
+                  # Data type input
                   selectizeInput(
                     inputId = "selectTypeSubj",
-                    label = "View the volumes or proportions of learners from each subject",
+                    label = h4("View the volumes or proportions of learners from each subject:"),
                     choices = list(
                       "Volumes" = "NumberSustainedEmployment",
                       "Proportions" = "SustainedEmploymentPercent"
                     )
                   ),
-                  # Industry input
+
+                  # Provision input
                   selectizeInput(
-                    inputId = "selectIndustry",
-                    label = "Select industry",
-                    choices = choicesIndustry$Industry,
-                    selected = "All"
+                    inputId = "selectProvisionSubj",
+                    label = h4("Select provision type:"),
+                    choices = choicesProvision$Provision
                   ),
+                  # Industry input. List of choices will be dependent on provision type selected, so set to null for now
+                  # Code in the server script will populate this list of choices dynamically
+                  selectInput("selectIndustry",
+                    label = h4("Select Industry:"),
+                    choices = NULL
+                  )
+                ), # Left column of filter options - end
+
+                column( # Right column of filter options - start
+                  width = 6,
                   # Level of detail input
                   selectizeInput(
                     inputId = "selectSSADetail",
-                    label = "Select level of detail for sector subject area",
+                    label = h4("Select level of detail for sector subject area:"),
                     choices = list(
                       "General (Tier 1)" = "SSATier1",
                       "Detailed (Tier 2)" = "SSATier2"
                     )
-                  )
-                ),
-                column(
-                  width = 6,
-                  # Provision input
-                  selectizeInput(
-                    inputId = "selectProvisionSubj",
-                    label = "Select provision type",
-                    choices = choicesProvision$Provision
                   ),
-
 
                   # Data breakdown input
                   selectizeInput(
                     inputId = "selectBreakdownSubj",
-                    label = "Select breakdown",
+                    label = h4("Select breakdown:"),
                     choices = list(
                       "Age Group" = "AgeGroup",
                       "Ethnicity" = "Ethnicity",
                       "Level of Learning" = "LevelOfLearning",
                       "Sex" = "Gender"
                     )
-                  )
-                )
+                  ),
+                  helpText("Download the table as a csv"),
+                  downloadButton("downloadSubInd", label = "Download this data table")
+                ) # Right column of filter options - end
               )
             )
           )
         ),
         column(
           width = 12,
-          helpText("Download the table as a csv"),
-          downloadButton("downloadSubInd", label = "Download this data table"),
           textOutput("subject_by_industry_text"),
           gt_output("subject_by_industry_crosstab")
         )

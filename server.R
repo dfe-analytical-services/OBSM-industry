@@ -148,6 +148,27 @@ server <- function(input, output, session) {
   })
 
 
+
+  # Dynamic filter options for SSA Tier 1 - Industry by Subject -------------
+
+
+  #
+  # # First create a dataset filtered by the provision which has been selected
+
+  provision <- reactive({
+    filter(dfInd, Provision == input$selectProvision) %>%
+      arrange(SSATier1 != "All", SSATier1) # Ensure All always appears at top of options list
+  })
+
+  # Then use this dataset to generate a list of possible SSA Tier 2 options for the provision type selected,
+  # and use this to update the dynamic SSA Tier 1 input
+  observeEvent(provision(), {
+    choices <- unique(provision()$SSATier1)
+    updateSelectInput(inputId = "selectSSA", choices = choices)
+  })
+
+
+
   # Dynamic filter options for SSA Tier 2 - Industry by Subject -------------
 
 
@@ -171,6 +192,9 @@ server <- function(input, output, session) {
   output$dropdown_label <- renderText({
     paste0("Current selections: ", input$selectProvisionSubj, ", ", input$selectBreakdownSubj)
   })
+
+
+
 
   # Industry by subject crosstab --------------------------------------------
 
@@ -222,8 +246,18 @@ server <- function(input, output, session) {
 
   # Industry by subject title -----------------------------------------------
 
+  ## Reformat data type input
+  typeinput_ind <- reactive({
+    if (input$selectType == "NumberSustainedEmployment") {
+      "Number"
+    } else {
+      "Percentage"
+    }
+  })
+
+
   ## Reformat provision input - leave blank unless specifying type of provision
-  provisioninput <- reactive({
+  provisioninput_ind <- reactive({
     if (input$selectProvision == "All") {
       ""
     } else {
@@ -252,6 +286,8 @@ server <- function(input, output, session) {
       "age group"
     } else if (input$selectBreakdown == "LevelOfLearning") {
       "level of learning"
+    } else if (input$selectBreakdown == "Gender") {
+      "sex"
     } else {
       (tolower(input$selectBreakdown))
     }
@@ -260,9 +296,13 @@ server <- function(input, output, session) {
   ## Bring together variables as specified above to produce final dynamic title
   output$industry_by_subject_title <- renderText({
     paste(
-      "Industry of employment for ", provisioninput(), " learners achieving in ", subjectinput(), " in 2019/20, by ", breakdowninput_ind()
+      typeinput_ind(), "of", provisioninput_ind(), " learners with a sustained employment destination achieving in ", subjectinput(),
+      " in 2019/20, split by industry of employment and ", breakdowninput_ind()
     )
   })
+
+
+
 
 
   # Text for industry by subject page ---------------------------------------
@@ -271,6 +311,29 @@ server <- function(input, output, session) {
   output$industry_by_subject_text <- renderText({
     paste("This table shows the industry of employment for learners with a sustained employment destination in 2020/21, after completing their aim in 2019/20. Please note, this data provides information about the industry of the company that a learner works for but does not tell us about their occupation within the company")
   })
+
+
+  # Dynamic filter options for industry - subject by industry  --------------
+
+  # This code is used to generate dynamic filters, where the industry options that appear are dependent
+  # on the provision type which has been selected
+
+  # First create a dataset filtered by the SSATier1 which has been selected
+  provision_subj <- reactive({
+    filter(dfInd, Provision == input$selectProvisionSubj) %>%
+      arrange(Industry != "All", Industry) # Ensure All always appears at top of options list
+  })
+
+  # Then use this dataset to generate a list of possible industry options for the provision selected,
+  # and use this to update the dynamic industry input
+  observeEvent(provision_subj(), {
+    choices <- unique(provision_subj()$Industry)
+    updateSelectInput(inputId = "selectIndustry", choices = choices)
+  })
+
+
+
+
 
   # Subject by industry crosstab --------------------------------------------
 
@@ -321,6 +384,15 @@ server <- function(input, output, session) {
 
   # Subject by industry title -----------------------------------------------
 
+  ## Reformat data type input
+
+  typeinput <- reactive({
+    if (input$selectTypeSubj == "NumberSustainedEmployment") {
+      "Number"
+    } else {
+      "Percentage"
+    }
+  })
 
   ## Reformat provision input - leave blank unless specifying type of provision
   provisioninput <- reactive({
@@ -346,6 +418,8 @@ server <- function(input, output, session) {
       "age group"
     } else if (input$selectBreakdownSubj == "LevelOfLearning") {
       "level of learning"
+    } else if (input$selectBreakdownSubj == "Gender") {
+      "sex"
     } else {
       (tolower(input$selectBreakdownSubj))
     }
@@ -354,10 +428,8 @@ server <- function(input, output, session) {
   ## Bring together variables as specified above to produce final dynamic title
   output$subject_by_industry_title <- renderText({
     paste(
-      gsub("SustainedEmployment", "", input$selectTypeSubj), "of",
-      provisioninput(), "learners with a sustained employment destination in", industryinput(),
-      "split by subject completed in 19/20 and", breakdowninput_subj()
-      #      "Subjects studied by ", provisioninput(), " learners achieving in 19/20 with a sustained employment destination in", industryinput(), ", by ", breakdowninput()
+      typeinput(), "of", provisioninput(), "learners with a sustained employment destination in", paste0(industryinput(), ","),
+      "split by subject completed in 2019/20 and", breakdowninput_subj()
     )
   })
 
