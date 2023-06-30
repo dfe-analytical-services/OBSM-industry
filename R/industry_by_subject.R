@@ -30,39 +30,7 @@ industry_by_subject_panel <- function() {
                       "Proportions" = "SustainedEmploymentPercent"
                     )
                   ),
-
-                  # # SSA Tier 1 input
-                  # selectizeInput(
-                  #   inputId = "selectSSA",
-                  #   label = h4("Select Sector Subject Area Tier 1:"),
-                  #   choices = choicesSSATier1$SSATier1
-                  # ),
                   
-                  # SSA Tier 1 input. List of choices will be dependent on SSA Tier 1 selected above, so set to null for now
-                  # Code in the server script will populate this list of choices dynamically
-                  selectInput("selectSSA",
-                              label = h4("Select Sector Subject Area Tier 1:"),
-                              choices = NULL
-                  ),
-
-                  # SSA Tier 2 input. List of choices will be dependent on SSA Tier 1 selected above, so set to null for now
-                  # Code in the server script will populate this list of choices dynamically
-                  selectInput("selectSSATier2",
-                    label = h4("Select Sector Subject Area Tier 2:"),
-                    choices = NULL
-                  ),
-
-                  # Code to prevent text wrapping when selecting input from dropdowns
-                  tags$head(
-                    tags$style(HTML("
-
-                                .selectize-dropdown {
-                                    width: 500px !important;
-                                }"))
-                  )
-                ),
-                column(
-                  width = 6,
                   # Provision input
                   selectizeInput(
                     inputId = "selectProvision",
@@ -80,6 +48,37 @@ industry_by_subject_panel <- function() {
                       "Sex" = "Gender"
                     )
                   ),
+
+              
+                  
+          
+                  # Code to prevent text wrapping when selecting input from dropdowns
+                  tags$head(
+                    tags$style(HTML("
+
+                                .selectize-dropdown {
+                                    width: 500px !important;
+                                }"))
+                  )
+                ),
+                column(
+                  width = 6,
+        
+                  # SSA Tier 1 input. List of choices will be dependent on SSA Tier 1 selected above, so set to null for now
+                  # Code in the server script will populate this list of choices dynamically
+                  selectInput("selectSSA",
+                              label = h4("Select Sector Subject Area Tier 1:"),
+                              choices = NULL
+                  ),
+                  
+                  # SSA Tier 2 input. List of choices will be dependent on SSA Tier 1 selected above, so set to null for now
+                  # Code in the server script will populate this list of choices dynamically
+                  selectInput("selectSSATier2",
+                              label = h4("Select Sector Subject Area Tier 2:"),
+                              choices = NULL
+                  ),
+                  
+                  
                   helpText("Download the table as a csv"),
                   downloadButton("downloadIndSub", label = "Download this data table"),
                 )
