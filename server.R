@@ -147,6 +147,27 @@ server <- function(input, output, session) {
     updateTabsetPanel(session, "navlistPanel", selected = "SubjectByIndustry")
   })
 
+  
+
+  # Dynamic filter options for SSA Tier 1 - Industry by Subject -------------
+
+  
+  # 
+  # # First create a dataset filtered by the provision which has been selected
+
+    provision <- reactive({
+      filter(dfInd,  Provision == input$selectProvision) %>%
+        arrange(SSATier1 != "All", SSATier1) # Ensure All always appears at top of options list
+    })
+
+  # Then use this dataset to generate a list of possible SSA Tier 2 options for the provision type selected,
+  # and use this to update the dynamic SSA Tier 1 input
+  observeEvent(provision(), {
+    choices <- unique(provision()$SSATier1)
+    updateSelectInput(inputId = "selectSSA", choices = choices)
+  })
+  
+  
 
   # Dynamic filter options for SSA Tier 2 - Industry by Subject -------------
 
@@ -173,16 +194,7 @@ server <- function(input, output, session) {
   })
   
 
-# # Dynamic code for SSA Tier 1 ---------------------------------------------
-# 
-# # First create a dataset diltered by the provision which has been selected
-#   
-#   provision <- reactive({
-#     filter(dfInd,  Provision == input$selectProvision) %>%
-#       arrange(SSATier1 != "All", SSATier1) # Ensure All always appears at top of options list
-#   })
-#   
-#   # Then use this dataset to generate a list of possible SSA Tier 1 options for the Provision
+
 
   # Industry by subject crosstab --------------------------------------------
 
@@ -305,15 +317,15 @@ server <- function(input, output, session) {
   # on the provision type which has been selected
   
   # First create a dataset filtered by the SSATier1 which has been selected
-  provision <- reactive({
+  provision_subj <- reactive({
     filter(dfInd, Provision == input$selectProvisionSubj) %>%
       arrange(Industry != "All", Industry) # Ensure All always appears at top of options list
   })
 
   # Then use this dataset to generate a list of possible industry options for the provision selected,
   # and use this to update the dynamic industry input
-  observeEvent(provision(), {
-    choices <- unique(provision()$Industry)
+  observeEvent(provision_subj(), {
+    choices <- unique(provision_subj()$Industry)
     updateSelectInput(inputId = "selectIndustry", choices = choices)
   })
 

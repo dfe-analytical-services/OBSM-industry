@@ -31,11 +31,18 @@ industry_by_subject_panel <- function() {
                     )
                   ),
 
-                  # SSA Tier 1 input
-                  selectizeInput(
-                    inputId = "selectSSA",
-                    label = h4("Select Sector Subject Area Tier 1:"),
-                    choices = choicesSSATier1$SSATier1
+                  # # SSA Tier 1 input
+                  # selectizeInput(
+                  #   inputId = "selectSSA",
+                  #   label = h4("Select Sector Subject Area Tier 1:"),
+                  #   choices = choicesSSATier1$SSATier1
+                  # ),
+                  
+                  # SSA Tier 1 input. List of choices will be dependent on SSA Tier 1 selected above, so set to null for now
+                  # Code in the server script will populate this list of choices dynamically
+                  selectInput("selectSSA",
+                              label = h4("Select Sector Subject Area Tier 1:"),
+                              choices = NULL
                   ),
 
                   # SSA Tier 2 input. List of choices will be dependent on SSA Tier 1 selected above, so set to null for now
