@@ -260,19 +260,16 @@ server <- function(input, output, session) {
   provisioninput_ind <- reactive({
     if (input$selectProvision == "All") {
       "L"
-    }
-    else if (input$selectProvision == "Apprenticeship") {
-      "Apprenticeship l"    
-    }
-    else if (input$selectProvision == "Education & Training") {
-      "Education & training l"    
-    }
-    else if (input$selectProvision == "Traineeship") {
-      "Traineeship l"    
+    } else if (input$selectProvision == "Apprenticeship") {
+      "Apprenticeship l"
+    } else if (input$selectProvision == "Education & Training") {
+      "Education & training l"
+    } else if (input$selectProvision == "Traineeship") {
+      "Traineeship l"
     }
   })
-  
-  
+
+
   ## Reformat subject input
   subjectinput <- reactive({
     if (input$selectSSA == "All") {
@@ -315,22 +312,24 @@ server <- function(input, output, session) {
 
   # Dynamic text for industry by subject page ---------------------------------------
 
-  
-  datatypetext_ind<- reactive({
+
+  datatypetext_ind <- reactive({
     if (input$selectType == "SustainedEmploymentPercent") {
       "The percentages presented here are calculated using the subset of learners who have been selected using the filter options,
       rather than the entire learner population. This means the percentages will sum to 100%."
+    } else {
+      ""
     }
-    else {""}
   })
-  
-  
+
+
   # Add text as an output otherwise it does not seem to be visible to a screen reader.
   output$industry_by_subject_text <- renderText({
-    paste("This table shows the industry of employment for learners with a sustained employment destination in 2020/21, after completing their aim in 2019/20.",
-          datatypetext_ind(),
-          "Please note, this data provides information about the industry of the company that a learner works for but does not tell us about their occupation within the company."
-          )
+    paste(
+      "This table shows the industry of employment for learners with a sustained employment destination in 2020/21, after completing their aim in 2019/20.",
+      datatypetext_ind(),
+      "Please note, this data provides information about the industry of the company that a learner works for but does not tell us about their occupation within the company."
+    )
   })
 
 
@@ -419,14 +418,11 @@ server <- function(input, output, session) {
   provisioninput <- reactive({
     if (input$selectProvisionSubj == "All") {
       "L"
-    } 
-    else if (input$selectProvisionSubj == "Apprenticeship") {
+    } else if (input$selectProvisionSubj == "Apprenticeship") {
       "Apprenticeship l"
-    }
-    else if (input$selectProvisionSubj == "Education & Training") {
+    } else if (input$selectProvisionSubj == "Education & Training") {
       "Education & training l"
-    }
-    else if (input$selectProvisionSubj == "Traineeship") {
+    } else if (input$selectProvisionSubj == "Traineeship") {
       "Traineeship l"
     }
   })
@@ -455,13 +451,13 @@ server <- function(input, output, session) {
 
   ## Bring together variables as specified above to produce final dynamic title
   output$subject_by_industry_title <- renderText({
-    paste0(provisioninput(),paste(
+    paste0(provisioninput(), paste(
       "earners with a sustained employment destination in", paste0(industryinput(), ","),
       "split by subject completed in 2019/20 and", breakdowninput_subj()
-    )) 
+    ))
   })
-  
-  
+
+
 
   # Dynamic text for subject by industry page -------------------------------
 
@@ -469,15 +465,18 @@ server <- function(input, output, session) {
     if (input$selectTypeSubj == "SustainedEmploymentPercent") {
       "The percentages presented here are calculated using the subset of learners who have been selected using the filter options,
       rather than the entire learner population. This means the percentages will sum to 100%."
+    } else {
+      ""
     }
-    else {""}
   })
-  
-  
+
+
   # Output text using industry input specified for title
   output$subject_by_industry_text <- renderText({
-    paste("This table shows the subject studied by learners with a sustained employment destination in", industryinput(), "in 2020/21, after completing their aim in 2019/20.", 
-          datatypetext_subj(),  "Please note, this data is based on the industry in which a learner is employed but does not tell us about their occupation within the company.")
+    paste(
+      "This table shows the subject studied by learners with a sustained employment destination in", industryinput(), "in 2020/21, after completing their aim in 2019/20.",
+      datatypetext_subj(), "Please note, this data is based on the industry in which a learner is employed but does not tell us about their occupation within the company."
+    )
   })
 
   # Stop app --------------------------------------------------------------
