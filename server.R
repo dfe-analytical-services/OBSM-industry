@@ -256,15 +256,23 @@ server <- function(input, output, session) {
   })
 
 
-  ## Reformat provision input - leave blank unless specifying type of provision
+  # Reformat provision input - leave blank unless specifying type of provision
   provisioninput_ind <- reactive({
     if (input$selectProvision == "All") {
-      ""
-    } else {
-      (tolower(input$selectProvision))
+      "L"
+    }
+    else if (input$selectProvision == "Apprenticeship") {
+      "Apprenticeship l"    
+    }
+    else if (input$selectProvision == "Education & Training") {
+      "Education & training l"    
+    }
+    else if (input$selectProvision == "Traineeship") {
+      "Traineeship l"    
     }
   })
-
+  
+  
   ## Reformat subject input
   subjectinput <- reactive({
     if (input$selectSSA == "All") {
@@ -295,10 +303,10 @@ server <- function(input, output, session) {
 
   ## Bring together variables as specified above to produce final dynamic title
   output$industry_by_subject_title <- renderText({
-    paste(
-      typeinput_ind(), "of", provisioninput_ind(), " learners with a sustained employment destination achieving in ", subjectinput(),
+    paste0(provisioninput_ind(), paste(
+      "earners with a sustained employment destination achieving in ", subjectinput(),
       " in 2019/20, split by industry of employment and ", breakdowninput_ind()
-    )
+    ))
   })
 
 
@@ -386,20 +394,27 @@ server <- function(input, output, session) {
 
   ## Reformat data type input
 
-  typeinput <- reactive({
-    if (input$selectTypeSubj == "NumberSustainedEmployment") {
-      "Number"
-    } else {
-      "Percentage"
-    }
-  })
+  # typeinput <- reactive({
+  #   if (input$selectTypeSubj == "NumberSustainedEmployment") {
+  #     "Number"
+  #   } else {
+  #     "Percentage"
+  #   }
+  # })
 
   ## Reformat provision input - leave blank unless specifying type of provision
   provisioninput <- reactive({
     if (input$selectProvisionSubj == "All") {
-      ""
-    } else {
-      (tolower(input$selectProvisionSubj))
+      "L"
+    } 
+    else if (input$selectProvisionSubj == "Apprenticeship") {
+      "Apprenticeship l"
+    }
+    else if (input$selectProvisionSubj == "Education & Training") {
+      "Education & training l"
+    }
+    else if (input$selectProvisionSubj == "Traineeship") {
+      "Traineeship l"
     }
   })
 
@@ -427,12 +442,13 @@ server <- function(input, output, session) {
 
   ## Bring together variables as specified above to produce final dynamic title
   output$subject_by_industry_title <- renderText({
-    paste(
-      typeinput(), "of", provisioninput(), "learners with a sustained employment destination in", paste0(industryinput(), ","),
+    paste0(provisioninput(),paste(
+      "earners with a sustained employment destination in", paste0(industryinput(), ","),
       "split by subject completed in 2019/20 and", breakdowninput_subj()
-    )
+    )) 
   })
-
+  
+  
 
   # Dynamic text for subject by industry page -------------------------------
 
