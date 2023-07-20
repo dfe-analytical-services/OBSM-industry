@@ -313,11 +313,24 @@ server <- function(input, output, session) {
 
 
 
-  # Text for industry by subject page ---------------------------------------
+  # Dynamic text for industry by subject page ---------------------------------------
 
+  
+  datatypetext_ind<- reactive({
+    if (input$selectType == "SustainedEmploymentPercent") {
+      "The percentages presented here are calculated using the subset of learners who have been selected using the filter options,
+      rather than the entire learner population. This means the percentages will sum to 100%."
+    }
+    else {""}
+  })
+  
+  
   # Add text as an output otherwise it does not seem to be visible to a screen reader.
   output$industry_by_subject_text <- renderText({
-    paste("This table shows the industry of employment for learners with a sustained employment destination in 2020/21, after completing their aim in 2019/20. Please note, this data provides information about the industry of the company that a learner works for but does not tell us about their occupation within the company")
+    paste("This table shows the industry of employment for learners with a sustained employment destination in 2020/21, after completing their aim in 2019/20.",
+          datatypetext_ind(),
+          "Please note, this data provides information about the industry of the company that a learner works for but does not tell us about their occupation within the company."
+          )
   })
 
 
@@ -452,10 +465,19 @@ server <- function(input, output, session) {
 
   # Dynamic text for subject by industry page -------------------------------
 
+  datatypetext_subj <- reactive({
+    if (input$selectTypeSubj == "SustainedEmploymentPercent") {
+      "The percentages presented here are calculated using the subset of learners who have been selected using the filter options,
+      rather than the entire learner population. This means the percentages will sum to 100%."
+    }
+    else {""}
+  })
+  
+  
   # Output text using industry input specified for title
   output$subject_by_industry_text <- renderText({
-    paste("This table shows the subject studied by learners with a sustained employment destination in", industryinput(), "in 2020/21, after completing their aim in 2019/20.
-        Please note, this data is based on the industry in which a learner is employed but does not tell us about their occupation within the company.")
+    paste("This table shows the subject studied by learners with a sustained employment destination in", industryinput(), "in 2020/21, after completing their aim in 2019/20.", 
+          datatypetext_subj(),  "Please note, this data is based on the industry in which a learner is employed but does not tell us about their occupation within the company.")
   })
 
   # Stop app --------------------------------------------------------------

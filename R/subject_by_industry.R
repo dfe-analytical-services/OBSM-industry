@@ -72,6 +72,9 @@ subject_by_industry_panel <- function() {
         column(
           width = 12,
           textOutput("subject_by_industry_text"),
+          br(),
+          br(),
+          renderText("TEST"),
           gt_output("subject_by_industry_crosstab")
         )
       )
