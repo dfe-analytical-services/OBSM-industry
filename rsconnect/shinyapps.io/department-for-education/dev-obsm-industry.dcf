@@ -5,6 +5,6 @@ account: department-for-education
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 9499869
-bundleId: 7490248
+bundleId:
 url: https://department-for-education.shinyapps.io/dev-obsm-industry/
 version: 1
