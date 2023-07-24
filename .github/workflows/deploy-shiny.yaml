@@ -1,18 +1,10 @@
+name: Deploy to shinyapps.io
 on:
   push:
     branches:
       - main
       - development
-      
-name: Deploy to shinyapps.io
-on:
 
-  # run on any push 
-  push:
-
-  # run on request (via button in actions menu)
-  workflow_dispatch:
-      
 jobs:
   deploy:
     name: Deploy to shinyapps
