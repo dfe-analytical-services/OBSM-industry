@@ -7,8 +7,6 @@
     "Depends",
     "LinkingTo"
   ],
-  "ppm.enabled": null,
-  "ppm.ignored.urls": [],
   "r.version": [],
   "snapshot.type": "explicit",
   "use.cache": true,
