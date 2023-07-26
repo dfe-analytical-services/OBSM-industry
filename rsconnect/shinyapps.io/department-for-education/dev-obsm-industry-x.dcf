@@ -1,0 +1,10 @@
+name: dev-obsm-industry-x
+title:
+username: department-for-education
+account: department-for-education
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 9499832
+bundleId: 7490218
+url: https://department-for-education.shinyapps.io/dev-obsm-industry-x/
+version: 1

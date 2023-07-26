@@ -14,6 +14,5 @@
 
 read_ind_data <- function(file = "data/OBSM_industry.csv") {
   dfInd <- read.csv(file)
-
   return(dfInd)
 }
