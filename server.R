@@ -148,7 +148,7 @@ server <- function(input, output, session) {
   ## Bring together variables as specified above to produce final dynamic title
   output$industry_by_subject_title <- renderText({
     paste(
-      "Industry of employment for ", provisioninput(), " learners achieving in ", subjectinput(), " in 2019/20, by ", breakdowninput()
+      "Industry of employment for ", provisioninput(), " learners achieving in ", subjectinput(), " in 2020/21, by ", breakdowninput()
     )
   })
 
@@ -157,7 +157,7 @@ server <- function(input, output, session) {
 
   # Add text as an output otherwise it does not seem to be visible to a screen reader.
   output$industry_by_subject_text <- renderText({
-    paste("This table shows the industry of employment for learners with a sustained employment destination in 2020/21, after completing their aim in 2019/20. Please note, this data provides information about the industry of the company that a learner works for but does not tell us about their occupation within the company")
+    paste("This table shows the industry of employment for learners with a sustained employment destination in 2021/22, after completing their aim in 2020/21. Please note, this data provides information about the industry of the company that a learner works for but does not tell us about their occupation within the company")
   })
 
   # Subject by industry crosstab --------------------------------------------
@@ -242,7 +242,7 @@ server <- function(input, output, session) {
   ## Bring together variables as specified above to produce final dynamic title
   output$subject_by_industry_title <- renderText({
     paste(
-      "Subjects studied by ", provisioninput(), " learners achieving in 19/20 with a sustained employment destination in", industryinput(), ", by ", breakdowninput()
+      "Subjects studied by ", provisioninput(), " learners achieving in 20/21 with a sustained employment destination in", industryinput(), ", by ", breakdowninput()
     )
   })
 
@@ -251,7 +251,7 @@ server <- function(input, output, session) {
 
   # Output text using industry input specified for title
   output$subject_by_industry_text <- renderText({
-    paste("This table shows the subject studied by learners with a sustained employment destination in", industryinput(), "in 2020/21, after completing their aim in 2019/20.
+    paste("This table shows the subject studied by learners with a sustained employment destination in", industryinput(), "in 2021/22, after completing their aim in 2020/21.
         Please note, this data is based on the industry in which a learner is employed but does not tell us about their occupation within the company.")
   })
 
