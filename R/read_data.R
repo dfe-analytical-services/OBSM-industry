@@ -12,7 +12,7 @@
 # datafiles_log.csv.
 
 
-read_ind_data <- function(file = "data/OBSM_industry.csv") {
+read_ind_data <- function(file = "data/OBSM_industry_202021.csv") {
   dfInd <- read.csv(file)
   return(dfInd)
 }

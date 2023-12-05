@@ -45,7 +45,7 @@ industry_by_subject_panel <- function() {
                       "Age Group" = "AgeGroup",
                       "Ethnicity" = "Ethnicity",
                       "Level of Learning" = "LevelOfLearning",
-                      "Sex" = "Gender"
+                      "Sex" = "Sex"
                     )
                   ),
 
