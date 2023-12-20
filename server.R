@@ -242,7 +242,7 @@ server <- function(input, output, session) {
   ## Bring together variables as specified above to produce final dynamic title
   output$subject_by_industry_title <- renderText({
     paste(
-      "Subjects studied by ", provisioninput(), " learners achieving in 20/21 with a sustained employment destination in", industryinput(), ", by ", breakdowninput()
+      "Subjects studied by ", provisioninput(), " learners achieving in 2020/21 with a sustained employment destination in", industryinput(), ", by ", breakdowninput()
     )
   })
 
