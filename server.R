@@ -453,7 +453,7 @@ server <- function(input, output, session) {
   output$subject_by_industry_title <- renderText({
     paste0(provisioninput(), paste(
       "earners with a sustained employment destination in", paste0(industryinput(), ","),
-      "split by subject completed in 2019/20 and", breakdowninput_subj()
+      "split by subject completed in 2020/21 and", breakdowninput_subj()
     ))
   })
 
