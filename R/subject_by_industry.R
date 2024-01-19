@@ -59,7 +59,7 @@ subject_by_industry_panel <- function() {
                       "Age Group" = "AgeGroup",
                       "Ethnicity" = "Ethnicity",
                       "Level of Learning" = "LevelOfLearning",
-                      "Sex" = "Gender"
+                      "Sex" = "Sex"
                     )
                   ),
                   helpText("Download the table as a csv"),
