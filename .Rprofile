@@ -8,9 +8,7 @@
 #
 # ---------------------------------------------------------
 
-cat("Sourcing .Rprofile.", fill = TRUE)
-
-source("renv/activate.R")
+# source("renv/activate.R")
 
 if (system.file(package = "dfeshiny") != "") {
   library(dfeshiny)
