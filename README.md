@@ -18,7 +18,7 @@ Further Education Outcomes Industry Dashboard
 
 ## Introduction 
 
-The dashboard provides users with the ability to explore industry data for Further Education learners with a sustained employment destination in the 2020/21 academic year. 
+The dashboard provides users with the ability to explore industry data for Further Education learners with a sustained employment destination in the 2021/22 academic year. 
 
 The dashboard includes two main tabs:
 
