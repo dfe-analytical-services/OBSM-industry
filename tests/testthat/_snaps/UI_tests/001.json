@@ -1,0 +1,18 @@
+{
+  "input": {
+    "navlistPanel": "Homepage",
+    "selectBreakdown": "AgeGroup",
+    "selectBreakdownSubj": "AgeGroup",
+    "selectIndustry": "All",
+    "selectProvision": "All",
+    "selectProvisionSubj": "All",
+    "selectSSA": "All",
+    "selectSSADetail": "SSATier1",
+    "selectSSATier2": "All",
+    "selectType": "NumberSustainedEmployment",
+    "selectTypeSubj": "NumberSustainedEmployment"
+  },
+  "output": {
+
+  }
+}

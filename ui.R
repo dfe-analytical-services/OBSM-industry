@@ -78,16 +78,8 @@ ui <- function(input, output, session) {
     shinyjs::useShinyjs(),
     customDisconnectMessage(),
     # Setting up cookie consent based on a cookie recording the consent:
-    # https://book.javascript-for-r.com/shiny-cookies.html
-    tags$head(
-      tags$script(
-        src = paste0(
-          "https://cdn.jsdelivr.net/npm/js-cookie@rc/",
-          "dist/js.cookie.min.js"
-        )
-      ),
-      tags$script(src = "cookie-consent.js")
-    ),
+    dfe_cookie_script(),
+    cookie_banner_ui("cookies", name = "Further Education Outcomes Industry Dashboard"),
     tags$head(includeHTML(("google-analytics.html"))),
     tags$head(
       tags$link(
@@ -120,7 +112,13 @@ ui <- function(input, output, session) {
       industry_by_subject_panel(),
       subject_by_industry_panel(),
       a11y_panel(),
-      support_links()
+      dfeshiny::support_panel(
+        team_email = "FE.OUTCOMESDATA@education.gov.uk",
+        form_url = "https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-YHar1nqsS9Eu7bHka6oC0lUQUlDNzNBVzdGSUE3VVpJMlY1STVTSjNVNC4u",
+        repo_name = "https://github.com/dfe-analytical-services/OBSM-industry",
+        publication_slug = "further-education-outcome-based-success-measures",
+        publication_name = "Further Education outcomes based success measures"
+      )
     ),
     tags$script(
       src = "script.js"
