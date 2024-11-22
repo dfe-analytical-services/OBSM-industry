@@ -26,11 +26,14 @@ server <- function(input, output, session) {
   hide(id = "loading-content", anim = TRUE, animType = "fade")
   show("app-content")
 
-  output$cookie_status <- dfeshiny::cookie_banner_server(
-    "cookies",
-    input_cookies = reactive(input$cookies),
-    input_clear = reactive(input$cookie_consent_clear),
+  output$cookies_status <- dfeshiny::cookies_banner_server(
+    input_cookies = shiny::reactive(input$cookies),
     parent_session = session,
+    google_analytics_key = google_analytics_key
+  )
+
+  dfeshiny::cookies_panel_server(
+    input_cookies = shiny::reactive(input$cookies),
     google_analytics_key = google_analytics_key
   )
 
