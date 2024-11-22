@@ -3,7 +3,10 @@ on:
     branches:
       - main
       - development
-      - endsWith(publication)
+      - FEO_2024_publication
+  pull-request:
+    branches:
+      - FEO_2024_publication
 
 name: deploy-shiny
 
