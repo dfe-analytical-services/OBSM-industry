@@ -3,6 +3,10 @@ on:
     branches:
       - main
       - development
+      - FEO_2024_publication
+  pull-request:
+    branches:
+      - FEO_2024_publication
 
 name: deploy-shiny
 
@@ -16,9 +20,8 @@ jobs:
       fail-fast: false
       matrix:
         config:
-        # Running on mac as it's quicker to build
-          - {os: macOS-latest, r: '4.1.3'}
-
+          runs-on: ubuntu-latest
+          
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RSPM: ${{ matrix.config.rspm }}
@@ -26,15 +29,18 @@ jobs:
       SHINYAPP_NAME: undefined
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-r@v2
         with:
-          r-version: 4.2.1
+          r-version: 4.4.1
           use-public-rspm: true
 
       - name: Set env vars (dev)
         if: endsWith(github.ref, '/development')
+        run: |
+          echo "SHINYAPP_NAME='dev-obsm-industry'" >> $GITHUB_ENV
+        if: endsWith(github.ref, 'publication')
         run: |
           echo "SHINYAPP_NAME='dev-obsm-industry'" >> $GITHUB_ENV
       - name: Set env vars (prod)
@@ -50,7 +56,7 @@ jobs:
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
       - name: Cache renv packages
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         with:
           path: ${{ env.RENV_PATHS_ROOT }}
           key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
