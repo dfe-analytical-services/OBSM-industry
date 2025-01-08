@@ -110,7 +110,20 @@ ui <- function(input, output, session) {
       homepage_panel(),
       industry_by_subject_panel(),
       subject_by_industry_panel(),
-      a11y_panel(),
+      shiny::tabPanel(
+        value = "a11y_panel",
+        "Accessibility",
+        dfeshiny::a11y_panel(
+          dashboard_title = site_title,
+          dashboard_url = site_primary,
+          date_tested = "2nd January 2025",
+          date_prepared = "2nd January 2025",
+          date_reviewed = "2nd January 2025",
+          issues_contact = "FE.OUTCOMESDATA@education.gov.uk",
+          publication_slug = "further-education-outcome-based-success-measures",
+          publication_name = "Further Education outcomes based success measures"
+        )
+      ),
       shiny::tabPanel(
         value = "support_panel",
         "Support and feedback",
