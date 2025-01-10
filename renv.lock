@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.4.2",
+    "Version": "4.4.0",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -706,7 +706,7 @@
       "RemoteUsername": "dfe-analytical-services",
       "RemoteRepo": "dfeshiny",
       "RemoteRef": "main",
-      "RemoteSha": "10839ea6942570856e726072b50c188ef5de684e",
+      "RemoteSha": "2de5915421cf2cdccceb9440ee694254f2f6af1c",
       "Requirements": [
         "R",
         "checkmate",
@@ -720,7 +720,7 @@
         "stringr",
         "styler"
       ],
-      "Hash": "0343ae081c14d14deabefb8402405d86"
+      "Hash": "b09d13e69d151ab2acc7bb0b4eb510c0"
     },
     "diffobj": {
       "Package": "diffobj",
@@ -2246,9 +2246,14 @@
     },
     "shinyGovstyle": {
       "Package": "shinyGovstyle",
-      "Version": "0.1.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
+      "Version": "0.1.0.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "dfe-analytical-services",
+      "RemoteRepo": "shinyGovstyle",
+      "RemoteRef": "master",
+      "RemoteSha": "6b34994afef643534e8ce21aeff25607001e4095",
       "Requirements": [
         "R",
         "htmltools",
@@ -2259,7 +2264,7 @@
         "shinyjs",
         "stringr"
       ],
-      "Hash": "4a57256cf54590da8a07c53b995c42a8"
+      "Hash": "f713b2c4667715f8065945f8a30db7df"
     },
     "shinyWidgets": {
       "Package": "shinyWidgets",

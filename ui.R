@@ -57,6 +57,11 @@
 
 ui <- function(input, output, session) {
   fluidPage(
+    tags$style(HTML("
+    .download-link span {
+      color: white;
+    }
+  ")),
     # use_tota11y(),
     title = tags$head(tags$link(
       rel = "shortcut icon",
@@ -94,7 +99,7 @@ ui <- function(input, output, session) {
         href = "dfe_shiny_gov_style.css"
       )
     ),
-    dfeshiny::header(header = site_title),
+    # dfeshiny::header(header = site_title),
     shinyGovstyle::banner(
       "beta banner",
       "beta",
