@@ -691,7 +691,7 @@ guidance_text <- function() {
     ),
     ", which present statistics on the employment, earnings and learning outcomes of further education learners. ",
     h3("Learners in scope"),
-    ("This dashboard covers Further Education learners aged 16+ who achieved a learning aim in 2021/22 learners, and moved into sustained employment in the following academic year (2022/23)."),
+    ("This dashboard covers Further Education learners aged 16+ who achieved a learning aim in 2021/22, and moved into sustained employment in the following academic year (2022/23)."),
     h3("Definitions"),
     h4("Inter-departmental Business Register (IDBR)"),
     "IDBR data is a comprehensive list of UK businesses used by government for statistical purposes.

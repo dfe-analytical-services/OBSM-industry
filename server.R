@@ -50,7 +50,16 @@ server <- function(input, output, session) {
     change_window_title(session, paste0(site_title, " - ", title_string))
   })
 
-  setBookmarkExclude(c("cookies", "link_to_ind_by_subj_tab", "link_to_subj_by_ind_tab"))
+  setBookmarkExclude(c(
+    "cookies",
+    "link_to_ind_by_subj_tab",
+    "link_to_subj_by_ind_tab",
+    "cookies_banner-cookies_accept",
+    "cookies_banner-cookies_reject",
+    "cookies_banner-cookies_link",
+    "cookies_panel-submit_btn",
+    "cookies_panel-cookies_analytics"
+  ))
   observe({
     # Trigger this observer every time an input changes
     reactiveValuesToList(input)

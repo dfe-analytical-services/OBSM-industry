@@ -81,7 +81,7 @@ industry_by_subject_panel <- function() {
                     `data-module` = "govuk-button",
                     download_link(
                       "downloadIndSub",
-                      link_text = "Download this table as a csv",
+                      link_text = "Download this table",
                       file_size = "maximum 5 KB"
                     )
                   ),

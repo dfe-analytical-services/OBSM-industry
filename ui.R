@@ -99,7 +99,7 @@ ui <- function(input, output, session) {
         href = "dfe_shiny_gov_style.css"
       )
     ),
-    # dfeshiny::header(header = site_title),
+    dfeshiny::header(header = site_title),
     shinyGovstyle::banner(
       "beta banner",
       "beta",
