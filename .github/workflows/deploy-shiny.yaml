@@ -9,26 +9,15 @@ on:
       - main
       - development
       - FEO_2024_publication
-      
-name: deploy-shiny
+
+name: shinyapps.io deploy
 
 jobs:
   deployShiny:
-    runs-on: ${{ matrix.config.os }}
+    runs-on: ubuntu-latest
 
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
-
-    strategy:
-      fail-fast: false
-      matrix:
-        config:
-          runs-on: ubuntu-latest
-          
     env:
-      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
-      RSPM: ${{ matrix.config.rspm }}
-      RENV_PATHS_ROOT: ~/.local/share/renv
-      SHINYAPP_NAME: undefined
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - uses: actions/checkout@v4
@@ -42,7 +31,7 @@ jobs:
         if: endsWith(github.ref, '/development')
         run: |
           echo "SHINYAPP_NAME='dev-obsm-industry'" >> $GITHUB_ENV
-      - name: Set env vars (dataupdate)
+      - name: Set env vars (publication)
         if: endsWith(github.ref, 'publication')
         run: |
           echo "SHINYAPP_NAME='dev-obsm-industry'" >> $GITHUB_ENV
@@ -50,22 +39,7 @@ jobs:
         if: endsWith(github.ref, '/main')
         run: |
           echo "SHINYAPP_NAME='obsm-industry'">> $GITHUB_ENV
-      - name: Cache R packages
-        if: runner.os != 'Windows'
-        uses: actions/cache@v1
-        with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
-      - name: Cache renv packages
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.RENV_PATHS_ROOT }}
-          key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-renv-
-        
       - name: Restore renv snapshot
         shell: Rscript {0}
         run: |
@@ -76,7 +50,11 @@ jobs:
         shell: Rscript {0}
         run: |
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
-          renv::install("rsconnect") 
+          renv::install("rsconnect")
+         
+# Tokens are stored as secrets in GitHub to make sure only DfE analysts can publish apps in our shiny.io area
+# Navigate to Settings > Secrets to add and view secrets. These can also be things like admin login and passwords for SQL databases.
+# Get in touch with the Explore education statistics platforms team if you need to add the below secrets to publish to shinyapps.io
           
       - name: Push to shiny.io
         if: github.event_name != 'pull_request'
@@ -84,4 +62,3 @@ jobs:
           Rscript
           -e "rsconnect::setAccountInfo(name = 'department-for-education', token = '${{secrets.SHINYAPPS_TOKEN}}', secret = '${{secrets.SHINYAPPS_SECRET}}')"
           -e "rsconnect::deployApp(appName=${{env.SHINYAPP_NAME}}, forceUpdate = TRUE)"
-          
