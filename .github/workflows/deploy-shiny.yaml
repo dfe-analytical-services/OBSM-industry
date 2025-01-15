@@ -4,9 +4,6 @@ on:
       - main
       - development
       - FEO_2024_publication
-  pull_request:
-    branches:
-      - FEO_2024_publication
 
 name: deploy-shiny
 
