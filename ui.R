@@ -57,6 +57,11 @@
 
 ui <- function(input, output, session) {
   fluidPage(
+    tags$style(HTML("
+    .download-link span {
+      color: white;
+    }
+  ")),
     # use_tota11y(),
     title = tags$head(tags$link(
       rel = "shortcut icon",

@@ -62,8 +62,17 @@ subject_by_industry_panel <- function() {
                       "Sex" = "Sex"
                     )
                   ),
-                  helpText("Download the table as a csv"),
-                  downloadButton("downloadSubInd", label = "Download this data table")
+                  # Add a button to download data as a csv
+                  tags$button(
+                    type = "button",
+                    class = "govuk-button govuk-button--inverse",
+                    `data-module` = "govuk-button",
+                    download_link(
+                      "downloadSubInd",
+                      link_text = "Download this table",
+                      file_size = "maximum 13 KB"
+                    )
+                  ),
                 ) # Right column of filter options - end
               )
             )
