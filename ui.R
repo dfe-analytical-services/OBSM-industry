@@ -72,7 +72,7 @@ ui <- function(input, output, session) {
     # Add meta description for search engines
     meta() %>%
       meta_general(
-        application_name = "Further Education Outcomes Industry Dashboard",
+        application_name = site_title,
         description = "Further Education Outcomes Industry Dashboard",
         robots = "index,follow",
         generator = "R-Shiny",

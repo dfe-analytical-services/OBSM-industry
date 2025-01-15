@@ -93,7 +93,7 @@ appLoadingCSS <- "
 
 enableBookmarking("url")
 
-site_title <- "DfE FE Outcomes Industry Dashboard"
+site_title <- "Further Education Outcomes Industry Dashboard"
 site_primary <- "https://department-for-education.shinyapps.io/obsm-industry"
 sites_list <- c(site_primary) # We can add further mirrors where necessary. Each one can generally handle about 2,500 users simultaneously
 ees_pub_name <- "Further education outcome based success measures" # Update this with your parent publication name (e.g. the EES publication)
