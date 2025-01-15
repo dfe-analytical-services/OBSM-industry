@@ -4,7 +4,12 @@ on:
       - main
       - development
       - FEO_2024_publication
-
+  pull_request:
+    branches:
+      - main
+      - development
+      - FEO_2024_publication
+      
 name: deploy-shiny
 
 jobs:
@@ -37,6 +42,7 @@ jobs:
         if: endsWith(github.ref, '/development')
         run: |
           echo "SHINYAPP_NAME='dev-obsm-industry'" >> $GITHUB_ENV
+      - name: Set env vars (dataupdate)
         if: endsWith(github.ref, 'publication')
         run: |
           echo "SHINYAPP_NAME='dev-obsm-industry'" >> $GITHUB_ENV
