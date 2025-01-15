@@ -63,16 +63,13 @@ subject_by_industry_panel <- function() {
                     )
                   ),
                   # Add a button to download data as a csv
-                  tags$button(
-                    type = "button",
+                  downloadButton(
+                    "downloadSubInd",
                     class = "govuk-button govuk-button--inverse",
                     `data-module` = "govuk-button",
-                    download_link(
-                      "downloadSubInd",
-                      link_text = "Download this table",
-                      file_size = "maximum 13 KB"
-                    )
-                  ),
+                    label = "Download this table (maximum 13 KB)",
+                    icon = NULL
+                  )
                 ) # Right column of filter options - end
               )
             )
