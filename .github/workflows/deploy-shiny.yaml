@@ -28,7 +28,7 @@ jobs:
           use-public-rspm: true
 
       - name: Set env vars (dev)
-        if: endsWith(github.ref, '/main') == FALSE
+        if: endsWith(github.ref, '/main') == false
         run: |
           echo "SHINYAPP_NAME='dev-obsm-industry'" >> $GITHUB_ENV
       - name: Set env vars (prod)
