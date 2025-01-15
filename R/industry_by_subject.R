@@ -74,8 +74,14 @@ industry_by_subject_panel <- function() {
                     label = h4("Select Sector Subject Area Tier 2:"),
                     choices = NULL
                   ),
-                  helpText("Download the table as a csv"),
-                  downloadButton("downloadIndSub", label = "Download this data table"),
+                  # Add a button to download data as a csv
+                  downloadButton(
+                    "downloadIndSub",
+                    class = "govuk-button govuk-button--inverse",
+                    `data-module` = "govuk-button",
+                    label = "Download this table (maximum 5 KB)",
+                    icon = NULL
+                  )
                 ) # Right column of filter options - end
               )
             )

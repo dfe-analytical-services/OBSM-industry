@@ -26,11 +26,14 @@ server <- function(input, output, session) {
   hide(id = "loading-content", anim = TRUE, animType = "fade")
   show("app-content")
 
-  output$cookie_status <- dfeshiny::cookie_banner_server(
-    "cookies",
-    input_cookies = reactive(input$cookies),
-    input_clear = reactive(input$cookie_consent_clear),
+  output$cookies_status <- dfeshiny::cookies_banner_server(
+    input_cookies = shiny::reactive(input$cookies),
     parent_session = session,
+    google_analytics_key = google_analytics_key
+  )
+
+  dfeshiny::cookies_panel_server(
+    input_cookies = shiny::reactive(input$cookies),
     google_analytics_key = google_analytics_key
   )
 
@@ -47,7 +50,16 @@ server <- function(input, output, session) {
     change_window_title(session, paste0(site_title, " - ", title_string))
   })
 
-  setBookmarkExclude(c("cookies", "link_to_ind_by_subj_tab", "link_to_subj_by_ind_tab"))
+  setBookmarkExclude(c(
+    "cookies",
+    "link_to_ind_by_subj_tab",
+    "link_to_subj_by_ind_tab",
+    "cookies_banner-cookies_accept",
+    "cookies_banner-cookies_reject",
+    "cookies_banner-cookies_link",
+    "cookies_panel-submit_btn",
+    "cookies_panel-cookies_analytics"
+  ))
   observe({
     # Trigger this observer every time an input changes
     reactiveValuesToList(input)
@@ -224,7 +236,7 @@ server <- function(input, output, session) {
   output$industry_by_subject_title <- renderText({
     paste0(provisioninput_ind(), paste(
       "earners with a sustained employment destination achieving in ", subjectinput(),
-      " in 2020/21, split by industry of employment and ", breakdowninput_ind()
+      " in 2021/22, split by industry of employment and ", breakdowninput_ind()
     ))
   })
 
@@ -248,7 +260,7 @@ server <- function(input, output, session) {
   # Add text as an output otherwise it does not seem to be visible to a screen reader.
   output$industry_by_subject_text <- renderText({
     paste(
-      "This table shows the industry of employment for learners with a sustained employment destination in 2021/22, after completing their aim in 2020/21.",
+      "This table shows the industry of employment for learners with a sustained employment destination in 2022/23, after completing their aim in 2021/22.",
       datatypetext_ind(),
       "Please note, this data provides information about the industry of the company that a learner works for but does not tell us about their occupation within the company."
     )
@@ -375,7 +387,7 @@ server <- function(input, output, session) {
   output$subject_by_industry_title <- renderText({
     paste0(provisioninput(), paste(
       "earners with a sustained employment destination in", paste0(industryinput(), ","),
-      "split by subject completed in 2020/21 and", breakdowninput_subj()
+      "split by subject completed in 2021/22 and", breakdowninput_subj()
     ))
   })
 
@@ -396,7 +408,7 @@ server <- function(input, output, session) {
   # Output text using industry input specified for title
   output$subject_by_industry_text <- renderText({
     paste(
-      "This table shows the subject studied by learners with a sustained employment destination in", industryinput(), "in 2021/22, after completing their aim in 2020/21.",
+      "This table shows the subject studied by learners with a sustained employment destination in", industryinput(), "in 2022/23, after completing their aim in 2021/22.",
       datatypetext_subj(), "Please note, this data is based on the industry in which a learner is employed but does not tell us about their occupation within the company."
     )
   })

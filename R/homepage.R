@@ -5,7 +5,7 @@ homepage_panel <- function() {
       gov_row(
         column(
           12,
-          h1("Further Education Outcomes Industry Dashboard - 2020/21"),
+          h1("Further Education Outcomes Industry Dashboard - 2021/22"),
           intro_text(),
           br(),
           br()

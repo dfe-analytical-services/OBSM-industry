@@ -12,7 +12,24 @@
 # datafiles_log.csv.
 
 
-read_ind_data <- function(file = "data/OBSM_industry_202021.csv") {
-  dfInd <- read.csv(file)
+# read_ind_data <- function(file = "data/FEO_industry_202122.zip") {
+#   dfInd <- read.csv(file)
+#   return(dfInd)
+# }
+
+
+read_ind_data <- function(file = "data/FEO_industry_202122.zip") {
+  # Create a temporary directory to extract the file
+  temp_dir <- tempdir()
+  # Unzip the file into the temporary directory
+  unzip(file, exdir = temp_dir)
+
+  # Find the extracted file (assuming only one CSV file in the zip)
+  csv_file <- list.files(temp_dir, pattern = "\\.csv$", full.names = TRUE)
+
+  # Read the extracted CSV file
+  dfInd <- read.csv(csv_file)
+
+  # Return the data frame
   return(dfInd)
 }

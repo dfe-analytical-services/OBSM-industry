@@ -57,6 +57,11 @@
 
 ui <- function(input, output, session) {
   fluidPage(
+    tags$style(HTML("
+    .download-link span {
+      color: white;
+    }
+  ")),
     # use_tota11y(),
     title = tags$head(tags$link(
       rel = "shortcut icon",
@@ -67,7 +72,7 @@ ui <- function(input, output, session) {
     # Add meta description for search engines
     meta() %>%
       meta_general(
-        application_name = "Further Education Outcomes Industry Dashboard",
+        application_name = site_title,
         description = "Further Education Outcomes Industry Dashboard",
         robots = "index,follow",
         generator = "R-Shiny",
@@ -76,10 +81,16 @@ ui <- function(input, output, session) {
         referrer = "no-referrer"
       ),
     shinyjs::useShinyjs(),
-    customDisconnectMessage(),
+    dfeshiny::custom_disconnect_message(
+      dashboard_title = site_title,
+      publication_name = ees_pub_name,
+      publication_link = ees_publication
+    ),
     # Setting up cookie consent based on a cookie recording the consent:
-    dfe_cookie_script(),
-    cookie_banner_ui("cookies", name = "Further Education Outcomes Industry Dashboard"),
+    dfe_cookies_script(),
+    cookies_banner_ui(
+      name = site_title
+    ),
     tags$head(includeHTML(("google-analytics.html"))),
     tags$head(
       tags$link(
@@ -88,14 +99,7 @@ ui <- function(input, output, session) {
         href = "dfe_shiny_gov_style.css"
       )
     ),
-    shinyGovstyle::header(
-      main_text = "",
-      main_link = "https://www.gov.uk/government/organisations/department-for-education",
-      secondary_text = "Further Education Outcomes Industry Dashboard",
-      logo = "images/DfE_logo_landscape.png",
-      logo_width = 150,
-      logo_height = 32
-    ),
+    dfeshiny::header(header = site_title),
     shinyGovstyle::banner(
       "beta banner",
       "beta",
@@ -111,13 +115,49 @@ ui <- function(input, output, session) {
       homepage_panel(),
       industry_by_subject_panel(),
       subject_by_industry_panel(),
-      a11y_panel(),
-      dfeshiny::support_panel(
-        team_email = "FE.OUTCOMESDATA@education.gov.uk",
-        form_url = "https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-YHar1nqsS9Eu7bHka6oC0lUQUlDNzNBVzdGSUE3VVpJMlY1STVTSjNVNC4u",
-        repo_name = "https://github.com/dfe-analytical-services/OBSM-industry",
-        publication_slug = "further-education-outcome-based-success-measures",
-        publication_name = "Further Education outcomes based success measures"
+      shiny::tabPanel(
+        value = "a11y_panel",
+        "Accessibility",
+        dfeshiny::a11y_panel(
+          dashboard_title = site_title,
+          dashboard_url = site_primary,
+          date_tested = "2nd January 2025",
+          date_prepared = "2nd January 2025",
+          date_reviewed = "2nd January 2025",
+          issues_contact = "FE.OUTCOMESDATA@education.gov.uk",
+          publication_slug = "further-education-outcome-based-success-measures",
+          publication_name = "Further Education outcomes based success measures",
+          non_accessible_components = c(
+            paste(
+              "Some navigation components (e.g. tabbed content, skip to main) are not",
+              "accessibly implemented."
+            ),
+            "Some images / links may not have appropriate alt text where needed.",
+            "Some inputs do not have appropriate focus styling."
+          ),
+          specific_issues = c(
+            "The header link-image does not currently have alt-text.",
+            "The navigation tab-set list is not appropriately marked up for screen reader users.",
+            "There are no skip to main links on the different dashboard pages.",
+            "Input selection dropdown boxes do not have focus highlighting applied."
+          )
+        )
+      ),
+      shiny::tabPanel(
+        value = "support_panel",
+        "Support and feedback",
+        support_panel(
+          team_email = "FE.OUTCOMESDATA@education.gov.uk",
+          form_url = "https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-YHar1nqsS9Eu7bHka6oC0lUQUlDNzNBVzdGSUE3VVpJMlY1STVTSjNVNC4u",
+          repo_name = "https://github.com/dfe-analytical-services/OBSM-industry",
+          publication_slug = "further-education-outcome-based-success-measures",
+          publication_name = "Further Education outcomes based success measures"
+        )
+      ),
+      shiny::tabPanel(
+        value = "cookies_panel_ui",
+        "Cookies",
+        cookies_panel_ui(google_analytics_key = google_analytics_key)
       )
     ),
     tags$script(

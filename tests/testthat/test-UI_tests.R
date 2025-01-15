@@ -1,7 +1,14 @@
 library(shinytest2)
 
 test_that("Migrated shinytest test: UI_tests.R", {
-  app <- AppDriver$new()
+  app <- AppDriver$new(
+    height = 846,
+    width = 1445,
+    load_timeout = 120 * 1000,
+    timeout = 20 * 1000,
+    wait = TRUE,
+    expect_values_screenshot_args = FALSE
+  )
 
   listInputs <- c(
     "navlistPanel",
