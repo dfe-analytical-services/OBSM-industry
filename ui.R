@@ -126,7 +126,21 @@ ui <- function(input, output, session) {
           date_reviewed = "2nd January 2025",
           issues_contact = "FE.OUTCOMESDATA@education.gov.uk",
           publication_slug = "further-education-outcome-based-success-measures",
-          publication_name = "Further Education outcomes based success measures"
+          publication_name = "Further Education outcomes based success measures",
+          non_accessible_components = c(
+            paste(
+              "Some navigation components (e.g. tabbed content, skip to main) are not",
+              "accessibly implemented."
+            ),
+            "Some images / links may not have appropriate alt text where needed.",
+            "Some inputs do not have appropriate focus styling."
+          ),
+          specific_issues = c(
+            "The header link-image does not currently have alt-text.",
+            "The navigation tab-set list is not appropriately marked up for screen reader users.",
+            "There are no skip to main links on the different dashboard pages.",
+            "Input selection dropdown boxes do not have focus highlighting applied."
+          )
         )
       ),
       shiny::tabPanel(
