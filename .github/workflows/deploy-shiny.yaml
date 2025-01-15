@@ -4,9 +4,6 @@ on:
       - main
       - development
       - FEO_2024_publication
-  pull-request:
-    branches:
-      - FEO_2024_publication
 
 name: deploy-shiny
 
@@ -76,6 +73,7 @@ jobs:
           renv::install("rsconnect") 
           
       - name: Push to shiny.io
+        if: github.event_name != 'pull_request'
         run: >
           Rscript
           -e "rsconnect::setAccountInfo(name = 'department-for-education', token = '${{secrets.SHINYAPPS_TOKEN}}', secret = '${{secrets.SHINYAPPS_SECRET}}')"
