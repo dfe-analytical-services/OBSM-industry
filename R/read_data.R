@@ -18,7 +18,7 @@
 # }
 
 
-read_ind_data <- function(file = "data/FEO_industry_202122.zip") {
+read_ind_data <- function(file = "data/FEO_industry_202223.zip") {
   # Create a temporary directory to extract the file
   temp_dir <- tempdir()
   # Unzip the file into the temporary directory
