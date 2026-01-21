@@ -70,7 +70,6 @@ server <- function(input, output, session) {
   })
 
 
-
   # Homepage links to tabs --------------------------------------------------
 
   observeEvent(input$link_to_ind_by_subj_tab, {
@@ -80,7 +79,6 @@ server <- function(input, output, session) {
   observeEvent(input$link_to_subj_by_ind_tab, {
     updateTabsetPanel(session, "navlistPanel", selected = "SubjectByIndustry")
   })
-
 
 
   # Dynamic filter options for SSA Tier 1 - Industry by Subject -------------
@@ -102,9 +100,7 @@ server <- function(input, output, session) {
   })
 
 
-
   # Dynamic filter options for SSA Tier 2 - Industry by Subject -------------
-
 
 
   # This code is used to generate dynamic filters, where the SSA Tier 2 options that appear are dependent
@@ -128,8 +124,6 @@ server <- function(input, output, session) {
   })
 
 
-
-
   # Industry by subject crosstab --------------------------------------------
 
 
@@ -145,7 +139,6 @@ server <- function(input, output, session) {
   total_val <- reactive({
     calc_learner_total(vols_data_filtered(), input$selectBreakdown, input$selectType)
   })
-
 
 
   # Call function which when proportions have been selected as data type, divide initial volumes by grand total to create percentage, then format.
@@ -241,9 +234,6 @@ server <- function(input, output, session) {
   })
 
 
-
-
-
   # Dynamic text for industry by subject page ---------------------------------------
 
 
@@ -284,9 +274,6 @@ server <- function(input, output, session) {
     choices <- unique(provision_subj()$Industry)
     updateSelectInput(inputId = "selectIndustry", choices = choices)
   })
-
-
-
 
 
   # Subject by industry crosstab --------------------------------------------
@@ -390,7 +377,6 @@ server <- function(input, output, session) {
       "split by subject completed in 2022/23 and", breakdowninput_subj()
     ))
   })
-
 
 
   # Dynamic text for subject by industry page -------------------------------

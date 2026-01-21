@@ -99,7 +99,7 @@ ui <- function(input, output, session) {
         href = "dfe_shiny_gov_style.css"
       )
     ),
-    dfeshiny::header(header = site_title),
+    dfeshiny::header(header = site_title, main_alt_text = "Department for Education logo"),
     shinyGovstyle::banner(
       "beta banner",
       "beta",
@@ -121,9 +121,9 @@ ui <- function(input, output, session) {
         dfeshiny::a11y_panel(
           dashboard_title = site_title,
           dashboard_url = site_primary,
-          date_tested = "2nd January 2025",
-          date_prepared = "2nd January 2025",
-          date_reviewed = "2nd January 2025",
+          date_tested = "8th January 2026",
+          date_prepared = "8th January 2026",
+          date_reviewed = "8th January 2026",
           issues_contact = "FE.OUTCOMESDATA@education.gov.uk",
           publication_slug = "further-education-outcome-based-success-measures",
           publication_name = "Further Education outcomes based success measures",

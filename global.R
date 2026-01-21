@@ -114,7 +114,6 @@ dfInd <- read_ind_data() %>%
   mutate(Ethnicity = ifelse(Ethnicity == "Black/African/Caribbean/Black British", "Black/African/ Caribbean/ Black British", Ethnicity))
 
 
-
 # Set up list of choices for input selections -----------------------------
 
 # Get list of all options for SSA Tier 1
