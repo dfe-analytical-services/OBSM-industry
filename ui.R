@@ -92,14 +92,11 @@ ui <- function(input, output, session) {
       name = site_title
     ),
     tags$head(includeHTML(("google-analytics.html"))),
-    tags$head(
-      tags$link(
-        rel = "stylesheet",
-        type = "text/css",
-        href = "dfe_shiny_gov_style.css"
-      )
+    shinyGovstyle::full_width_overrides(),
+    shinyGovstyle::header(
+      org_name = "Department for Education",
+      service_name = site_title
     ),
-    dfeshiny::header(header = site_title, main_alt_text = "Department for Education logo"),
     shinyGovstyle::banner(
       "beta banner",
       "beta",
