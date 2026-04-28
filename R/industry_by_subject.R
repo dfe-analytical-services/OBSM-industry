@@ -24,7 +24,11 @@ industry_by_subject_panel <- function() {
                   # Volumes or proportions input
                   selectizeInput(
                     inputId = "selectType",
-                    label = h4("View the volumes or proportions of learners in each industry:"),
+                    label = shinyGovstyle::heading_text(
+                      "View the volumes or proportions of learners in each industry:",
+                      size = "s",
+                      level = 4
+                    ),
                     choices = list(
                       "Volumes" = "NumberSustainedEmployment",
                       "Proportions" = "SustainedEmploymentPercent"
@@ -34,13 +38,21 @@ industry_by_subject_panel <- function() {
                   # Provision input
                   selectizeInput(
                     inputId = "selectProvision",
-                    label = h4("Select provision type:"),
+                    label = shinyGovstyle::heading_text(
+                      "Select provision type:",
+                      size = "s",
+                      level = 4
+                    ),
                     choices = choicesProvision$Provision
                   ),
                   # Data breakdown input
                   selectizeInput(
                     inputId = "selectBreakdown",
-                    label = h4("Select breakdown:"),
+                    label = shinyGovstyle::heading_text(
+                      "Select breakdown:",
+                      size = "s",
+                      level = 4
+                    ),
                     choices = list(
                       "Age Group" = "AgeGroup",
                       "Ethnicity" = "Ethnicity",
@@ -64,14 +76,22 @@ industry_by_subject_panel <- function() {
                   # SSA Tier 1 input. List of choices will be dependent on SSA Tier 1 selected above, so set to null for now
                   # Code in the server script will populate this list of choices dynamically
                   selectInput("selectSSA",
-                    label = h4("Select Sector Subject Area Tier 1:"),
+                    label = shinyGovstyle::heading_text(
+                      "Select Sector Subject Area Tier 1:",
+                      size = "s",
+                      level = 4
+                    ),
                     choices = NULL
                   ),
 
                   # SSA Tier 2 input. List of choices will be dependent on SSA Tier 1 selected above, so set to null for now
                   # Code in the server script will populate this list of choices dynamically
                   selectInput("selectSSATier2",
-                    label = h4("Select Sector Subject Area Tier 2:"),
+                    label = shinyGovstyle::heading_text(
+                      "Select Sector Subject Area Tier 2:",
+                      size = "s",
+                      level = 4
+                    ),
                     choices = NULL
                   ),
                   # Add a button to download data as a csv
