@@ -616,7 +616,11 @@ format_gt_subj <- function(data, inputtype, inputdetail) {
 
 intro_text <- function() {
   div(
-    h2("Introduction"),
+    shinyGovstyle::heading_text(
+      "Introduction",
+      size = "l",
+      level = 2
+    ),
     " SIC (UK Standard Industrial Classification of economic activities) codes have now been joined to LEO (Longitudinal Education Outcomes) data using the IDBR (Inter-Departmental Business Register) data.
       This dashboard has been designed to allow users to explore this data and the relationship between subject studied and industry of employment after learning.",
     # a(
@@ -640,11 +644,13 @@ ind_by_subj_text <- function() {
     "This table shows which industries learners from the selected subject area go on to work in.",
     "The following breakdowns are currently available:",
     br(),
-    tags$ul(
-      tags$li("Age group"),
-      tags$li("Ethnicity"),
-      tags$li("Level of learning"),
-      tags$li("Sex"),
+    shinyGovstyle::gov_list(
+      list(
+        "Age group",
+        "Ethnicity",
+        "Level of learning",
+        "Sex"
+      )
     )
   )
 }
@@ -657,11 +663,13 @@ subj_by_ind_text <- function() {
     "This table shows which subjects learners from the selected industry studied.
       The following breakdowns are currently available:",
     br(),
-    tags$ul(
-      tags$li("Age group"),
-      tags$li("Ethnicity"),
-      tags$li("Level of learning"),
-      tags$li("Sex"),
+    shinyGovstyle::gov_list(
+      list(
+        "Age group",
+        "Ethnicity",
+        "Level of learning",
+        "Sex"
+      )
     )
   )
 }
@@ -674,6 +682,11 @@ guidance_text <- function() {
   div(
     class = "panel-body",
     h3("Official Statistics"),
+    shinyGovstyle::heading_text(
+      "Official Statistics",
+      size = "m",
+      level = 3
+    ),
     "This dashboard uses data from the",
     a(
       style = "color:#007fb0",
@@ -682,17 +695,37 @@ guidance_text <- function() {
       .noWS = c("after")
     ),
     ", which present statistics on the employment, earnings and learning outcomes of further education learners. ",
-    h3("Learners in scope"),
+    shinyGovstyle::heading_text(
+      "Learners in scope",
+      size = "m",
+      level = 3
+    ),
     ("This dashboard covers Further Education learners aged 16+ who achieved a learning aim in 2022/23, and moved into sustained employment in the following academic year (2023/24)."),
-    h3("Definitions"),
-    h4("Inter-departmental Business Register (IDBR)"),
+    shinyGovstyle::heading_text(
+      "Definitions",
+      size = "m",
+      level = 3
+    ),
+    shinyGovstyle::heading_text(
+      "Inter-departmental Business Register (IDBR)",
+      size = "s",
+      level = 4
+    ),
     "IDBR data is a comprehensive list of UK businesses used by government for statistical purposes.
       The two main sources of input are Value Added Tax (VAT) and Pay As You Earn (PAYE) records from HMRC. Additional information comes from Companies House, Dun and Bradstreet and ONS business surveys.
     90% of learners with a sustained employment destination in FEO were successfully matched to IDBR data.",
-    h4("Longitudinal Education Outcomes (LEO)"),
+    shinyGovstyle::heading_text(
+      "Longitudinal Education Outcomes (LEO)",
+      size = "s",
+      level = 4
+    ),
     "The data uses the Longitudinal Education Outcomes (LEO) dataset, which looks at how learners move through education and into the labour market by bringing together schools,
     further and higher education information from the Department for Education (DfE), employment information from HM Revenue and Customs (HMRC), and benefit histories from the Department of Work and Pensions (DWP).",
-    h4("Sector Subject Area (SSA)"),
+    shinyGovstyle::heading_text(
+      "Sector Subject Area (SSA)",
+      size = "s",
+      level = 4
+    ),
     "All qualifications are categorised into Sector Subject Areas. This",
     a(
       style = "color:#007fb0",
@@ -701,7 +734,11 @@ guidance_text <- function() {
       .noWS = c("after")
     ),
     " outlines these classifications at both Tier 1 (high level) and Tier 2 (low level).",
-    h4("Standard Industrial Classification (SIC)"),
+    shinyGovstyle::heading_text(
+      "Standard Industrial Classification (SIC)",
+      size = "s",
+      level = 4
+    ),
     "The UK Standard Industrial Classification (SIC) of economic activities is used to classify businesses by the type of activity they do. For
       more information see the",
     a(
@@ -710,7 +747,11 @@ guidance_text <- function() {
       "Office for National Statistics interactive SIC hierarchy.",
       .noWS = c("after")
     ),
-    h4("Sustained employment"),
+    shinyGovstyle::heading_text(
+      "Sustained employment",
+      size = "s",
+      level = 4
+    ),
     "To be counted in a sustained employment, learners have to be recorded as being in employment for a 6 month period (October to March) in the year following study, or have submitted a self-assessment record.
    Further information is available in the",
     a(
