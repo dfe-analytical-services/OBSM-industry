@@ -18,7 +18,11 @@ subject_by_industry_panel <- function() {
                   # Data type input
                   selectizeInput(
                     inputId = "selectTypeSubj",
-                    label = h4("View the volumes or proportions of learners from each subject:"),
+                    label = shinyGovstyle::heading_text(
+                      "View the volumes or proportions of learners from each subject:",
+                      size = "s",
+                      level = 4
+                    ),
                     choices = list(
                       "Volumes" = "NumberSustainedEmployment",
                       "Proportions" = "SustainedEmploymentPercent"
@@ -28,13 +32,21 @@ subject_by_industry_panel <- function() {
                   # Provision input
                   selectizeInput(
                     inputId = "selectProvisionSubj",
-                    label = h4("Select provision type:"),
+                    label = shinyGovstyle::heading_text(
+                      "Select provision type:",
+                      size = "s",
+                      level = 4
+                    ),
                     choices = choicesProvision$Provision
                   ),
                   # Industry input. List of choices will be dependent on provision type selected, so set to null for now
                   # Code in the server script will populate this list of choices dynamically
                   selectInput("selectIndustry",
-                    label = h4("Select Industry:"),
+                    label = shinyGovstyle::heading_text(
+                      "Select Industry:",
+                      size = "s",
+                      level = 4
+                    ),
                     choices = NULL
                   )
                 ), # Left column of filter options - end
@@ -44,7 +56,11 @@ subject_by_industry_panel <- function() {
                   # Level of detail input
                   selectizeInput(
                     inputId = "selectSSADetail",
-                    label = h4("Select level of detail for sector subject area:"),
+                    label = shinyGovstyle::heading_text(
+                      "Select level of detail for sector subject area:",
+                      size = "s",
+                      level = 4
+                    ),
                     choices = list(
                       "General (Tier 1)" = "SSATier1",
                       "Detailed (Tier 2)" = "SSATier2"
@@ -54,7 +70,11 @@ subject_by_industry_panel <- function() {
                   # Data breakdown input
                   selectizeInput(
                     inputId = "selectBreakdownSubj",
-                    label = h4("Select breakdown:"),
+                    label = shinyGovstyle::heading_text(
+                      "Select breakdown:",
+                      size = "s",
+                      level = 4
+                    ),
                     choices = list(
                       "Age Group" = "AgeGroup",
                       "Ethnicity" = "Ethnicity",
