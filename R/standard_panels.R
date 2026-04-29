@@ -5,11 +5,19 @@ a11y_panel <- function() {
       gov_row(
         column(
           width = 12,
-          h1("Accessibility statement"),
+          shinyGovstyle::heading_text(
+            "Accessibility statement",
+            size = "xl",
+            level = 1
+          ),
           br("This accessibility statement applies to the Further Education Outcomes Industry Dashboard.
             This application is run by the Department for Education. We want as many people as possible to be able to use this application,
             and have actively developed this application with accessibilty in mind."),
-          h2("WCAG 2.1 compliance"),
+          shinyGovstyle::heading_text(
+            "WCAG 2.1 compliance",
+            size = "l",
+            level = 2
+          ),
           br(
             "We follow the reccomendations of the ", a(style = "color:#007fb0", href = "https://www.w3.org/TR/WCAG21/", "WCAG 2.1 requirements. ", onclick = "ga('send', 'event', 'click', 'link', 'IKnow', 1)"), "This application has been checked using the ", a(style = "color:#007fb0", href = "https://github.com/ewenme/shinya11y", "Shinya11y tool "), ", which did not detect accessibility issues.
              Each page in this application has been audited for accessiblity with the page-snapshot functionality in the ",
@@ -18,22 +26,38 @@ a11y_panel <- function() {
             "The reasons for this are outlined in the limitations section below.",
             "This app does however follow the following guidelines:"
           ),
-          tags$div(tags$ul(
-            tags$li("uses colours that have sufficient contrast"),
-            tags$li("allows you to zoom in up to 300% without the text spilling off the screen"),
-            tags$li("has its performance regularly monitored, with a team working on any feedback to improve accessibility for all users")
-          )),
-          h2("Limitations"),
+          tags$div(
+            shinyGovstyle::gov_list(
+              list(
+                "uses colours that have sufficient contrast",
+                "allows you to zoom in up to 300% without the text spilling off the screen",
+                "has its performance regularly monitored, with a team working on any feedback to improve accessibility for all users"
+              )
+            )
+          ),
+          shinyGovstyle::heading_text(
+            "Limitations",
+            size = "l",
+            level = 2
+          ),
           br(
             "We recognise that there are still issues with accessibility in this application, but we will continue
              to review updates to technology available to us to keep improving accessibility for all of our users." # For example, these
           ),
-          tags$div(tags$ul(
-            tags$li("some elements fail to have the appropriate aria tags"),
-            tags$li("some table header ids are not assigned correctly"),
-            tags$li("some image elements do not have an alt attributes (note that where this is the case, those images are primarily for presentation )")
-          )),
-          h2("Feedback"),
+          tags$div(
+            shinyGovstyle::gov_list(
+              list(
+                "some elements fail to have the appropriate aria tags",
+                "some table header ids are not assigned correctly",
+                "some image elements do not have an alt attributes (note that where this is the case, those images are primarily for presentation)"
+              )
+            )
+          ),
+          shinyGovstyle::heading_text(
+            "Feedback",
+            size = "l",
+            level = 2
+          ),
           br(
             "If you have any feedback on how we could further improve the accessibility of this application, please contact us at",
             a(style = "color:#007fb0", href = "mailto:FE.OUTCOMESDATA@education.gov.uk", "FE.OUTCOMESDATA@education.gov.uk")
@@ -51,7 +75,11 @@ support_links <- function() {
       gov_row(
         column(
           width = 12,
-          h2("Give us feedback"),
+          shinyGovstyle::heading_text(
+            "Give us feedback",
+            size = "l",
+            level = 2
+          ),
           "This dashboard is a new service that we are developing. If you have any feedback or suggestions for improvements, please submit them using our ",
           a(
             style = "color:#007fb0",
@@ -77,7 +105,11 @@ support_links <- function() {
         ),
         column(
           12,
-          h2("Use of cookies"),
+          shinyGovstyle::heading_text(
+            "Use of cookies",
+            size = "l",
+            level = 2
+          ),
           textOutput("cookie_status"),
           actionButton("remove", "Reset cookie consent"),
         )
