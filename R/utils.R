@@ -19,16 +19,16 @@ customDisconnectMessage <- function(refresh = "Refresh page",
       style = "display: none !important;",
       htmltools::tags$div(
         id = "ss-connect-refresh",
-        tags$p("You've lost connection to the dashboard server - please try refreshing the page:"),
-        tags$p(tags$a(
+        shinyGovstyle::gov_text("You've lost connection to the dashboard server - please try refreshing the page:"),
+        shinyGovstyle::gov_text(tags$a(
           id = "ss-reload-link",
           href = "#", "Refresh page",
           onclick = "window.location.reload(true);"
         )),
         if (length(links) > 1) {
-          tags$p(
+          shinyGovstyle::gov_text(
             "If this persists, you can also view the dashboard at one of our mirror sites:",
-            tags$p(
+            shinyGovstyle::gov_text(
               tags$a(href = links[1], "Site 1"),
               " - ",
               tags$a(href = links[2], "Site 2"),
@@ -42,7 +42,7 @@ customDisconnectMessage <- function(refresh = "Refresh page",
           )
         },
         if (!is.null(publication_name)) {
-          tags$p(
+          shinyGovstyle::gov_text(
             "All the data used in this dashboard can also be viewed or downloaded via the ",
             tags$a(
               href = publication_link,
@@ -51,7 +51,7 @@ customDisconnectMessage <- function(refresh = "Refresh page",
             "on Explore Education Statistics."
           )
         },
-        tags$p(
+        shinyGovstyle::gov_text(
           "Please contact",
           tags$a(href = "mailto:statistics.development@education.gov.uk", "statistics.development@education.gov.uk"),
           "with details of any problems with this resource."
