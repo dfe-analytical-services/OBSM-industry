@@ -1002,7 +1002,9 @@ intro_text <- function() {
 ind_by_subj_text <- function() {
   div(
     gov_text(
-      "This table shows which industries learners from the selected subject area go on to work in.",
+      "The",
+      actionLink("link_to_ind_by_subj_tab", "industry by subject table"),
+      "shows which industries learners from the selected subject area go on to work in.",
       "The following breakdowns are currently available:"
     ),
     shinyGovstyle::gov_list(
@@ -1022,9 +1024,12 @@ ind_by_subj_text <- function() {
 
 subj_by_ind_text <- function() {
   div(
-    "This table shows which subjects learners from the selected industry studied.
-      The following breakdowns are currently available:",
-    br(),
+    gov_text(
+      "The",
+      actionLink("link_to_subj_by_ind_tab", "subject by industry table"),
+      "shows which subjects learners from the selected industry studied.
+      The following breakdowns are currently available:"
+    ),
     shinyGovstyle::gov_list(
       c(
         "Age group",
@@ -1043,19 +1048,16 @@ subj_by_ind_text <- function() {
 guidance_text <- function() {
   div(
     class = "panel-body",
-    h3("Official Statistics"),
     shinyGovstyle::heading_text(
       "Official Statistics",
       size = "m",
       level = 3
     ),
     gov_text(
-      "This dashboard uses data from the",
-      a(
-        style = "color:#007fb0",
+      "This dashboard uses data from the ",
+      external_link(
         href = "https://explore-education-statistics.service.gov.uk/find-statistics/further-education-outcome-based-success-measures",
-        "official statistics publication on Further Education Outcomes (FEO)",
-        .noWS = c("after")
+        "official statistics publication on Further Education Outcomes (FEO)"
       ),
       ", which present statistics on the employment, earnings and learning outcomes of further education learners. "
     ),
@@ -1098,11 +1100,9 @@ guidance_text <- function() {
     ),
     gov_text(
       "All qualifications are categorised into Sector Subject Areas. This",
-      a(
-        style = "color:#007fb0",
+      external_link(
         href = "https://www.gov.uk/government/publications/types-of-regulated-qualifications/qualification-descriptions#sector",
-        "qualifications guidance",
-        .noWS = c("after")
+        "qualifications guidance"
       ),
       " outlines these classifications at both Tier 1 (high level) and Tier 2 (low level)."
     ),
@@ -1114,11 +1114,9 @@ guidance_text <- function() {
     gov_text(
       "The UK Standard Industrial Classification (SIC) of economic activities is used to classify businesses by the type of activity they do. For
       more information see the",
-      a(
-        style = "color:#007fb0",
+      external_link(
         href = "https://onsdigital.github.io/dp-classification-tools/standard-industrial-classification/ONS_SIC_hierarchy_view.html",
-        "Office for National Statistics interactive SIC hierarchy",
-        .noWS = c("after")
+        "Office for National Statistics interactive SIC hierarchy"
       ),
       "."
     ),
@@ -1130,11 +1128,9 @@ guidance_text <- function() {
     gov_text(
       "To be counted in a sustained employment, learners have to be recorded as being in employment for a 6 month period (October to March) in the year following study, or have submitted a self-assessment record.
    Further information is available in the",
-      a(
-        style = "color:#007fb0",
+      external_link(
         href = "https://explore-education-statistics.service.gov.uk/methodology/further-education-outcome-based-success-measures",
-        "FE Outcomes methodology",
-        .noWS = c("after")
+        "FE Outcomes methodology"
       ),
       "."
     ),

@@ -50,7 +50,10 @@ homepage_panel <- function() {
             ),
             guidance_text(),
           ),
-          col_widths = c(12, 12)
+          col_widths = breakpoints(
+            sm = c(12, 12),
+            md = c(4, 8)
+          )
         )
       )
     )

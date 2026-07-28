@@ -7316,17 +7316,17 @@
     ".github/ISSUE_TEMPLATE/feature_request.md": {
       "checksum": "2c95cb00ebd7546ccec06638cd813767"
     },
+    ".github/workflows/air.yml": {
+      "checksum": "3325dee1337dcbdbe33348b7fd275a7e"
+    },
     ".github/workflows/automated-tests.yaml": {
-      "checksum": "0632a61c292184d1246e61f385b0274c"
+      "checksum": "7fec9834ee9927cf76307a613d0e699e"
     },
     ".github/workflows/deploy-shiny.yaml": {
-      "checksum": "8dc38c89060ff6deed0812590b6a9ccb"
+      "checksum": "7be2ac39dab11034877d7f08ea8472d5"
     },
-    ".github/workflows/lintr.yml": {
-      "checksum": "dc049ab23efb82ea5046abaf6d106d58"
-    },
-    ".github/workflows/tidyCode.yaml": {
-      "checksum": "3afd50e61c67b4d48781bdb473c64347"
+    ".github/workflows/lint.yaml": {
+      "checksum": "db7c5661bd52696cbed5255f3e4003e4"
     },
     ".hooks/pre-commit.R": {
       "checksum": "4dd71e2905622a043f0d425d7979b12a"
@@ -7338,7 +7338,7 @@
       "checksum": "38078b9937e097f7258b36091e9d4937"
     },
     ".Rprofile": {
-      "checksum": "fdb4c10de8816b2c689066c9ec8b0f96"
+      "checksum": "1d28553f58a96491de6a6dfeedf32813"
     },
     "CODE_OF_CONDUCT.md": {
       "checksum": "7dcf9b0b5bac78fc7d7fe45f8c5102b1"
@@ -7368,25 +7368,19 @@
       "checksum": "33bce00050768810c97392bb0bb418da"
     },
     "R/functions.R": {
-      "checksum": "957917e6b41715a8d01c4c18f9b2f738"
+      "checksum": "057c606d309d79e6903e62abeed1acf4"
     },
     "R/homepage.R": {
-      "checksum": "1ce0ba97f84d73efb95dfce62ffa32d5"
+      "checksum": "b5d722aae3348ad51eb7733b4f5e85ca"
     },
     "R/industry_by_subject.R": {
-      "checksum": "a3ec291063e9d22b8a101f0e3c362818"
+      "checksum": "85a3d008458a1b603eee527da9815adb"
     },
     "R/read_data.R": {
       "checksum": "b9bef7cc6840f7f299dabc4bd6f06df2"
     },
-    "R/standard_panels.R": {
-      "checksum": "6edd8fbf6025a8e49793b81a2b82f167"
-    },
     "R/subject_by_industry.R": {
-      "checksum": "353c9ad88a49232f4f5d7e8851722dbd"
-    },
-    "R/utils.R": {
-      "checksum": "5c237804b536331baf024afefbedcf82"
+      "checksum": "63cba9302938634aea68dbfc67600a56"
     },
     "README.md": {
       "checksum": "cde4459f39a79c3976b904aa1f02fc90"
@@ -7512,7 +7506,7 @@
       "checksum": "c93abe0792c4eef66d2db9c121c27214"
     },
     "ui.R": {
-      "checksum": "2a3caa5ae976e9f5ce19b669af43eb46"
+      "checksum": "c06eb9eb13d71cd9b96ddfa41d3d6061"
     },
     "www/cookie-consent.js": {
       "checksum": "dd507a9ad0d33b3b3f97546ffc357f23"

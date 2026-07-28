@@ -118,46 +118,52 @@ ui <- function(input, output, session) {
       shiny::tabPanel(
         value = "a11y_panel",
         "Accessibility",
-        dfeshiny::a11y_panel(
-          dashboard_title = site_title,
-          dashboard_url = site_primary,
-          date_tested = "8th January 2026",
-          date_prepared = "8th January 2026",
-          date_reviewed = "8th January 2026",
-          issues_contact = "fe.outcomesdata@education.gov.uk",
-          publication_slug = "further-education-outcome-based-success-measures",
-          publication_name = "Further Education outcomes based success measures",
-          non_accessible_components = c(
-            paste(
-              "Some navigation components (e.g. tabbed content, skip to main) are not",
-              "accessibly implemented."
+        gov_main_layout(
+          dfeshiny::a11y_panel(
+            dashboard_title = site_title,
+            dashboard_url = site_primary,
+            date_tested = "8th January 2026",
+            date_prepared = "8th January 2026",
+            date_reviewed = "8th January 2026",
+            issues_contact = "fe.outcomesdata@education.gov.uk",
+            publication_slug = "further-education-outcome-based-success-measures",
+            publication_name = "Further Education outcomes based success measures",
+            non_accessible_components = c(
+              paste(
+                "Some navigation components (e.g. tabbed content, skip to main) are not",
+                "accessibly implemented."
+              ),
+              "Some images / links may not have appropriate alt text where needed.",
+              "Some inputs do not have appropriate focus styling."
             ),
-            "Some images / links may not have appropriate alt text where needed.",
-            "Some inputs do not have appropriate focus styling."
-          ),
-          specific_issues = c(
-            "The header link-image does not currently have alt-text.",
-            "The navigation tab-set list is not appropriately marked up for screen reader users.",
-            "There are no skip to main links on the different dashboard pages.",
-            "Input selection dropdown boxes do not have focus highlighting applied."
+            specific_issues = c(
+              "The header link-image does not currently have alt-text.",
+              "The navigation tab-set list is not appropriately marked up for screen reader users.",
+              "There are no skip to main links on the different dashboard pages.",
+              "Input selection dropdown boxes do not have focus highlighting applied."
+            )
           )
         )
       ),
       shiny::tabPanel(
         value = "support_panel",
         "Support and feedback",
-        support_panel(
-          team_email = "FE.OUTCOMESDATA@education.gov.uk",
-          form_url = "https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-YHar1nqsS9Eu7bHka6oC0lUQUlDNzNBVzdGSUE3VVpJMlY1STVTSjNVNC4u",
-          repo_name = "https://github.com/dfe-analytical-services/OBSM-industry",
-          publication_slug = "further-education-outcome-based-success-measures",
-          publication_name = "Further Education outcomes based success measures"
+        gov_main_layout(
+          dfeshiny::support_panel(
+            team_email = "FE.OUTCOMESDATA@education.gov.uk",
+            form_url = "https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-YHar1nqsS9Eu7bHka6oC0lUQUlDNzNBVzdGSUE3VVpJMlY1STVTSjNVNC4u",
+            repo_name = "https://github.com/dfe-analytical-services/OBSM-industry",
+            publication_slug = "further-education-outcome-based-success-measures",
+            publication_name = "Further Education outcomes based success measures"
+          )
         )
       ),
       shiny::tabPanel(
         value = "cookies_panel_ui",
         "Cookies",
-        cookies_panel_ui(google_analytics_key = google_analytics_key)
+        gov_main_layout(
+          cookies_panel_ui(google_analytics_key = google_analytics_key)
+        )
       )
     ),
     tags$script(
