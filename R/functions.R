@@ -82,7 +82,6 @@ filter_vols_data <- function(inputbreakdown, inputtype, inputSSA, inputprovision
 }
 
 
-
 ## Collate crosstab data ---------------------------------------------------
 
 # Where proportions have been selected as data type, divide initial volumes by grand total to create percentage, then format
@@ -201,9 +200,6 @@ collate_crosstab_data <- function(data, totaldata, inputbreakdown, inputtype, in
     }
   })
 }
-
-
-
 
 
 ## Format as gt table ------------------------------------------------------
@@ -356,7 +352,6 @@ filter_vols_data_subj <- function(inputbreakdown, inputtype, inputindustry, inpu
 }
 
 
-
 ## Collate crosstab data - subject by industry -----------------------------
 
 # Function to collate data for subject by industry crosstab
@@ -403,7 +398,6 @@ collate_crosstab_data_subj <- function(data, totaldata, inputbreakdown, inputtyp
         rename(Total = All) %>%
         as.data.frame()
     }
-
 
 
     # Where volumes have been selected as data type, select totals for all other options and then format
@@ -618,7 +612,6 @@ format_gt_subj <- function(data, inputtype, inputdetail) {
 # DASHBOARD TEXT FUNCTIONS ------------------------------------------------
 
 
-
 # Introduction text -------------------------------------------------------
 
 intro_text <- function() {
@@ -677,7 +670,6 @@ subj_by_ind_text <- function() {
 # Text for guidance box ---------------------------------------------------
 
 
-
 guidance_text <- function() {
   div(
     class = "panel-body",
@@ -691,7 +683,7 @@ guidance_text <- function() {
     ),
     ", which present statistics on the employment, earnings and learning outcomes of further education learners. ",
     h3("Learners in scope"),
-    ("This dashboard covers Further Education learners aged 16+ who achieved a learning aim in 2021/22, and moved into sustained employment in the following academic year (2022/23)."),
+    ("This dashboard covers Further Education learners aged 16+ who achieved a learning aim in 2022/23, and moved into sustained employment in the following academic year (2023/24)."),
     h3("Definitions"),
     h4("Inter-departmental Business Register (IDBR)"),
     "IDBR data is a comprehensive list of UK businesses used by government for statistical purposes.

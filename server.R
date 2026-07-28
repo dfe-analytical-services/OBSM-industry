@@ -70,7 +70,6 @@ server <- function(input, output, session) {
   })
 
 
-
   # Homepage links to tabs --------------------------------------------------
 
   observeEvent(input$link_to_ind_by_subj_tab, {
@@ -80,7 +79,6 @@ server <- function(input, output, session) {
   observeEvent(input$link_to_subj_by_ind_tab, {
     updateTabsetPanel(session, "navlistPanel", selected = "SubjectByIndustry")
   })
-
 
 
   # Dynamic filter options for SSA Tier 1 - Industry by Subject -------------
@@ -102,9 +100,7 @@ server <- function(input, output, session) {
   })
 
 
-
   # Dynamic filter options for SSA Tier 2 - Industry by Subject -------------
-
 
 
   # This code is used to generate dynamic filters, where the SSA Tier 2 options that appear are dependent
@@ -128,8 +124,6 @@ server <- function(input, output, session) {
   })
 
 
-
-
   # Industry by subject crosstab --------------------------------------------
 
 
@@ -145,7 +139,6 @@ server <- function(input, output, session) {
   total_val <- reactive({
     calc_learner_total(vols_data_filtered(), input$selectBreakdown, input$selectType)
   })
-
 
 
   # Call function which when proportions have been selected as data type, divide initial volumes by grand total to create percentage, then format.
@@ -236,12 +229,9 @@ server <- function(input, output, session) {
   output$industry_by_subject_title <- renderText({
     paste0(provisioninput_ind(), paste(
       "earners with a sustained employment destination achieving in ", subjectinput(),
-      " in 2021/22, split by industry of employment and ", breakdowninput_ind()
+      " in 2022/23, split by industry of employment and ", breakdowninput_ind()
     ))
   })
-
-
-
 
 
   # Dynamic text for industry by subject page ---------------------------------------
@@ -260,7 +250,7 @@ server <- function(input, output, session) {
   # Add text as an output otherwise it does not seem to be visible to a screen reader.
   output$industry_by_subject_text <- renderText({
     paste(
-      "This table shows the industry of employment for learners with a sustained employment destination in 2022/23, after completing their aim in 2021/22.",
+      "This table shows the industry of employment for learners with a sustained employment destination in 2023/24, after completing their aim in 2022/23.",
       datatypetext_ind(),
       "Please note, this data provides information about the industry of the company that a learner works for but does not tell us about their occupation within the company."
     )
@@ -284,9 +274,6 @@ server <- function(input, output, session) {
     choices <- unique(provision_subj()$Industry)
     updateSelectInput(inputId = "selectIndustry", choices = choices)
   })
-
-
-
 
 
   # Subject by industry crosstab --------------------------------------------
@@ -387,10 +374,9 @@ server <- function(input, output, session) {
   output$subject_by_industry_title <- renderText({
     paste0(provisioninput(), paste(
       "earners with a sustained employment destination in", paste0(industryinput(), ","),
-      "split by subject completed in 2021/22 and", breakdowninput_subj()
+      "split by subject completed in 2022/23 and", breakdowninput_subj()
     ))
   })
-
 
 
   # Dynamic text for subject by industry page -------------------------------
@@ -408,7 +394,7 @@ server <- function(input, output, session) {
   # Output text using industry input specified for title
   output$subject_by_industry_text <- renderText({
     paste(
-      "This table shows the subject studied by learners with a sustained employment destination in", industryinput(), "in 2022/23, after completing their aim in 2021/22.",
+      "This table shows the subject studied by learners with a sustained employment destination in", industryinput(), "in 2023/24, after completing their aim in 2022/23.",
       datatypetext_subj(), "Please note, this data is based on the industry in which a learner is employed but does not tell us about their occupation within the company."
     )
   })
