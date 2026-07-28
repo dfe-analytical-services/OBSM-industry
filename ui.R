@@ -40,7 +40,6 @@
 #    https://github.com/moj-analytical-services/shinyGovstyle
 #
 
-
 #
 # This is the user-interface definition of a Shiny web application. You can
 # run the application by clicking 'Run App' above.
@@ -54,14 +53,8 @@
 #    https://github.com/moj-analytical-services/shinyGovstyle
 #
 
-
 ui <- function(input, output, session) {
-  fluidPage(
-    tags$style(HTML("
-    .download-link span {
-      color: white;
-    }
-  ")),
+  bslib::page_fluid(
     # use_tota11y(),
     title = tags$head(tags$link(
       rel = "shortcut icon",
@@ -80,6 +73,16 @@ ui <- function(input, output, session) {
         rating = "General",
         referrer = "no-referrer"
       ),
+    # Code to prevent text wrapping when selecting input from dropdowns
+    tags$head(
+      tags$style(HTML(
+        "
+
+                                .selectize-dropdown {
+                                    width: 500px !important;
+                                }"
+      ))
+    ),
     shinyjs::useShinyjs(),
     dfeshiny::custom_disconnect_message(
       dashboard_title = site_title,
@@ -107,7 +110,7 @@ ui <- function(input, output, session) {
     shiny::navlistPanel(
       "",
       id = "navlistPanel",
-      widths = c(2, 8),
+      widths = c(2, 10),
       well = FALSE,
       homepage_panel(),
       industry_by_subject_panel(),
@@ -121,7 +124,7 @@ ui <- function(input, output, session) {
           date_tested = "8th January 2026",
           date_prepared = "8th January 2026",
           date_reviewed = "8th January 2026",
-          issues_contact = "FE.OUTCOMESDATA@education.gov.uk",
+          issues_contact = "fe.outcomesdata@education.gov.uk",
           publication_slug = "further-education-outcome-based-success-measures",
           publication_name = "Further Education outcomes based success measures",
           non_accessible_components = c(

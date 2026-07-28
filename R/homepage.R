@@ -3,70 +3,45 @@ homepage_panel <- function() {
     "Homepage",
     gov_main_layout(
       gov_row(
-        column(
-          12,
-          heading_text(
-            "Further Education Outcomes Industry Dashboard - 2022/23",
-            size = "xl",
-            level = 1
-          ),
-          intro_text(),
-          br(),
-          br()
+        heading_text(
+          "Further Education Outcomes Industry Dashboard - 2022/23",
+          size = "xl",
+          level = 1
         ),
-
-        ## Left panel -------------------------------------------------------
-
-        column(
-          6,
-          div(
-            div(
-              class = "panel panel-info",
-              div(
-                class = "panel-heading",
-                style = "color: white;font-size: 18px;font-style: bold; background-color: #1d70b8;",
-                shinyGovstyle::heading_text(
-                  "Contents",
-                  size = "l",
-                  level = 2
-                )
-              ),
-              div(
-                class = "panel-body",
-                tags$div(
-                  title = "Industry by subject.",
-                  shinyGovstyle::heading_text(
-                    actionLink("link_to_ind_by_subj_tab", "Industry by subject table"),
-                    size = "m",
-                    level = 3
-                  )
-                ),
-                ind_by_subj_text(),
-              ),
-              tags$div(
-                title = "Industry by subject.",
-                shinyGovstyle::heading_text(
-                  actionLink("link_to_ind_by_subj_tab", "Industry by subject table"),
-                  size = "m",
-                  level = 3
-                )
-              ),
-              br()
-            )
-          )
-        ),
+        intro_text()
       ),
 
-      ## Right panel ------------------------------------------------------
+      ## Left panel -------------------------------------------------------
+      gov_row(
+        bslib::layout_columns(
+          card(
+            card_header(
+              shinyGovstyle::heading_text(
+                "Contents",
+                size = "l",
+                level = 2
+              )
+            ),
+            card_body(
+              shinyGovstyle::heading_text(
+                "Industry by subject table",
+                size = "m",
+                level = 3
+              ),
+              ind_by_subj_text(),
+              shinyGovstyle::heading_text(
+                "Subject by industry table",
+                size = "m",
+                level = 3
+              ),
+              subj_by_ind_text()
+            )
+          ),
 
-      column(
-        6,
-        div(
-          div(
-            class = "panel panel-info",
-            div(
-              class = "panel-heading",
-              style = "color: white;font-size: 18px;font-style: bold; background-color: #1d70b8;",
+          ## Right panel ------------------------------------------------------
+
+          card(
+            card_header(
               shinyGovstyle::heading_text(
                 "Guidance",
                 size = "l",
@@ -74,7 +49,8 @@ homepage_panel <- function() {
               )
             ),
             guidance_text(),
-          )
+          ),
+          col_widths = c(12, 12)
         )
       )
     )

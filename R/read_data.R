@@ -11,7 +11,6 @@
 # to either add the file to .gitignore or add an entry for the file into
 # datafiles_log.csv.
 
-
 read_ind_data <- function(file = "data/FEO_industry_202223.csv") {
   dfInd <- read.csv(file)
   return(dfInd)

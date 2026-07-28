@@ -9,17 +9,24 @@ calc_learner_total <- function(data, inputbreakdown, inputtype) {
         {
           sum(.$NumberSustainedEmployment, na.rm = TRUE)
         }
-    } else if (inputbreakdown == "AgeGroup" & inputtype == "SustainedEmploymentPercent") {
+    } else if (
+      inputbreakdown == "AgeGroup" & inputtype == "SustainedEmploymentPercent"
+    ) {
       subset(data, AgeGroup == "All") %>%
         {
           sum(.$NumberSustainedEmployment, na.rm = TRUE)
         }
-    } else if (inputbreakdown == "Ethnicity" & inputtype == "SustainedEmploymentPercent") {
+    } else if (
+      inputbreakdown == "Ethnicity" & inputtype == "SustainedEmploymentPercent"
+    ) {
       subset(data, Ethnicity == "All") %>%
         {
           sum(.$NumberSustainedEmployment, na.rm = TRUE)
         }
-    } else if (inputbreakdown == "LevelOfLearning" & inputtype == "SustainedEmploymentPercent") {
+    } else if (
+      inputbreakdown == "LevelOfLearning" &
+        inputtype == "SustainedEmploymentPercent"
+    ) {
       subset(data, LevelOfLearning == "All") %>%
         {
           sum(.$NumberSustainedEmployment, na.rm = TRUE)
@@ -31,49 +38,86 @@ calc_learner_total <- function(data, inputbreakdown, inputtype) {
 
 # INDUSTRY BY SUBJECT FUNCTIONS -------------------------------------------
 
-
 ## Filter volumes data -----------------------------------------------------
 
 # Where proportions have been selected as data type, need to first create table of volumes from which perecentages will be calculated
-filter_vols_data <- function(inputbreakdown, inputtype, inputSSA, inputprovision, inputSSATier2) {
+filter_vols_data <- function(
+  inputbreakdown,
+  inputtype,
+  inputSSA,
+  inputprovision,
+  inputSSATier2
+) {
   ({
     if (inputbreakdown == "Sex" & inputtype == "SustainedEmploymentPercent") {
       dfInd %>%
         filter(
-          SSATier1 == inputSSA, SSATier2 == inputSSATier2, Provision == inputprovision,
-          LevelOfLearning == "All", AppType == "All", AgeGroup == "All", Ethnicity == "All",
+          SSATier1 == inputSSA,
+          SSATier2 == inputSSATier2,
+          Provision == inputprovision,
+          LevelOfLearning == "All",
+          AppType == "All",
+          AgeGroup == "All",
+          Ethnicity == "All",
           Industry != "All"
         ) %>%
         select(Industry, Sex, NumberSustainedEmployment)
-    } else if (inputbreakdown == "AgeGroup" & inputtype == "SustainedEmploymentPercent") {
+    } else if (
+      inputbreakdown == "AgeGroup" & inputtype == "SustainedEmploymentPercent"
+    ) {
       dfInd %>%
         filter(
-          SSATier1 == inputSSA, SSATier2 == inputSSATier2, Provision == inputprovision,
-          LevelOfLearning == "All", AppType == "All", Sex == "All", Ethnicity == "All",
+          SSATier1 == inputSSA,
+          SSATier2 == inputSSATier2,
+          Provision == inputprovision,
+          LevelOfLearning == "All",
+          AppType == "All",
+          Sex == "All",
+          Ethnicity == "All",
           Industry != "All"
         ) %>%
         select(Industry, AgeGroup, NumberSustainedEmployment)
-    } else if (inputbreakdown == "Ethnicity" & inputtype == "SustainedEmploymentPercent") {
+    } else if (
+      inputbreakdown == "Ethnicity" & inputtype == "SustainedEmploymentPercent"
+    ) {
       dfInd %>%
         filter(
-          SSATier1 == inputSSA, SSATier2 == inputSSATier2, Provision == inputprovision,
-          LevelOfLearning == "All", AppType == "All", Sex == "All", AgeGroup == "All",
+          SSATier1 == inputSSA,
+          SSATier2 == inputSSATier2,
+          Provision == inputprovision,
+          LevelOfLearning == "All",
+          AppType == "All",
+          Sex == "All",
+          AgeGroup == "All",
           Industry != "All"
         ) %>%
         select(Industry, Ethnicity, NumberSustainedEmployment)
-    } else if (inputbreakdown == "LevelOfLearning" & inputtype == "SustainedEmploymentPercent") {
+    } else if (
+      inputbreakdown == "LevelOfLearning" &
+        inputtype == "SustainedEmploymentPercent"
+    ) {
       dfInd %>%
         filter(
-          SSATier1 == inputSSA, SSATier2 == inputSSATier2, Provision == inputprovision,
-          Ethnicity == "All", AppType == "All", Sex == "All", AgeGroup == "All",
+          SSATier1 == inputSSA,
+          SSATier2 == inputSSATier2,
+          Provision == inputprovision,
+          Ethnicity == "All",
+          AppType == "All",
+          Sex == "All",
+          AgeGroup == "All",
           Industry != "All"
         ) %>%
         select(Industry, LevelOfLearning, NumberSustainedEmployment)
     } else {
       dfInd %>%
         filter(
-          SSATier1 == "All", SSATier2 == "All", Provision == "All",
-          Ethnicity == "All", AppType == "All", Sex == "All", AgeGroup == "All",
+          SSATier1 == "All",
+          SSATier2 == "All",
+          Provision == "All",
+          Ethnicity == "All",
+          AppType == "All",
+          Sex == "All",
+          AgeGroup == "All",
           Industry != "All"
         ) %>%
         select(Industry, NumberSustainedEmployment)
@@ -85,57 +129,104 @@ filter_vols_data <- function(inputbreakdown, inputtype, inputSSA, inputprovision
 ## Collate crosstab data ---------------------------------------------------
 
 # Where proportions have been selected as data type, divide initial volumes by grand total to create percentage, then format
-collate_crosstab_data <- function(data, totaldata, inputbreakdown, inputtype, inputSSA, inputprovision, inputSSATier2) {
+collate_crosstab_data <- function(
+  data,
+  totaldata,
+  inputbreakdown,
+  inputtype,
+  inputSSA,
+  inputprovision,
+  inputSSATier2
+) {
   ({
     if (inputbreakdown == "Sex" & inputtype == "SustainedEmploymentPercent") {
       data %>%
-        mutate(PercentSustainedEmployment = NumberSustainedEmployment / totaldata) %>%
-        mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
+        mutate(
+          PercentSustainedEmployment = NumberSustainedEmployment / totaldata
+        ) %>%
+        mutate(
+          PercentSustainedEmployment = round(
+            PercentSustainedEmployment,
+            digits = 2
+          )
+        ) %>%
         select(-NumberSustainedEmployment) %>%
         spread(Sex, PercentSustainedEmployment) %>%
         relocate(All, .after = last_col()) %>%
         arrange(desc(All)) %>%
         rename(Total = All) %>%
         as.data.frame()
-    } else if (inputbreakdown == "AgeGroup" & inputtype == "SustainedEmploymentPercent") {
+    } else if (
+      inputbreakdown == "AgeGroup" & inputtype == "SustainedEmploymentPercent"
+    ) {
       data %>%
-        mutate(PercentSustainedEmployment = NumberSustainedEmployment / totaldata) %>%
-        mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
+        mutate(
+          PercentSustainedEmployment = NumberSustainedEmployment / totaldata
+        ) %>%
+        mutate(
+          PercentSustainedEmployment = round(
+            PercentSustainedEmployment,
+            digits = 2
+          )
+        ) %>%
         select(-NumberSustainedEmployment) %>%
         spread(AgeGroup, PercentSustainedEmployment) %>%
         relocate(All, .after = last_col()) %>%
         arrange(desc(All)) %>%
         rename(Total = All) %>%
         as.data.frame()
-    } else if (inputbreakdown == "Ethnicity" & inputtype == "SustainedEmploymentPercent") {
+    } else if (
+      inputbreakdown == "Ethnicity" & inputtype == "SustainedEmploymentPercent"
+    ) {
       data %>%
-        mutate(PercentSustainedEmployment = NumberSustainedEmployment / totaldata) %>%
-        mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
+        mutate(
+          PercentSustainedEmployment = NumberSustainedEmployment / totaldata
+        ) %>%
+        mutate(
+          PercentSustainedEmployment = round(
+            PercentSustainedEmployment,
+            digits = 2
+          )
+        ) %>%
         select(-NumberSustainedEmployment) %>%
         spread(Ethnicity, PercentSustainedEmployment) %>%
         relocate(All, .after = last_col()) %>%
         arrange(desc(All)) %>%
         rename(Total = All) %>%
         as.data.frame()
-    } else if (inputbreakdown == "LevelOfLearning" & inputtype == "SustainedEmploymentPercent") {
+    } else if (
+      inputbreakdown == "LevelOfLearning" &
+        inputtype == "SustainedEmploymentPercent"
+    ) {
       data %>%
-        mutate(PercentSustainedEmployment = NumberSustainedEmployment / totaldata) %>%
-        mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
+        mutate(
+          PercentSustainedEmployment = NumberSustainedEmployment / totaldata
+        ) %>%
+        mutate(
+          PercentSustainedEmployment = round(
+            PercentSustainedEmployment,
+            digits = 2
+          )
+        ) %>%
         select(-NumberSustainedEmployment) %>%
         spread(LevelOfLearning, PercentSustainedEmployment) %>%
         relocate(All, .after = last_col()) %>%
         arrange(desc(All)) %>%
         rename(Total = All) %>%
         as.data.frame()
-    }
-
-
-    # Where volumes have been selected as data type, select totals for all other options and then format
-    else if (inputbreakdown == "Ethnicity" & inputtype == "NumberSustainedEmployment") {
+    } else if (
+      inputbreakdown == "Ethnicity" & inputtype == "NumberSustainedEmployment"
+    ) {
+      # Where volumes have been selected as data type, select totals for all other options and then format
       dfInd %>%
         filter(
-          SSATier1 == inputSSA, SSATier2 == inputSSATier2, Provision == inputprovision,
-          LevelOfLearning == "All", AppType == "All", Sex == "All", AgeGroup == "All",
+          SSATier1 == inputSSA,
+          SSATier2 == inputSSATier2,
+          Provision == inputprovision,
+          LevelOfLearning == "All",
+          AppType == "All",
+          Sex == "All",
+          AgeGroup == "All",
           Industry != "All"
         ) %>%
         select(Industry, Ethnicity, NumberSustainedEmployment) %>%
@@ -144,11 +235,18 @@ collate_crosstab_data <- function(data, totaldata, inputbreakdown, inputtype, in
         arrange(desc(All)) %>%
         rename(Total = All) %>%
         as.data.frame()
-    } else if (inputbreakdown == "Sex" & inputtype == "NumberSustainedEmployment") {
+    } else if (
+      inputbreakdown == "Sex" & inputtype == "NumberSustainedEmployment"
+    ) {
       dfInd %>%
         filter(
-          SSATier1 == inputSSA, SSATier2 == inputSSATier2, Provision == inputprovision,
-          LevelOfLearning == "All", AppType == "All", Ethnicity == "All", AgeGroup == "All",
+          SSATier1 == inputSSA,
+          SSATier2 == inputSSATier2,
+          Provision == inputprovision,
+          LevelOfLearning == "All",
+          AppType == "All",
+          Ethnicity == "All",
+          AgeGroup == "All",
           Industry != "All"
         ) %>%
         select(Industry, Sex, NumberSustainedEmployment) %>%
@@ -157,11 +255,19 @@ collate_crosstab_data <- function(data, totaldata, inputbreakdown, inputtype, in
         arrange(desc(All)) %>%
         rename(Total = All) %>%
         as.data.frame()
-    } else if (inputbreakdown == "LevelOfLearning" & inputtype == "NumberSustainedEmployment") {
+    } else if (
+      inputbreakdown == "LevelOfLearning" &
+        inputtype == "NumberSustainedEmployment"
+    ) {
       dfInd %>%
         filter(
-          SSATier1 == inputSSA, SSATier2 == inputSSATier2, Provision == inputprovision,
-          Sex == "All", AppType == "All", Ethnicity == "All", AgeGroup == "All",
+          SSATier1 == inputSSA,
+          SSATier2 == inputSSATier2,
+          Provision == inputprovision,
+          Sex == "All",
+          AppType == "All",
+          Ethnicity == "All",
+          AgeGroup == "All",
           Industry != "All"
         ) %>%
         select(Industry, LevelOfLearning, NumberSustainedEmployment) %>%
@@ -170,11 +276,18 @@ collate_crosstab_data <- function(data, totaldata, inputbreakdown, inputtype, in
         arrange(desc(All)) %>%
         rename(Total = All) %>%
         as.data.frame()
-    } else if (inputbreakdown == "AgeGroup" & inputtype == "NumberSustainedEmployment") {
+    } else if (
+      inputbreakdown == "AgeGroup" & inputtype == "NumberSustainedEmployment"
+    ) {
       dfInd %>%
         filter(
-          SSATier1 == inputSSA, SSATier2 == inputSSATier2, Provision == inputprovision,
-          Sex == "All", AppType == "All", Ethnicity == "All", LevelOfLearning == "All",
+          SSATier1 == inputSSA,
+          SSATier2 == inputSSATier2,
+          Provision == inputprovision,
+          Sex == "All",
+          AppType == "All",
+          Ethnicity == "All",
+          LevelOfLearning == "All",
           Industry != "All"
         ) %>%
         select(Industry, AgeGroup, NumberSustainedEmployment) %>%
@@ -183,13 +296,18 @@ collate_crosstab_data <- function(data, totaldata, inputbreakdown, inputtype, in
         arrange(desc(All)) %>%
         rename(Total = All) %>%
         as.data.frame()
-    }
-    # If no breakdowns are selected show summary data for all
-    else {
+    } else {
+      # If no breakdowns are selected show summary data for all
       dfInd %>%
         filter(
-          SSATier1 == inputSSA, SSATier2 == inputSSATier2, Provision == inputprovision,
-          LevelOfLearning == "All", AppType == "All", Sex == "All", AgeGroup == "All", Ethnicity == "All",
+          SSATier1 == inputSSA,
+          SSATier2 == inputSSATier2,
+          Provision == inputprovision,
+          LevelOfLearning == "All",
+          AppType == "All",
+          Sex == "All",
+          AgeGroup == "All",
+          Ethnicity == "All",
           Industry != "All"
         ) %>%
         select(Industry, Ethnicity, NumberSustainedEmployment) %>%
@@ -227,10 +345,13 @@ format_crosstab_gt <- function(data, inputtype) {
       # Change font size
       tab_options(table.font.size = 13) %>%
       # Make Total column bold
-      tab_style(cell_text(weight = "bold"), locations = cells_body(
-        columns = Total,
-        rows = everything()
-      )) %>%
+      tab_style(
+        cell_text(weight = "bold"),
+        locations = cells_body(
+          columns = Total,
+          rows = everything()
+        )
+      ) %>%
       # Make column headings bold
       tab_style(
         locations = cells_column_labels(columns = everything()),
@@ -249,101 +370,193 @@ format_crosstab_gt <- function(data, inputtype) {
         }
       } %>%
       # Apply colour coding to columns based on cell value
-      data_color(.,
-        columns = -Industry, direction = "column",
+      data_color(
+        .,
+        columns = -Industry,
+        direction = "column",
         palette = "Blues",
         contrast_algo = "wcag" # Ensure contrast meets accessibility standards
       ) %>%
       # Add footnotes
       {
         if (inputtype == "SustainedEmploymentPercent") {
-          tab_footnote(., "1. Proportions have been calculated using volume figures which have been rounded to the nearest 10")
+          tab_footnote(
+            .,
+            "1. Proportions have been calculated using volume figures which have been rounded to the nearest 10"
+          )
         } else {
-          tab_footnote(., "1. Learner volumes have been rounded to the nearest 10")
+          tab_footnote(
+            .,
+            "1. Learner volumes have been rounded to the nearest 10"
+          )
         }
       } %>%
-      tab_footnote(., "2. Where appropriate, data has been suppressed to protect confidentiality")
+      tab_footnote(
+        .,
+        "2. Where appropriate, data has been suppressed to protect confidentiality"
+      )
   })
 }
 
 
 # SUBJECT BY INDUSTRY FUNCTIONS --------------------------------------------
 
-
 ## Filter vols data - subject by industry ----------------------------------
 
 # Where proportions have been selected as data type, need to first create table of volumes from which perecentages will be calculated
-filter_vols_data_subj <- function(inputbreakdown, inputtype, inputindustry, inputprovision, inputdetail) {
+filter_vols_data_subj <- function(
+  inputbreakdown,
+  inputtype,
+  inputindustry,
+  inputprovision,
+  inputdetail
+) {
   ({
-    if (inputbreakdown == "Sex" & inputtype == "SustainedEmploymentPercent" & inputdetail == "SSATier2") {
+    if (
+      inputbreakdown == "Sex" &
+        inputtype == "SustainedEmploymentPercent" &
+        inputdetail == "SSATier2"
+    ) {
       dfInd %>%
         filter(
-          Industry == inputindustry, Provision == inputprovision,
-          LevelOfLearning == "All", AppType == "All", AgeGroup == "All", Ethnicity == "All",
-          SSATier1 != "All", SSATier2 != "All"
+          Industry == inputindustry,
+          Provision == inputprovision,
+          LevelOfLearning == "All",
+          AppType == "All",
+          AgeGroup == "All",
+          Ethnicity == "All",
+          SSATier1 != "All",
+          SSATier2 != "All"
         ) %>%
         select(SSATier1, SSATier2, Sex, NumberSustainedEmployment)
-    } else if (inputbreakdown == "Sex" & inputtype == "SustainedEmploymentPercent" & inputdetail == "SSATier1") {
+    } else if (
+      inputbreakdown == "Sex" &
+        inputtype == "SustainedEmploymentPercent" &
+        inputdetail == "SSATier1"
+    ) {
       dfInd %>%
         filter(
-          Industry == inputindustry, Provision == inputprovision,
-          LevelOfLearning == "All", AppType == "All", AgeGroup == "All", Ethnicity == "All",
-          SSATier1 != "All", SSATier2 == "All"
+          Industry == inputindustry,
+          Provision == inputprovision,
+          LevelOfLearning == "All",
+          AppType == "All",
+          AgeGroup == "All",
+          Ethnicity == "All",
+          SSATier1 != "All",
+          SSATier2 == "All"
         ) %>%
         select(SSATier1, Sex, NumberSustainedEmployment)
-    } else if (inputbreakdown == "AgeGroup" & inputtype == "SustainedEmploymentPercent" & inputdetail == "SSATier2") {
+    } else if (
+      inputbreakdown == "AgeGroup" &
+        inputtype == "SustainedEmploymentPercent" &
+        inputdetail == "SSATier2"
+    ) {
       dfInd %>%
         filter(
-          Industry == inputindustry, Provision == inputprovision,
-          LevelOfLearning == "All", AppType == "All", Sex == "All", Ethnicity == "All",
-          SSATier1 != "All", SSATier2 != "All"
+          Industry == inputindustry,
+          Provision == inputprovision,
+          LevelOfLearning == "All",
+          AppType == "All",
+          Sex == "All",
+          Ethnicity == "All",
+          SSATier1 != "All",
+          SSATier2 != "All"
         ) %>%
         select(SSATier1, SSATier2, AgeGroup, NumberSustainedEmployment)
-    } else if (inputbreakdown == "AgeGroup" & inputtype == "SustainedEmploymentPercent" & inputdetail == "SSATier1") {
+    } else if (
+      inputbreakdown == "AgeGroup" &
+        inputtype == "SustainedEmploymentPercent" &
+        inputdetail == "SSATier1"
+    ) {
       dfInd %>%
         filter(
-          Industry == inputindustry, Provision == inputprovision,
-          LevelOfLearning == "All", AppType == "All", Sex == "All", Ethnicity == "All",
-          SSATier1 != "All", SSATier2 == "All"
+          Industry == inputindustry,
+          Provision == inputprovision,
+          LevelOfLearning == "All",
+          AppType == "All",
+          Sex == "All",
+          Ethnicity == "All",
+          SSATier1 != "All",
+          SSATier2 == "All"
         ) %>%
         select(SSATier1, AgeGroup, NumberSustainedEmployment)
-    } else if (inputbreakdown == "Ethnicity" & inputtype == "SustainedEmploymentPercent" & inputdetail == "SSATier2") {
+    } else if (
+      inputbreakdown == "Ethnicity" &
+        inputtype == "SustainedEmploymentPercent" &
+        inputdetail == "SSATier2"
+    ) {
       dfInd %>%
         filter(
-          Industry == inputindustry, Provision == inputprovision,
-          LevelOfLearning == "All", AppType == "All", Sex == "All", AgeGroup == "All",
-          SSATier1 != "All", SSATier2 != "All"
+          Industry == inputindustry,
+          Provision == inputprovision,
+          LevelOfLearning == "All",
+          AppType == "All",
+          Sex == "All",
+          AgeGroup == "All",
+          SSATier1 != "All",
+          SSATier2 != "All"
         ) %>%
         select(SSATier1, SSATier2, Ethnicity, NumberSustainedEmployment)
-    } else if (inputbreakdown == "Ethnicity" & inputtype == "SustainedEmploymentPercent" & inputdetail == "SSATier1") {
+    } else if (
+      inputbreakdown == "Ethnicity" &
+        inputtype == "SustainedEmploymentPercent" &
+        inputdetail == "SSATier1"
+    ) {
       dfInd %>%
         filter(
-          Industry == inputindustry, Provision == inputprovision,
-          LevelOfLearning == "All", AppType == "All", Sex == "All", AgeGroup == "All",
-          SSATier1 != "All", SSATier1 == "All"
+          Industry == inputindustry,
+          Provision == inputprovision,
+          LevelOfLearning == "All",
+          AppType == "All",
+          Sex == "All",
+          AgeGroup == "All",
+          SSATier1 != "All",
+          SSATier1 == "All"
         ) %>%
         select(SSATier1, Ethnicity, NumberSustainedEmployment)
-    } else if (inputbreakdown == "LevelOfLearning" & inputtype == "SustainedEmploymentPercent" & inputdetail == "SSATier2") {
+    } else if (
+      inputbreakdown == "LevelOfLearning" &
+        inputtype == "SustainedEmploymentPercent" &
+        inputdetail == "SSATier2"
+    ) {
       dfInd %>%
         filter(
-          Industry == inputindustry, Provision == inputprovision,
-          Ethnicity == "All", AppType == "All", Sex == "All", AgeGroup == "All",
-          SSATier1 != "All", SSATier2 != "All"
+          Industry == inputindustry,
+          Provision == inputprovision,
+          Ethnicity == "All",
+          AppType == "All",
+          Sex == "All",
+          AgeGroup == "All",
+          SSATier1 != "All",
+          SSATier2 != "All"
         ) %>%
         select(SSATier1, SSATier2, LevelOfLearning, NumberSustainedEmployment)
-    } else if (inputbreakdown == "LevelOfLearning" & inputtype == "SustainedEmploymentPercent" & inputdetail == "SSATier1") {
+    } else if (
+      inputbreakdown == "LevelOfLearning" &
+        inputtype == "SustainedEmploymentPercent" &
+        inputdetail == "SSATier1"
+    ) {
       dfInd %>%
         filter(
-          Industry == inputindustry, Provision == inputprovision,
-          Ethnicity == "All", AppType == "All", Sex == "All", AgeGroup == "All",
-          SSATier1 != "All", SSATier2 == "All"
+          Industry == inputindustry,
+          Provision == inputprovision,
+          Ethnicity == "All",
+          AppType == "All",
+          Sex == "All",
+          AgeGroup == "All",
+          SSATier1 != "All",
+          SSATier2 == "All"
         ) %>%
         select(SSATier1, LevelOfLearning, NumberSustainedEmployment)
     } else {
       dfInd %>%
         filter(
-          Industry == "All", Provision == "All",
-          Ethnicity == "All", AppType == "All", Sex == "All", AgeGroup == "All",
+          Industry == "All",
+          Provision == "All",
+          Ethnicity == "All",
+          AppType == "All",
+          Sex == "All",
+          AgeGroup == "All",
           SSATier1 != "All"
         ) %>%
         select(SSATier1, SSATier2, NumberSustainedEmployment)
@@ -355,58 +568,107 @@ filter_vols_data_subj <- function(inputbreakdown, inputtype, inputindustry, inpu
 ## Collate crosstab data - subject by industry -----------------------------
 
 # Function to collate data for subject by industry crosstab
-collate_crosstab_data_subj <- function(data, totaldata, inputbreakdown, inputtype, inputindustry, inputprovision, inputdetail) {
+collate_crosstab_data_subj <- function(
+  data,
+  totaldata,
+  inputbreakdown,
+  inputtype,
+  inputindustry,
+  inputprovision,
+  inputdetail
+) {
   ({
     if (inputbreakdown == "Sex" & inputtype == "SustainedEmploymentPercent") {
       data %>%
-        mutate(PercentSustainedEmployment = NumberSustainedEmployment / totaldata) %>%
-        mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
+        mutate(
+          PercentSustainedEmployment = NumberSustainedEmployment / totaldata
+        ) %>%
+        mutate(
+          PercentSustainedEmployment = round(
+            PercentSustainedEmployment,
+            digits = 2
+          )
+        ) %>%
         select(-NumberSustainedEmployment) %>%
         spread(Sex, PercentSustainedEmployment) %>%
         relocate(All, .after = last_col()) %>%
         arrange(desc(All)) %>%
         rename(Total = All) %>%
         as.data.frame()
-    } else if (inputbreakdown == "AgeGroup" & inputtype == "SustainedEmploymentPercent") {
+    } else if (
+      inputbreakdown == "AgeGroup" & inputtype == "SustainedEmploymentPercent"
+    ) {
       data %>%
-        mutate(PercentSustainedEmployment = NumberSustainedEmployment / totaldata) %>%
-        mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
+        mutate(
+          PercentSustainedEmployment = NumberSustainedEmployment / totaldata
+        ) %>%
+        mutate(
+          PercentSustainedEmployment = round(
+            PercentSustainedEmployment,
+            digits = 2
+          )
+        ) %>%
         select(-NumberSustainedEmployment) %>%
         spread(AgeGroup, PercentSustainedEmployment) %>%
         relocate(All, .after = last_col()) %>%
         arrange(desc(All)) %>%
         rename(Total = All) %>%
         as.data.frame()
-    } else if (inputbreakdown == "Ethnicity" & inputtype == "SustainedEmploymentPercent") {
+    } else if (
+      inputbreakdown == "Ethnicity" & inputtype == "SustainedEmploymentPercent"
+    ) {
       data %>%
-        mutate(PercentSustainedEmployment = NumberSustainedEmployment / totaldata) %>%
-        mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
+        mutate(
+          PercentSustainedEmployment = NumberSustainedEmployment / totaldata
+        ) %>%
+        mutate(
+          PercentSustainedEmployment = round(
+            PercentSustainedEmployment,
+            digits = 2
+          )
+        ) %>%
         select(-NumberSustainedEmployment) %>%
         spread(Ethnicity, PercentSustainedEmployment) %>%
         relocate(All, .after = last_col()) %>%
         arrange(desc(All)) %>%
         rename(Total = All) %>%
         as.data.frame()
-    } else if (inputbreakdown == "LevelOfLearning" & inputtype == "SustainedEmploymentPercent") {
+    } else if (
+      inputbreakdown == "LevelOfLearning" &
+        inputtype == "SustainedEmploymentPercent"
+    ) {
       data %>%
-        mutate(PercentSustainedEmployment = NumberSustainedEmployment / totaldata) %>%
-        mutate(PercentSustainedEmployment = round(PercentSustainedEmployment, digits = 2)) %>%
+        mutate(
+          PercentSustainedEmployment = NumberSustainedEmployment / totaldata
+        ) %>%
+        mutate(
+          PercentSustainedEmployment = round(
+            PercentSustainedEmployment,
+            digits = 2
+          )
+        ) %>%
         select(-NumberSustainedEmployment) %>%
         spread(LevelOfLearning, PercentSustainedEmployment) %>%
         relocate(All, .after = last_col()) %>%
         arrange(desc(All)) %>%
         rename(Total = All) %>%
         as.data.frame()
-    }
-
-
-    # Where volumes have been selected as data type, select totals for all other options and then format
-    else if (inputbreakdown == "Ethnicity" & inputtype == "NumberSustainedEmployment" & inputdetail == "SSATier2") {
+    } else if (
+      inputbreakdown == "Ethnicity" &
+        inputtype == "NumberSustainedEmployment" &
+        inputdetail == "SSATier2"
+    ) {
+      # Where volumes have been selected as data type, select totals for all other options and then format
       dfInd %>%
         filter(
-          Industry == inputindustry, Provision == inputprovision,
-          LevelOfLearning == "All", AppType == "All", Sex == "All", AgeGroup == "All",
-          SSATier1 != "All", SSATier2 != "All"
+          Industry == inputindustry,
+          Provision == inputprovision,
+          LevelOfLearning == "All",
+          AppType == "All",
+          Sex == "All",
+          AgeGroup == "All",
+          SSATier1 != "All",
+          SSATier2 != "All"
         ) %>%
         select(SSATier1, SSATier2, Ethnicity, NumberSustainedEmployment) %>%
         spread(Ethnicity, NumberSustainedEmployment) %>%
@@ -414,12 +676,21 @@ collate_crosstab_data_subj <- function(data, totaldata, inputbreakdown, inputtyp
         arrange(desc(SSATier1)) %>%
         rename(Total = All) %>%
         as.data.frame()
-    } else if (inputbreakdown == "Ethnicity" & inputtype == "NumberSustainedEmployment" & inputdetail == "SSATier1") {
+    } else if (
+      inputbreakdown == "Ethnicity" &
+        inputtype == "NumberSustainedEmployment" &
+        inputdetail == "SSATier1"
+    ) {
       dfInd %>%
         filter(
-          Industry == inputindustry, Provision == inputprovision,
-          LevelOfLearning == "All", AppType == "All", Sex == "All", AgeGroup == "All",
-          SSATier1 != "All", SSATier2 == "All"
+          Industry == inputindustry,
+          Provision == inputprovision,
+          LevelOfLearning == "All",
+          AppType == "All",
+          Sex == "All",
+          AgeGroup == "All",
+          SSATier1 != "All",
+          SSATier2 == "All"
         ) %>%
         select(SSATier1, Ethnicity, NumberSustainedEmployment) %>%
         spread(Ethnicity, NumberSustainedEmployment) %>%
@@ -427,12 +698,21 @@ collate_crosstab_data_subj <- function(data, totaldata, inputbreakdown, inputtyp
         arrange(desc(SSATier1)) %>%
         rename(Total = All) %>%
         as.data.frame()
-    } else if (inputbreakdown == "Sex" & inputtype == "NumberSustainedEmployment" & inputdetail == "SSATier2") {
+    } else if (
+      inputbreakdown == "Sex" &
+        inputtype == "NumberSustainedEmployment" &
+        inputdetail == "SSATier2"
+    ) {
       dfInd %>%
         filter(
-          Industry == inputindustry, Provision == inputprovision,
-          LevelOfLearning == "All", AppType == "All", Ethnicity == "All", AgeGroup == "All",
-          SSATier1 != "All", SSATier2 != "All"
+          Industry == inputindustry,
+          Provision == inputprovision,
+          LevelOfLearning == "All",
+          AppType == "All",
+          Ethnicity == "All",
+          AgeGroup == "All",
+          SSATier1 != "All",
+          SSATier2 != "All"
         ) %>%
         select(SSATier1, SSATier2, Sex, NumberSustainedEmployment) %>%
         spread(Sex, NumberSustainedEmployment) %>%
@@ -440,12 +720,21 @@ collate_crosstab_data_subj <- function(data, totaldata, inputbreakdown, inputtyp
         arrange(desc(All)) %>%
         rename(Total = All) %>%
         as.data.frame()
-    } else if (inputbreakdown == "Sex" & inputtype == "NumberSustainedEmployment" & inputdetail == "SSATier1") {
+    } else if (
+      inputbreakdown == "Sex" &
+        inputtype == "NumberSustainedEmployment" &
+        inputdetail == "SSATier1"
+    ) {
       dfInd %>%
         filter(
-          Industry == inputindustry, Provision == inputprovision,
-          LevelOfLearning == "All", AppType == "All", Ethnicity == "All", AgeGroup == "All",
-          SSATier1 != "All", SSATier2 == "All"
+          Industry == inputindustry,
+          Provision == inputprovision,
+          LevelOfLearning == "All",
+          AppType == "All",
+          Ethnicity == "All",
+          AgeGroup == "All",
+          SSATier1 != "All",
+          SSATier2 == "All"
         ) %>%
         select(SSATier1, Sex, NumberSustainedEmployment) %>%
         spread(Sex, NumberSustainedEmployment) %>%
@@ -453,25 +742,48 @@ collate_crosstab_data_subj <- function(data, totaldata, inputbreakdown, inputtyp
         arrange(desc(All)) %>%
         rename(Total = All) %>%
         as.data.frame()
-    } else if (inputbreakdown == "LevelOfLearning" & inputtype == "NumberSustainedEmployment" & inputdetail == "SSATier2") {
+    } else if (
+      inputbreakdown == "LevelOfLearning" &
+        inputtype == "NumberSustainedEmployment" &
+        inputdetail == "SSATier2"
+    ) {
       dfInd %>%
         filter(
-          Industry == inputindustry, Provision == inputprovision,
-          Sex == "All", AppType == "All", Ethnicity == "All", AgeGroup == "All",
-          SSATier1 != "All", SSATier2 != "All"
+          Industry == inputindustry,
+          Provision == inputprovision,
+          Sex == "All",
+          AppType == "All",
+          Ethnicity == "All",
+          AgeGroup == "All",
+          SSATier1 != "All",
+          SSATier2 != "All"
         ) %>%
-        select(SSATier1, SSATier2, LevelOfLearning, NumberSustainedEmployment) %>%
+        select(
+          SSATier1,
+          SSATier2,
+          LevelOfLearning,
+          NumberSustainedEmployment
+        ) %>%
         spread(LevelOfLearning, NumberSustainedEmployment) %>%
         relocate(All, .after = last_col()) %>%
         arrange(desc(All)) %>%
         rename(Total = All) %>%
         as.data.frame()
-    } else if (inputbreakdown == "LevelOfLearning" & inputtype == "NumberSustainedEmployment" & inputdetail == "SSATier1") {
+    } else if (
+      inputbreakdown == "LevelOfLearning" &
+        inputtype == "NumberSustainedEmployment" &
+        inputdetail == "SSATier1"
+    ) {
       dfInd %>%
         filter(
-          Industry == inputindustry, Provision == inputprovision,
-          Sex == "All", AppType == "All", Ethnicity == "All", AgeGroup == "All",
-          SSATier1 != "All", SSATier2 == "All"
+          Industry == inputindustry,
+          Provision == inputprovision,
+          Sex == "All",
+          AppType == "All",
+          Ethnicity == "All",
+          AgeGroup == "All",
+          SSATier1 != "All",
+          SSATier2 == "All"
         ) %>%
         select(SSATier1, LevelOfLearning, NumberSustainedEmployment) %>%
         spread(LevelOfLearning, NumberSustainedEmployment) %>%
@@ -479,12 +791,21 @@ collate_crosstab_data_subj <- function(data, totaldata, inputbreakdown, inputtyp
         arrange(desc(All)) %>%
         rename(Total = All) %>%
         as.data.frame()
-    } else if (inputbreakdown == "AgeGroup" & inputtype == "NumberSustainedEmployment" & inputdetail == "SSATier2") {
+    } else if (
+      inputbreakdown == "AgeGroup" &
+        inputtype == "NumberSustainedEmployment" &
+        inputdetail == "SSATier2"
+    ) {
       dfInd %>%
         filter(
-          Industry == inputindustry, Provision == inputprovision,
-          Sex == "All", AppType == "All", Ethnicity == "All", LevelOfLearning == "All",
-          SSATier1 != "All", SSATier2 != "All"
+          Industry == inputindustry,
+          Provision == inputprovision,
+          Sex == "All",
+          AppType == "All",
+          Ethnicity == "All",
+          LevelOfLearning == "All",
+          SSATier1 != "All",
+          SSATier2 != "All"
         ) %>%
         select(SSATier1, SSATier2, AgeGroup, NumberSustainedEmployment) %>%
         spread(AgeGroup, NumberSustainedEmployment) %>%
@@ -492,12 +813,21 @@ collate_crosstab_data_subj <- function(data, totaldata, inputbreakdown, inputtyp
         arrange(desc(All)) %>%
         rename(Total = All) %>%
         as.data.frame()
-    } else if (inputbreakdown == "AgeGroup" & inputtype == "NumberSustainedEmployment" & inputdetail == "SSATier1") {
+    } else if (
+      inputbreakdown == "AgeGroup" &
+        inputtype == "NumberSustainedEmployment" &
+        inputdetail == "SSATier1"
+    ) {
       dfInd %>%
         filter(
-          Industry == inputindustry, Provision == inputprovision,
-          Sex == "All", AppType == "All", Ethnicity == "All", LevelOfLearning == "All",
-          SSATier1 != "All", SSATier2 == "All"
+          Industry == inputindustry,
+          Provision == inputprovision,
+          Sex == "All",
+          AppType == "All",
+          Ethnicity == "All",
+          LevelOfLearning == "All",
+          SSATier1 != "All",
+          SSATier2 == "All"
         ) %>%
         select(SSATier1, AgeGroup, NumberSustainedEmployment) %>%
         spread(AgeGroup, NumberSustainedEmployment) %>%
@@ -505,14 +835,19 @@ collate_crosstab_data_subj <- function(data, totaldata, inputbreakdown, inputtyp
         arrange(desc(All)) %>%
         rename(Total = All) %>%
         as.data.frame()
-    }
-    # If no breakdowns are selected show summary data for all
-    else {
+    } else {
+      # If no breakdowns are selected show summary data for all
       dfInd %>%
         filter(
-          Industry == inputindustry, Provision == inputprovision,
-          LevelOfLearning == "All", AppType == "All", Sex == "All", AgeGroup == "All", Ethnicity == "All",
-          SSATier1 != "All", SSATier2 != "All"
+          Industry == inputindustry,
+          Provision == inputprovision,
+          LevelOfLearning == "All",
+          AppType == "All",
+          Sex == "All",
+          AgeGroup == "All",
+          Ethnicity == "All",
+          SSATier1 != "All",
+          SSATier2 != "All"
         ) %>%
         select(SSATier1, SSATier2, NumberSustainedEmployment) %>%
         arrange(desc(All)) %>%
@@ -524,7 +859,6 @@ collate_crosstab_data_subj <- function(data, totaldata, inputbreakdown, inputtyp
 
 
 ## Format data as gt table - subject by industry --------------------------------------------
-
 
 # Function to format data as gt table - for when SSA Tier 2 is selected
 format_gt_subj <- function(data, inputtype, inputdetail) {
@@ -550,20 +884,32 @@ format_gt_subj <- function(data, inputtype, inputdetail) {
       # Add footnotes
       {
         if (inputtype == "SustainedEmploymentPercent") {
-          tab_footnote(., "1. Proportions have been calculated using volume figures which have been rounded to the nearest 10")
+          tab_footnote(
+            .,
+            "1. Proportions have been calculated using volume figures which have been rounded to the nearest 10"
+          )
         } else {
-          tab_footnote(., "1. Learner volumes have been rounded to the nearest 10")
+          tab_footnote(
+            .,
+            "1. Learner volumes have been rounded to the nearest 10"
+          )
         }
       } %>%
-      tab_footnote(., "2. Where appropriate, data has been suppressed to protect confidentiality") %>%
+      tab_footnote(
+        .,
+        "2. Where appropriate, data has been suppressed to protect confidentiality"
+      ) %>%
       # tab_footnote(., "3. This data is based on the industry in which a learner is employed, but does not tell us about their occupation within the company.") %>%
       # Change font size
       tab_options(table.font.size = 13.5) %>%
       # Make Total column bold
-      tab_style(cell_text(weight = "bold"), locations = cells_body(
-        columns = Total,
-        rows = everything()
-      )) %>%
+      tab_style(
+        cell_text(weight = "bold"),
+        locations = cells_body(
+          columns = Total,
+          rows = everything()
+        )
+      ) %>%
       # Make column headings bold
       tab_style(
         locations = cells_column_labels(columns = everything()),
@@ -583,21 +929,34 @@ format_gt_subj <- function(data, inputtype, inputdetail) {
       {
         if (inputdetail == "SSATier2") {
           # Fix width of columns
-          cols_width(., SSATier1 ~ px(225), SSATier2 ~ px(225), everything() ~ px(105)) %>%
+          # Otherwise apply next steps if SSA Tier 1 is selected
+          cols_width(
+            .,
+            SSATier1 ~ px(225),
+            SSATier2 ~ px(225),
+            everything() ~ px(105)
+          ) %>%
             # Apply colour coding based on cell value
-            data_color(.,
-              columns = -c(1:2), direction = "column",
+            data_color(
+              .,
+              columns = -c(1:2),
+              direction = "column",
               palette = "Blues"
             ) %>%
             # Relabel SSA columns
-            cols_label(., SSATier1 = "Sector Subject Area Tier 1", SSATier2 = "Sector Subject Area Tier 2")
-        } # Otherwise apply next steps if SSA Tier 1 is selected
-        else {
+            cols_label(
+              .,
+              SSATier1 = "Sector Subject Area Tier 1",
+              SSATier2 = "Sector Subject Area Tier 2"
+            )
+        } else {
           # Fix width of columns
           cols_width(., SSATier1 ~ px(275), everything() ~ px(105)) %>%
             # Apply colour coding based on cell value
-            data_color(.,
-              columns = -SSATier1, direction = "column",
+            data_color(
+              .,
+              columns = -SSATier1,
+              direction = "column",
               palette = "Blues",
               contrast_algo = "wcag" # Ensure contrast meets accessibility standards
             ) %>%
@@ -611,7 +970,6 @@ format_gt_subj <- function(data, inputtype, inputdetail) {
 
 # DASHBOARD TEXT FUNCTIONS ------------------------------------------------
 
-
 # Introduction text -------------------------------------------------------
 
 intro_text <- function() {
@@ -621,8 +979,10 @@ intro_text <- function() {
       size = "l",
       level = 2
     ),
-    " SIC (UK Standard Industrial Classification of economic activities) codes have now been joined to LEO (Longitudinal Education Outcomes) data using the IDBR (Inter-Departmental Business Register) data.
-      This dashboard has been designed to allow users to explore this data and the relationship between subject studied and industry of employment after learning.",
+    gov_text(
+      " SIC (UK Standard Industrial Classification of economic activities) codes have now been joined to LEO (Longitudinal Education Outcomes) data using the IDBR (Inter-Departmental Business Register) data.
+      This dashboard has been designed to allow users to explore this data and the relationship between subject studied and industry of employment after learning."
+    ),
     # a(
     #   href = "https://explore-education-statistics.service.gov.uk/find-statistics/further-education-outcome-based-success-measures",
     #   "official statistics publication on Further Education Outcome Based Success Measures",
@@ -641,16 +1001,18 @@ intro_text <- function() {
 
 ind_by_subj_text <- function() {
   div(
-    "This table shows which industries learners from the selected subject area go on to work in.",
-    "The following breakdowns are currently available:",
-    br(),
+    gov_text(
+      "This table shows which industries learners from the selected subject area go on to work in.",
+      "The following breakdowns are currently available:"
+    ),
     shinyGovstyle::gov_list(
-      list(
+      c(
         "Age group",
         "Ethnicity",
         "Level of learning",
         "Sex"
-      )
+      ),
+      style = "bullet"
     )
   )
 }
@@ -664,19 +1026,19 @@ subj_by_ind_text <- function() {
       The following breakdowns are currently available:",
     br(),
     shinyGovstyle::gov_list(
-      list(
+      c(
         "Age group",
         "Ethnicity",
         "Level of learning",
         "Sex"
-      )
+      ),
+      style = "bullet"
     )
   )
 }
 
 
 # Text for guidance box ---------------------------------------------------
-
 
 guidance_text <- function() {
   div(
@@ -687,20 +1049,24 @@ guidance_text <- function() {
       size = "m",
       level = 3
     ),
-    "This dashboard uses data from the",
-    a(
-      style = "color:#007fb0",
-      href = "https://explore-education-statistics.service.gov.uk/find-statistics/further-education-outcome-based-success-measures",
-      "official statistics publication on Further Education Outcomes (FEO)",
-      .noWS = c("after")
+    gov_text(
+      "This dashboard uses data from the",
+      a(
+        style = "color:#007fb0",
+        href = "https://explore-education-statistics.service.gov.uk/find-statistics/further-education-outcome-based-success-measures",
+        "official statistics publication on Further Education Outcomes (FEO)",
+        .noWS = c("after")
+      ),
+      ", which present statistics on the employment, earnings and learning outcomes of further education learners. "
     ),
-    ", which present statistics on the employment, earnings and learning outcomes of further education learners. ",
     shinyGovstyle::heading_text(
       "Learners in scope",
       size = "m",
       level = 3
     ),
-    ("This dashboard covers Further Education learners aged 16+ who achieved a learning aim in 2022/23, and moved into sustained employment in the following academic year (2023/24)."),
+    gov_text(
+      "This dashboard covers Further Education learners aged 16+ who achieved a learning aim in 2022/23, and moved into sustained employment in the following academic year (2023/24)."
+    ),
     shinyGovstyle::heading_text(
       "Definitions",
       size = "m",
@@ -711,54 +1077,66 @@ guidance_text <- function() {
       size = "s",
       level = 4
     ),
-    "IDBR data is a comprehensive list of UK businesses used by government for statistical purposes.
+    gov_text(
+      "IDBR data is a comprehensive list of UK businesses used by government for statistical purposes.
       The two main sources of input are Value Added Tax (VAT) and Pay As You Earn (PAYE) records from HMRC. Additional information comes from Companies House, Dun and Bradstreet and ONS business surveys.
-    90% of learners with a sustained employment destination in FEO were successfully matched to IDBR data.",
+    90% of learners with a sustained employment destination in FEO were successfully matched to IDBR data."
+    ),
     shinyGovstyle::heading_text(
       "Longitudinal Education Outcomes (LEO)",
       size = "s",
       level = 4
     ),
-    "The data uses the Longitudinal Education Outcomes (LEO) dataset, which looks at how learners move through education and into the labour market by bringing together schools,
-    further and higher education information from the Department for Education (DfE), employment information from HM Revenue and Customs (HMRC), and benefit histories from the Department of Work and Pensions (DWP).",
+    gov_text(
+      "The data uses the Longitudinal Education Outcomes (LEO) dataset, which looks at how learners move through education and into the labour market by bringing together schools,
+    further and higher education information from the Department for Education (DfE), employment information from HM Revenue and Customs (HMRC), and benefit histories from the Department of Work and Pensions (DWP)."
+    ),
     shinyGovstyle::heading_text(
       "Sector Subject Area (SSA)",
       size = "s",
       level = 4
     ),
-    "All qualifications are categorised into Sector Subject Areas. This",
-    a(
-      style = "color:#007fb0",
-      href = "https://www.gov.uk/government/publications/types-of-regulated-qualifications/qualification-descriptions#sector",
-      "qualifications guidance",
-      .noWS = c("after")
+    gov_text(
+      "All qualifications are categorised into Sector Subject Areas. This",
+      a(
+        style = "color:#007fb0",
+        href = "https://www.gov.uk/government/publications/types-of-regulated-qualifications/qualification-descriptions#sector",
+        "qualifications guidance",
+        .noWS = c("after")
+      ),
+      " outlines these classifications at both Tier 1 (high level) and Tier 2 (low level)."
     ),
-    " outlines these classifications at both Tier 1 (high level) and Tier 2 (low level).",
     shinyGovstyle::heading_text(
       "Standard Industrial Classification (SIC)",
       size = "s",
       level = 4
     ),
-    "The UK Standard Industrial Classification (SIC) of economic activities is used to classify businesses by the type of activity they do. For
+    gov_text(
+      "The UK Standard Industrial Classification (SIC) of economic activities is used to classify businesses by the type of activity they do. For
       more information see the",
-    a(
-      style = "color:#007fb0",
-      href = "https://onsdigital.github.io/dp-classification-tools/standard-industrial-classification/ONS_SIC_hierarchy_view.html",
-      "Office for National Statistics interactive SIC hierarchy.",
-      .noWS = c("after")
+      a(
+        style = "color:#007fb0",
+        href = "https://onsdigital.github.io/dp-classification-tools/standard-industrial-classification/ONS_SIC_hierarchy_view.html",
+        "Office for National Statistics interactive SIC hierarchy",
+        .noWS = c("after")
+      ),
+      "."
     ),
     shinyGovstyle::heading_text(
       "Sustained employment",
       size = "s",
       level = 4
     ),
-    "To be counted in a sustained employment, learners have to be recorded as being in employment for a 6 month period (October to March) in the year following study, or have submitted a self-assessment record.
+    gov_text(
+      "To be counted in a sustained employment, learners have to be recorded as being in employment for a 6 month period (October to March) in the year following study, or have submitted a self-assessment record.
    Further information is available in the",
-    a(
-      style = "color:#007fb0",
-      href = "https://explore-education-statistics.service.gov.uk/methodology/further-education-outcome-based-success-measures",
-      "FE Outcomes methodology.",
-      .noWS = c("after")
+      a(
+        style = "color:#007fb0",
+        href = "https://explore-education-statistics.service.gov.uk/methodology/further-education-outcome-based-success-measures",
+        "FE Outcomes methodology",
+        .noWS = c("after")
+      ),
+      "."
     ),
   )
 }
