@@ -30,7 +30,9 @@ test_that("Migrated shinytest test: UI_tests.R", {
   )
 
   app$expect_values(input = listInputs, output = listOutputs)
-  app$set_inputs(link_to_ind_by_subj_tab = "click")
+
+  app$set_inputs(navlistPanel = "IndustryBySubject")
+  app$wait_for_idle(50)
   app$expect_values(input = listInputs, output = listOutputs)
 
   app$set_inputs(selectType = "SustainedEmploymentPercent")

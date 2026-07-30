@@ -7,11 +7,11 @@
 #
 # ---------------------------------------------------------
 
-
 # Library calls ---------------------------------------------------------------------------------
 shhh <- suppressPackageStartupMessages # It's a library, so shhh!
 shhh(library(tidyverse))
 shhh(library(shiny))
+shhh(library(bslib))
 shhh(library(shinyjs))
 shhh(library(tools))
 shhh(library(testthat))
@@ -38,6 +38,10 @@ shhh(library(dfeshiny))
 # devtools::install_github("ewenme/shinya11y")
 # shhh(library(shinya11y))
 # Functions ---------------------------------------------------------------------------------
+
+if (FALSE) {
+  library(rsconnect)
+}
 
 # Here's an example function for simplifying the code needed to commas separate numbers:
 
@@ -73,7 +77,6 @@ tidy_code_function <- function() {
 
 # source("R/filename.r")
 
-
 # appLoadingCSS ----------------------------------------------------------------------------
 # Set up loading screen
 
@@ -106,12 +109,22 @@ source("R/read_data.R")
 
 # Read in industry data
 dfInd <- read_ind_data() %>%
-  mutate(NumberSustainedEmployment = suppressWarnings(as.integer(NumberSustainedEmployment))) %>% # Convert columns into numeric values
+  mutate(
+    NumberSustainedEmployment = suppressWarnings(as.integer(
+      NumberSustainedEmployment
+    ))
+  ) %>% # Convert columns into numeric values
   mutate(IndustrySection = str_to_sentence(IndustrySection)) %>%
   # Improve formatting for industry variable
   rename(Industry = IndustrySection) %>%
   # Manual override to improve formatting
-  mutate(Ethnicity = ifelse(Ethnicity == "Black/African/Caribbean/Black British", "Black/African/ Caribbean/ Black British", Ethnicity))
+  mutate(
+    Ethnicity = ifelse(
+      Ethnicity == "Black/African/Caribbean/Black British",
+      "Black/African/ Caribbean/ Black British",
+      Ethnicity
+    )
+  )
 
 
 # Set up list of choices for input selections -----------------------------
@@ -137,7 +150,8 @@ choicesIndustry <- dfInd %>%
 
 expandable <- function(inputId, label, contents) {
   govDetails <- shiny::tags$details(
-    class = "govuk-details", id = inputId,
+    class = "govuk-details",
+    id = inputId,
     shiny::tags$summary(
       class = "govuk-details__summary",
       shiny::tags$span(

@@ -40,7 +40,6 @@
 #    https://github.com/moj-analytical-services/shinyGovstyle
 #
 
-
 #
 # This is the user-interface definition of a Shiny web application. You can
 # run the application by clicking 'Run App' above.
@@ -54,14 +53,8 @@
 #    https://github.com/moj-analytical-services/shinyGovstyle
 #
 
-
 ui <- function(input, output, session) {
-  fluidPage(
-    tags$style(HTML("
-    .download-link span {
-      color: white;
-    }
-  ")),
+  bslib::page_fluid(
     # use_tota11y(),
     title = tags$head(tags$link(
       rel = "shortcut icon",
@@ -80,6 +73,16 @@ ui <- function(input, output, session) {
         rating = "General",
         referrer = "no-referrer"
       ),
+    # Code to prevent text wrapping when selecting input from dropdowns
+    tags$head(
+      tags$style(HTML(
+        "
+
+                                .selectize-dropdown {
+                                    width: 500px !important;
+                                }"
+      ))
+    ),
     shinyjs::useShinyjs(),
     dfeshiny::custom_disconnect_message(
       dashboard_title = site_title,
@@ -92,14 +95,11 @@ ui <- function(input, output, session) {
       name = site_title
     ),
     tags$head(includeHTML(("google-analytics.html"))),
-    tags$head(
-      tags$link(
-        rel = "stylesheet",
-        type = "text/css",
-        href = "dfe_shiny_gov_style.css"
-      )
+    shinyGovstyle::full_width_overrides(),
+    shinyGovstyle::header(
+      org_name = "Department for Education",
+      service_name = site_title
     ),
-    dfeshiny::header(header = site_title, main_alt_text = "Department for Education logo"),
     shinyGovstyle::banner(
       "beta banner",
       "beta",
@@ -110,7 +110,7 @@ ui <- function(input, output, session) {
     shiny::navlistPanel(
       "",
       id = "navlistPanel",
-      widths = c(2, 8),
+      widths = c(2, 10),
       well = FALSE,
       homepage_panel(),
       industry_by_subject_panel(),
@@ -118,46 +118,52 @@ ui <- function(input, output, session) {
       shiny::tabPanel(
         value = "a11y_panel",
         "Accessibility",
-        dfeshiny::a11y_panel(
-          dashboard_title = site_title,
-          dashboard_url = site_primary,
-          date_tested = "8th January 2026",
-          date_prepared = "8th January 2026",
-          date_reviewed = "8th January 2026",
-          issues_contact = "FE.OUTCOMESDATA@education.gov.uk",
-          publication_slug = "further-education-outcome-based-success-measures",
-          publication_name = "Further Education outcomes based success measures",
-          non_accessible_components = c(
-            paste(
-              "Some navigation components (e.g. tabbed content, skip to main) are not",
-              "accessibly implemented."
+        gov_main_layout(
+          dfeshiny::a11y_panel(
+            dashboard_title = site_title,
+            dashboard_url = site_primary,
+            date_tested = "8th January 2026",
+            date_prepared = "8th January 2026",
+            date_reviewed = "8th January 2026",
+            issues_contact = "fe.outcomesdata@education.gov.uk",
+            publication_slug = "further-education-outcome-based-success-measures",
+            publication_name = "Further Education outcomes based success measures",
+            non_accessible_components = c(
+              paste(
+                "Some navigation components (e.g. tabbed content, skip to main) are not",
+                "accessibly implemented."
+              ),
+              "Some images / links may not have appropriate alt text where needed.",
+              "Some inputs do not have appropriate focus styling."
             ),
-            "Some images / links may not have appropriate alt text where needed.",
-            "Some inputs do not have appropriate focus styling."
-          ),
-          specific_issues = c(
-            "The header link-image does not currently have alt-text.",
-            "The navigation tab-set list is not appropriately marked up for screen reader users.",
-            "There are no skip to main links on the different dashboard pages.",
-            "Input selection dropdown boxes do not have focus highlighting applied."
+            specific_issues = c(
+              "The header link-image does not currently have alt-text.",
+              "The navigation tab-set list is not appropriately marked up for screen reader users.",
+              "There are no skip to main links on the different dashboard pages.",
+              "Input selection dropdown boxes do not have focus highlighting applied."
+            )
           )
         )
       ),
       shiny::tabPanel(
         value = "support_panel",
         "Support and feedback",
-        support_panel(
-          team_email = "FE.OUTCOMESDATA@education.gov.uk",
-          form_url = "https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-YHar1nqsS9Eu7bHka6oC0lUQUlDNzNBVzdGSUE3VVpJMlY1STVTSjNVNC4u",
-          repo_name = "https://github.com/dfe-analytical-services/OBSM-industry",
-          publication_slug = "further-education-outcome-based-success-measures",
-          publication_name = "Further Education outcomes based success measures"
+        gov_main_layout(
+          dfeshiny::support_panel(
+            team_email = "FE.OUTCOMESDATA@education.gov.uk",
+            form_url = "https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-YHar1nqsS9Eu7bHka6oC0lUQUlDNzNBVzdGSUE3VVpJMlY1STVTSjNVNC4u",
+            repo_name = "https://github.com/dfe-analytical-services/OBSM-industry",
+            publication_slug = "further-education-outcome-based-success-measures",
+            publication_name = "Further Education outcomes based success measures"
+          )
         )
       ),
       shiny::tabPanel(
         value = "cookies_panel_ui",
         "Cookies",
-        cookies_panel_ui(google_analytics_key = google_analytics_key)
+        gov_main_layout(
+          cookies_panel_ui(google_analytics_key = google_analytics_key)
+        )
       )
     ),
     tags$script(
